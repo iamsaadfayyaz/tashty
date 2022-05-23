@@ -1,0 +1,1404 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    var sellerMealItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((List<Entity.Meal>)ViewData["sellerMealItems"]);
+    int dealID = (int)ViewData["dealID"];
+    int sellerID = (int)ViewData["sellerID"];
+    string folderID = (string)ViewData["folderID"];
+}
+<div class="containter-fluid maindashboard">
+
+    <div class="container">
+        <h2 style="color:black; font-size:1.2rem;font-weight: bold;">Create a New Deal</h2>
+        <form action="/action_page.php">
+            <div class="formSel sellform">
+                Create deal here provide data and Information<br>
+                <label for="">Select items to be added in the deal. <span class="mand-red">*</span> </label>
+                <form action="/action_page.php">
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div id="news-slider2" class="owl-carousel">
+                                <div class="post-slide2">
+                                    <div class="mycard">
+
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" value="deal3" id="checkbox1" />
+
+                                                <label for="checkbox1"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <!-- <div class="rating rating2 d-flex justify-content-left">
+                                                              <p class="rating-text">4.5 - 86 Ratings</p>\
+                                                          <a href="#5" title="Give 5 stars">★</a>
+                                                          <a href="#4" title="Give 4 stars">★</a>
+                                                          <a href="#3" title="Give 3 stars">★</a>
+                                                          <a href="#2" title="Give 2 stars">★</a>
+                                                          <a href="#1" title="Give 1 star">★</a>
+
+                                                        </div>                 -->
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images-2.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox2">
+                                                <label for="checkbox2"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star10" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star9" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star8" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star7" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star6" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images-3.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox3" />
+                                                <label for="checkbox3"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox4" />
+                                                <label for="checkbox4"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox5" />
+                                                <label for="checkbox5"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox6" />
+                                                <label for="checkbox6"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/images/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="checkbox[]" id="checkbox7" />
+                                                <label for="checkbox7"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                    <!-- <span class="month">jan</span> -->
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <p class="pd-top icon-txt"> <span class="mic-2">2</span>Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row ">
+
+
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Upload Deal Image</label>
+                            <center>
+                                <label for="file-inputt" style="padding: 3% 40%;border-style: dashed;
+                      background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                    <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;"> <br><br><span style="color:#B0B4B3;font-size:0.8rem;">Add Images</span></i>
+                                </label>
+                                <input id="file-inputt" type="file"/ class="choose-in">
+                        </div>
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Name of Deal <span class="mand-red">*</span></label>
+                            <input type="text" class="form-control" placeholder="Name of Deal" required>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Set Price (Show Total Items Price here) <span class="mand-red">*</span></label>
+                            <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control" placeholder="PKR 258" required>
+                        </div>
+                        <div class="col-sm-12 pd-mr-0 ">
+                            <label for="comment">Details of Deal</label>
+                            <textarea class="form-control  w-h-form" rows="5" id="comment" placeholder="Details of Deal" style="   "></textarea>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Weight of Items to be Calculated From Items</label>
+                            <input type="text" class="form-control" placeholder="e.g 500grams">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Serving to be Calculated From Items</label>
+                            <input type="text" class="form-control" placeholder="e.g 2 persons">
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="email">Expiry Date <span class="mand-red">*</span></label>
+                            <input type="text" class="form-control" placeholder="12/30/2019" required>
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Type of Food <span class="mand-red">*</span></label>
+                            <div class="form-group ">
+                                <form action="/action_page.php">
+
+                                    <select class="custom-select" id="inputGroupSelect01" required>
+                                        <option selected>Choose...</option>
+                                        <option value="1">Chinese</option>
+                                        <option value="2">Italian</option>
+                                        <option value="3">Thai</option>
+                                    </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Ingredients to be Calculated From Items </label>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Ingredient One">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Ingredient Two">
+                        </div>
+
+                        <div class=" newingredient col-sm-6 ">
+                            <input type="text" class="form-control" placeholder="Ingredient Three">
+                        </div>
+                        <div class=" newingredient col-sm-6 ">
+                            <input type="text" class="form-control" placeholder="Ingredient Four">
+                        </div>
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Cooking Time to Prepare</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Delivery Time <span class="mand-red">*</span></label>
+                            <input type="text" class="form-control" placeholder="e.g 25 mins" required>
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Select Days of Week When you Would Deliver <span class="mand-red">*</span></label>
+                        </div>
+                        <!-- <div class="col-sm-12">
+                            <button type="button" class="btn btn-success">MON</button>
+                            <button type="button" class="btn btn-success">  TUE</button>
+                            <button type="button" class="btn btn-success">WED</button>
+                            <button type="button" class="btn btn-success">THU</button>
+                            <button type="button" class="btn btn-success">FRI</button>
+                            <button type="button" class="btn btn-light">SAT</button>
+                            <button type="button" class="btn btn-light">SUN</button>
+                        </div> -->
+                        <div class="col-sm-12 weekDays-selector" required>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 1" id="weekday-mon" class="weekday" />
+                            <label for="weekday-mon">MON</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 2" id="weekday-tue" class="weekday" />
+                            <label for="weekday-tue">TUE</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 3" id="weekday-wed" class="weekday" />
+                            <label for="weekday-wed">WED</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 4" id="weekday-thu" class="weekday" />
+                            <label for="weekday-thu">THU</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 5" id="weekday-fri" class="weekday" />
+                            <label for="weekday-fri">FRI</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 6" id="weekday-sat" class="weekday" />
+                            <label for="weekday-sat">SAT</label>
+                            <input name="BoxSelect[]" type="checkbox" value="Box 7" id="weekday-sun" class="weekday" />
+                            <label for="weekday-sun">SUN</label>
+                        </div>
+
+
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email"> Time:From <span class="mand-red">*</span></label>
+                            <div class="input-group time" id="timepicker">
+
+                                <input class="input-group-append input-group-addon form-control" placeholder="Minute &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; Hour" required>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Time:To <span class="mand-red">*</span></label>
+                            <div class="input-group time" id="timepicker-2">
+
+                                <input class="input-group-append input-group-addon form-control" placeholder="Minute &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; Hour" required>
+                            </div>
+                            <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>
+                        </div>
+
+                        <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">ADD ITEM</button>
+                    </div>
+                </form>
+            </div>
+        </form>
+    </div>
+</div>
+
+@*<style>
+        .uploadText {
+            /*width: 130px;
+            height: 40px;*/
+            position: absolute;
+            padding: 4px;
+            display: block;
+            float: left;
+            margin: 8px 0;
+            color: #FFFFFF;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+        }
+
+        .fileUploaderBtn {
+            /*width: 130px;
+            height: 30px;
+            padding: 40px;*/
+            display: block;
+            float: left;
+            margin: 8px 0;
+            /*background-color: #34495e;
+            border-color: #34495e;*/
+            color: #FFFFFF;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.42857143;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            touch-action: manipulation;
+            cursor: pointer;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            background-image: none;
+            border: 1px solid transparent;
+        }
+
+        #profilePhotoQueue {
+            display: none;
+        }
+        /* fake button */
+        div.UploadifyButtonWrapper a {
+            position: absolute; /* relative to UploadifyButtonWrapper */
+            top: 0;
+            left: 0;
+            z-index: 0;
+            display: block;
+            float: left;
+            border: 1px solid gray;
+            padding: 10px;
+            background: silver;
+            color: black;
+        }
+
+            /* pass hover effects to button */
+            div.UploadifyButtonWrapper a.Hover {
+                background: orange;
+                color: white;
+            }
+
+        /* position flash button above css button */
+        div.UploadifyObjectWrapper {
+            position: relative;
+            z-index: 10;
+        }
+    </style>*@
+@*<div class="containter-fluid maindashboard">
+
+        <div class="container">
+            <h2 style="color:black; font-size:1.2rem;font-weight: bold;">Create a New Deal</h2>
+            <form action="/action_page.php">
+                <div class="formSel sellform">
+                    Create deal here provide data and Information<br>
+                    <label for="">Select items to be added in the deal. </label>
+                    <div class="row ">
+                        <div class="col-md-12">
+                            <div id="news-slider2" class="owl-carousel">
+                                <div class="post-slide2">
+                                    <div class="mycard">
+
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/img/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="deal03" value="deal3" id="checkbox1" />
+                                                <label for="checkbox1"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                     <span class="month">jan</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                         <div class="rating rating2 d-flex justify-content-left">
+                                                              <p class="rating-text">4.5 - 86 Ratings</p>\
+                                                          <a href="#5" title="Give 5 stars">★</a>
+                                                          <a href="#4" title="Give 4 stars">★</a>
+                                                          <a href="#3" title="Give 3 stars">★</a>
+                                                          <a href="#2" title="Give 2 stars">★</a>
+                                                          <a href="#1" title="Give 1 star">★</a>
+
+                                                        </div>
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                             <div class="mycard-body">
+                                                <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                                   <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>&nbsp; &nbsp;<p class="text-border">Earliest Delivery:Friday at 1"00pm</p></div>
+                                             </div>
+                                             <div class="card-body-5 mycard-p-20">
+                                                 <div class="row ">
+                                                     <div class="col-md-12">
+                                                 <button type="button" class="btn btn-primary btn-xs">Add to Cart</button>
+                                                 </div>
+                                                 </div>
+                                             </div>
+                                             <p class="post-description">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec elementum mauris. Praesent vehicula gravida dolor, ac efficitur sem sagittis.
+                                            </p>
+                                             <ul class="post-bar">
+                                                <li><i class="fa fa-calendar"></i> June 5, 2016</li>
+                                                <li>
+                                                    <i class="fa fa-folder"></i>
+                                                    <a href="#">Mockup</a>
+                                                    <a href="#">Graphics</a>
+                                                    <a href="#">Flayers</a>
+                                                </li>
+                                            </ul>
+                                             <a href="#" class="read-more">read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/img/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="deal04" value="deal4" id="checkbox2">
+                                                <label for="checkbox2"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                     <span class="month">jan</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star10" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star9" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star8" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star7" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star6" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                             <div class="mycard-body">
+                                                <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                                   <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>&nbsp; &nbsp;<p class="text-border">Earliest Delivery:Friday at 1"00pm</p></div>
+                                             </div>
+                                             <div class="card-body-5 mycard-p-20">
+                                                 <div class="row ">
+                                                     <div class="col-md-12">
+                                                 <button type="button" class="btn btn-primary btn-xs">Add to Cart</button>
+                                                 </div>
+                                                 </div>
+                                             </div>
+                                             <p class="post-description">
+                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec nec elementum mauris. Praesent vehicula gravida dolor, ac efficitur sem sagittis.
+                                            </p>
+                                             <ul class="post-bar">
+                                                <li><i class="fa fa-calendar"></i> June 5, 2016</li>
+                                                <li>
+                                                    <i class="fa fa-folder"></i>
+                                                    <a href="#">Mockup</a>
+                                                    <a href="#">Graphics</a>
+                                                    <a href="#">Flayers</a>
+                                                </li>
+                                            </ul>
+                                             <a href="#" class="read-more">read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/img/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="deal05" value="deal5" id="checkbox3" />
+                                                <label for="checkbox3"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                     <span class="month">jan</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="post-slide2">
+                                    <div class="mycard">
+                                        <div class="post-img">
+
+                                            <a href="#">
+                                                <img src="~/Content/img/cards-images.jpg" alt="">
+
+                                                <input type="checkbox" name="deal06" value="deal6" id="checkbox4" />
+                                                <label for="checkbox4"></label>
+
+                                                <div class="post-date">
+                                                    <span class="date">45 Mins</span>
+                                                     <span class="month">jan</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="post-content">
+
+                                            <div class="mycard-body">
+                                                <div class="row d-flex justify-content-center">
+                                                    <div class="col-md-8">
+                                                        <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</p></span></h5>
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <p class="card-text">RS.<span class="s-card-text"> 375</span></p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="card-body-2">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="starrating risingstar d-flex justify-content-left">
+                                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                            <div class="card-body-3">
+                                                <div class="row d-flex justify-content-center ">
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                    </div>
+                                                    <div class="col">
+                                                        <img src="~/Content/img/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row ">
+
+
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Upload Deal Image</label>
+                            <center>
+                                <label for="file-inputt" style="padding: 3% 40%;border-style: dashed;
+                          background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                    <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;"> <br><br><span style="color:#B0B4B3;font-size:0.8rem;">Add Images</span></i>
+                                </label>
+                                <input id="file-inputt" type="file"/ class="choose-in">
+                        </div>
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Name of Deal</label>
+                            <input type="text" class="form-control" placeholder="Name of Deal">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Set price (show total items price here)</label>
+                            <input type="text" class="form-control" placeholder="PKR 258">
+                        </div>
+                        <div class="col-sm-12 pd-mr-0 ">
+                            <label for="comment">Details of Deal</label>
+                            <textarea class="form-control  w-h-form" rows="5" id="comment" placeholder="Details of Deal" style="   "></textarea>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">weight of items to be calculated from items</label>
+                            <input type="text" class="form-control" placeholder="e.g 500grams">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">serving to be calculated from items</label>
+                            <input type="text" class="form-control" placeholder="e.g 2 persons">
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="email">Expiry Date</label>
+                            <input type="text" class="form-control" placeholder="12/30/2019">
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Type of food</label>
+                            <div class="form-group ">
+
+                                <select class="custom-select" id="inputGroupSelect01">
+                                    <option selected>Choose...</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Ingredients to be calculated from items </label>
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Ingredient One">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Ingredient Two">
+                        </div>
+
+                        <div class=" newingredient col-sm-6 ">
+                            <input type="text" class="form-control" placeholder="Ingredient Three">
+                        </div>
+                        <div class=" newingredient col-sm-6 ">
+                            <input type="text" class="form-control" placeholder="Ingredient Four">
+                        </div>
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Cooking time to prepare</label>
+                            <input type="text" class="form-control" placeholder="">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Delivery Time</label>
+                            <input type="text" class="form-control" placeholder="e.g 25 mins">
+                        </div>
+                        <div class="col-sm-12 pd-mr-0">
+                            <label for="">Select days of week when you would deliver</label>
+                        </div>
+                         <div class="col-sm-12">
+                            <button type="button" class="btn btn-success">MON</button>
+                            <button type="button" class="btn btn-success">  TUE</button>
+                            <button type="button" class="btn btn-success">WED</button>
+                            <button type="button" class="btn btn-success">THU</button>
+                            <button type="button" class="btn btn-success">FRI</button>
+                            <button type="button" class="btn btn-light">SAT</button>
+                            <button type="button" class="btn btn-light">SUN</button>
+                        </div>
+                        <div class="col-sm-12 weekDays-selector">
+                            <input type="checkbox" id="weekday-mon" class="weekday" />
+                            <label for="weekday-mon">MON</label>
+                            <input type="checkbox" id="weekday-tue" class="weekday" />
+                            <label for="weekday-tue">TUE</label>
+                            <input type="checkbox" id="weekday-wed" class="weekday" />
+                            <label for="weekday-wed">WED</label>
+                            <input type="checkbox" id="weekday-thu" class="weekday" />
+                            <label for="weekday-thu">THU</label>
+                            <input type="checkbox" id="weekday-fri" class="weekday" />
+                            <label for="weekday-fri">FRI</label>
+                            <input type="checkbox" id="weekday-sat" class="weekday" />
+                            <label for="weekday-sat">SAT</label>
+                            <input type="checkbox" id="weekday-sun" class="weekday" />
+                            <label for="weekday-sun">SUN</label>
+                        </div>
+
+
+
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email"> Time:From</label>
+                            <input type="text" class="form-control" placeholder="Minute&nbsp;&nbsp;&nbsp;&nbsp;  | &nbsp;&nbsp;&nbsp;&nbsp; Hour">
+                        </div>
+                        <div class="col-sm-6 pd-mr-0">
+                            <label for="email">Time:To</label>
+                            <input type="text" class="form-control" placeholder="Minute &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; Hour">
+                            <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">ADD ITEM</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <section>
+        <input class="form-control" type="hidden" value="@sellerID" id="hdnProfileID" />
+        <input class="form-control" type="hidden" value="@dealID" id="hdnDealID" />
+        <input class="form-control" type="hidden" value="@folderID" id="txtFolderID" />
+        <input class="form-control" type="hidden" value="" id="txtPhoto" />
+
+        <div class="container sectionspc">
+
+                <div class="content animate-panel">
+                    <div class="hpanel">
+                        <div class="panel-heading m-b-sm">
+                            @if (dealID == 0)
+                            {
+                                <text>	<h4> Create New  Deal</h4> </text>
+                            }
+                            else
+                            { <text><h4> Edit Deal</h4>  </text>
+
+                            }
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <form action="#" id="frmAddEditDeal">
+                                    <div class="col-lg-6">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">Photo*</label>
+                                            <div class="col-lg-10">
+                                                <img id="imgPhoto" class="profile-photo img-circle" src="@Url.Content("~/Content/images/food-default.jpg")" width="225" height="225" /><br />
+
+                                                <div class="file-loading">
+                                                    <input id="fileProfilePhoto" type="file" style="margin-left:3%;" />
+
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-10"><small> maximum allowed upload size is 200 kb.</small></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Title</label>
+                                            <input class="form-control" id="txtTitle" pattern="[a-zA-Z0-9 ]{1,50}" placeholder="Title" required />
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Serving</label>
+                                            <input class="form-control" id="txtServing" type="number" placeholder="Serving" required />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label>Description</label>
+                                            <textarea rows="5" cols="50" class="form-control" id="txtDescription" pattern="[a-zA-Z0-9 ]{1,200}" placeholder="Description"></textarea>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Add Product Price</label>
+                                            <div class="input-group m-b"><input class="form-control" type="number" placeholder="Product Price" id="txtPrice" required /> <span class="input-group-addon">+</span></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="col-lg-12">
+                                            <div class="well">
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <div class="panel-heading">
+                                                            <h5 class="font-bold no-margins">Deal Items List</h5>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-6 text-right">
+                                                        <div id="example2_filter" class="dataTables_filter">
+                                                            <label>
+                                                                Search:
+                                                                <input class="form-control input-sm" placeholder="" id="txtMealItemSearch" aria-controls="example2" type="search">
+                                                            </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="panel-body selectdays">
+                                                    <div class="table-responsive deal-itmlist">
+                                                        <table class="table table-condensed" cellspacing="1" cellpadding="1">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Add</th>
+                                                                    <th style="width:15%">Title</th>
+                                                                    <th style="width:60%;">Description</th>
+                                                                    <th>price</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="seller_meal_table"></tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+
+                                        <div class="col-lg-12 m-t">
+                                            <div class="col-lg-2">
+                                                <div class="checkbox checkbox-success checkbox-inline">
+                                                    <input id="chkIsActive" value="" type="checkbox">
+                                                    <label for="inlineCheckbox4"> Is Active </label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12 m-t">
+                                            <button class="btn btn-success" id="btnSubmit" type="submit">Save Changes</button>
+                                            <button class="btn btn-default" id="btnCancel">Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>*@
+<script>
+        var loadedPhotoURL = "";
+        var customPhotoValidationFailed = false;
+
+        document.getElementById("btnSubmit").addEventListener("click", function () {
+            document.getElementById("frmAddEditDeal").className = "submitted";
+        });
+
+        $("#frmAddEditDeal").submit(function (e) {
+            e.preventDefault();
+            CDeal.CreateDeal(false);
+        });
+
+
+        var readURL = function (input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                   // $('.profile-photo').attr('src', e.target.result);
+                    loadedPhotoURL = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $("#fileProfilePhoto").on('change', function () {
+            readURL(this);
+        });
+
+
+        $.uploadPreview({
+            input_field: ".images-uploads",
+            preview_box: ".image-preview",
+            label_field: ".image-label"
+        });
+
+
+
+        var ListSubCat = [];
+        ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListSubCategories));
+        $(".js-source-states-2").select2();
+
+        $(document).ready(function () {
+            Seller.SetHeader('@ViewBag.photo', 'Deal');
+            note.GetSellerDashboardNotice();
+            @if (sellerMealItems!=null)
+                {
+                    <text>
+                        data = @Html.Raw(sellerMealItems);
+                        sellerMealList = data;
+                        CDeal.PopulateMealItems(data);
+                    </text>
+                }
+
+                @if (dealID != 0)
+                {
+                    <text>
+                        CDeal.GetDeal(@dealID);
+                            _set("txtDealID",@dealID);
+                    </text>
+                }
+
+                @if (sellerID!=0)
+                {
+                    <text>
+                            _set("txtSellerID",@sellerID);
+                    </text>
+                }
+
+                @if (folderID != null)
+                {
+                    <text>
+                            _set("txtFolderID", '@folderID');
+                            urlPhoto = '@Url.Content("~/Seller/SaveDealPhoto/1")';
+
+                    </text>
+                }
+
+                $(".mealItems").on("change", function () {
+                    var thisCheck = $(this);
+                    var id = $(this).attr("data-id");
+                    if (thisCheck.is(':checked')) {
+
+                        CDeal.AddDealItemList(id);
+
+                    }
+                    else {
+                        CDeal.RemoveDealItemList(id);
+                    }
+                });
+        });
+
+        $('#btnCancel').click(function () {
+
+            var url = '@Url.Action("dealItems", "seller")';
+            location.href = url;
+                    //$('#inContant').empty();
+                    //$('#inContant').load(url);
+        });
+
+        //$("form").submit(function () {
+        //	    Deal.CreateDeal(false);
+        // });
+
+        $("#fileProfilePhoto").fileinput({
+            theme: 'fa',
+            uploadUrl: baseURL + 'Seller/UploadDealPic',
+            dropZoneEnabled: false,
+            browseClass: "upload-button btn btn-primary",
+            showPreview: false,
+            overwriteInitial: false,
+            showCaption: false,
+            showRemove: false,
+            showCancel: false,
+            showUpload: false,
+            browseLabel: "Upload Picture",
+            //maxFileSize: 2000,
+            allowedFileExtensions: ['jpg', 'png', 'gif'],
+            maxFilesNum: 1,
+            layoutTemplates: { progress: '' },
+            //minFileCount: 1,
+            uploadAsync: true,
+            maxFileSize: 200,
+            msgSizeTooLarge: 'Deal picture "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+            slugCallback: function (filename) {
+
+                return filename.replace('(', '_').replace(']', '_');
+            },
+            uploadExtraData: function () {
+                return {
+                    FolderID: '@folderID'
+                };
+            }
+
+        });
+
+        $('#fileProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+            $('.profile-photo').attr('src', loadedPhotoURL);
+            _set("txtPhoto", data.response);
+            customPhotoValidationFailed = false;
+        });
+        $('#fileProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            toastr.error(msg);
+        });
+        $('#fileProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+            if (!customPhotoValidationFailed) {
+                $("#fileProfilePhoto").fileinput("upload");
+            }
+            customPhotoValidationFailed = false;
+        });
+
+    </script>

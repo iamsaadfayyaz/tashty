@@ -1,0 +1,448 @@
+﻿@model Entity.Meal
+@{
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    int id = (int)ViewData["mealID"];
+    int sellerId = (int)ViewData["sellerID"];
+    string FolderID = (string)ViewData["FolderID"];
+}
+
+@*<div class="containter-fluid maindashboard">
+
+    <div class="container">
+        <h2 style="color:black; font-size:1.2rem;font-weight: bold;">Create a New Item to Sell</h2>
+        <form action="/action_page.php" id="myform" name="myform">
+            <div class="formSel">
+                <div class="row sellform">
+                    &nbsp;&nbsp; Create item here provide data and Information
+
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Upload Photo of your Food Item</label>
+                        <center>
+                            <label for="file-inputt" style="padding: 3% 40%;border-style: dashed;
+               background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                    <br><br>
+                                    <span style="color:#B0B4B3;font-size:0.8rem;">Add Images</span>
+                                </i>
+                            </label>
+                            <input id="file-inputt" type="file"/ class="choose-in">
+                    </div>
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Name of Item <span class="mand-red">*</span></label>
+                        <input type="text" class="form-control" placeholder="Cappacinos" required>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="text">Set a Price <span class="mand-red">*</span></label>
+                        <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control" placeholder="PKR 258" required>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0 ">
+                        <label for="comment">Describe your Food Item</label>
+                        <textarea class="form-control w-h-form" rows="5" id="comment" placeholder="Describe your Food Item" style=" "></textarea>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Weight of Items</label>
+                        <input type="text" class="form-control" placeholder="e.g 500grams">
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Serves-How many Persons?</label>
+                        <input type="text" class="form-control" placeholder="e.g 2 persons">
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Type of Food ? <span class="mand-red">*</span></label>
+                        <div class="form-group ">
+
+                            <select class="custom-select" id="inputGroupSelect01" data-validation="required">
+                                <option selected>e.g Dessert</option>
+                                <option value="1">Drinks</option>
+                                <option value="2">Chinese</option>
+                                <option value="3">Itallian</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Add Ingredients of your Food Item</label>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <input type="text" class="form-control" placeholder="Ingredient One">
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <input type="text" class="form-control" placeholder="Ingredient Two">
+                    </div>
+
+                    <div class=" newingredient col-sm-6 ">
+                        <input type="text" class="form-control" placeholder="Ingredient Three">
+                    </div>
+                    <div class=" newingredient col-sm-6 ">
+                        <input type="text" class="form-control" placeholder="Ingredient Four">
+                    </div>
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Cooking Time to Prepare</label>
+                        <input type="text" class="form-control" placeholder="">
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Delivery Time <span class="mand-red">*</span></label>
+                        <input type="text" class="form-control" placeholder="e.g 25 mins" required>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Select Days of Week When you Would Deliver <span class="mand-red">*</span></label>
+                    </div>
+                     <div class="col-sm-12">
+                        <button type="button" class="btn btn-success">MON</button>
+                        <button type="button" class="btn btn-success">  TUE</button>
+                        <button type="button" class="btn btn-success">WED</button>
+                        <button type="button" class="btn btn-success">THU</button>
+                        <button type="button" class="btn btn-success">FRI</button>
+                        <button type="button" class="btn btn-light">SAT</button>
+                        <button type="button" class="btn btn-light">SUN</button>
+                    </div> 
+                    <div class="col-sm-12 weekDays-selector">
+                        <input name="BoxSelect[]" type="checkbox" value="Box 1" id="weekday-mon" class="weekday" />
+                        <label for="weekday-mon">MON</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 2" id="weekday-tue" class="weekday" />
+                        <label for="weekday-tue">TUE</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 3" id="weekday-wed" class="weekday" />
+                        <label for="weekday-wed">WED</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 4" id="weekday-thu" class="weekday" />
+                        <label for="weekday-thu">THU</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 5" id="weekday-fri" class="weekday" />
+                        <label for="weekday-fri">FRI</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 6" id="weekday-sat" class="weekday" />
+                        <label for="weekday-sat">SAT</label>
+                        <input name="BoxSelect[]" type="checkbox" value="Box 7" id="weekday-sun" class="weekday" />
+                        <label for="weekday-sun">SUN</label>
+                    </div>
+
+
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email"> Time:From <span class="mand-red">*</span></label>
+                        <div class="input-group time" id="timepicker">
+
+                            <input class="input-group-append input-group-addon form-control" placeholder="Minute &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; Hour" required>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Time:To <span class="mand-red">*</span></label>
+                        <div class="input-group time" id="timepicker-2">
+
+                            <input class="input-group-append input-group-addon form-control" placeholder="Minute &nbsp;&nbsp;&nbsp;&nbsp;| &nbsp;&nbsp;&nbsp;&nbsp; Hour" required>
+                        </div>
+                        <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>
+                    </div>
+
+                    <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">ADD ITEM</button>
+                </div>
+        </form>
+    </div>
+</div>*@
+
+<section>
+    <input type="hidden" id="txtMealID" />
+    <input type="hidden" id="txtProfileID" />
+    <input type="hidden" id="txtCategoryID" />
+    <input type="hidden" id="txtSubCategoryID" />
+    <input type="hidden" id="txtFolderID" />
+    <input type="hidden" id="txtPhoto" />
+
+    <div class="container sectionspc">
+        <div class="content animate-panel">
+            <div class="hpanel">
+                <div class="panel-heading m-b-sm">
+                    @if (id == 0)
+                    {
+                        <text>	<h2> Create New  Meal Item</h2> </text>
+                    }
+                    else
+                    { <text><h2> Edit Meal Item</h2>  </text>}
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <form action="#" id="frmAddEditMeal">
+                            <div class="col-lg-12">
+                                <div class="form-group col-lg-6">
+                                    <label>Title</label>
+                                    <input id="txtTitle" placeholder="Title" class="form-control" pattern="[a-zA-Z0-9 ]{1,50}" required />
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Category</label>
+                                    <select id="ddlMealCategory" class="form-control" required>
+                                        <option value="" selected> Select Category</option>
+                                        @if (ViewBag.ListCategories != null)
+                                        {
+                                            for (int i = 0; i < ViewBag.ListCategories.Count; i++)
+                                            {
+                                                string val = ViewBag.ListCategories[i].categoryID.ToString();
+                                                string title = ViewBag.ListCategories[i].name.ToString();
+
+                                                <text>
+                                                    <option value="@val">@title</option>  </text>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Sub Category</label>
+                                    <select id="ddlMealSubCategory" class="form-control" required>
+                                        <option value="" selected> Select Subcategory</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Serving</label>
+                                    <input id="txtServing" type="number" placeholder="Serving Per Dish" class="form-control" required />
+                                </div>
+                                <div class="form-group col-lg-6">
+
+                                    <label>Add Price</label>
+                                    <input id="txtPrice" type="number" placeholder="Price" class="form-control" required />
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label>Meal Type</label>
+                                    <select class="js-source-states-2" multiple="multiple" id="ddlMealType" style="width: 100%" placeholder="Select Meal Type" required>
+                                        @if (ViewBag.ListMealType != null)
+                                        {
+                                            for (int i = 0; i < ViewBag.ListMealType.Count; i++)
+                                            {
+                                                string val = ViewBag.ListMealType[i].mealTypeID.ToString();
+                                                string title = ViewBag.ListMealType[i].name.ToString();
+
+                                                <text>
+                                                    <option value="@val">@title</option>  </text>
+                                            }
+
+                                        }
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-lg-6">
+                                    <label>Description</label>
+                                    <textarea id="txtDescription" placeholder="Description" class="form-control"></textarea>
+                                </div>
+
+                                <div class="col-lg-12">
+                                    <div class="hpanel plan-box active">
+                                        <div class="panel-heading hbuilt">
+                                            <h5 class="font-bold no-margins">Select Serving Days</h5>
+                                        </div>
+                                        <div class="panel-body selectClientdays">
+                                            <div class="form-group  no-margins">
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkMonday" />
+                                                    <span class="text-info"> Monday</span>
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkTuesday" />
+                                                    <span class="text-primary-2"> Tuesday</span>
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkWednesday" />
+                                                    <span class="text-primary"> Wednesday</span>
+                                                </label>
+
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkThursday" />
+                                                    <span class="text-success"> Thursday</span>
+                                                </label>
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkFriday" />
+                                                    <span class=" text-warning">Friday </span>
+                                                </label>
+
+                                                <label class="checkbox-inline">
+                                                    <input type="checkbox" id="chkSaturday" />
+                                                    <span class=" text-danger"> Saturday </span>
+                                                </label>
+
+                                                <label class="checkbox-success checkbox-inline">
+                                                    <input type="checkbox" id="chkSunday" />
+                                                    <span class=""> Sunday </span>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row m-t">
+                                    <div class="col-lg-12 col-sm-12 col-11 main-section">
+                                        <label>Upload Meal Gallery</label>
+                                        <div class="form-group">
+                                            <div class="file-loading">
+                                                <input id="mealfiles" type="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-10"><small> maximum allowed upload size is 200 kb.</small></div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <table class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="example2_info">
+                                            <thead>
+                                                <tr role="row">
+                                                    <th width="10%">Image</th>
+                                                    <th width="15%">Name</th>
+                                                    <th width="6%">Active</th>
+                                                    <th width="10%">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblMealGallery">
+                                                <tr role="row" class="odd"> <td colspan="4" style="text-align:center;"> No recored found! </td> </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 m-t">
+                                    <div class="col-lg-2">
+                                        <div class="checkbox-success checkbox-inline">
+                                            <input type="checkbox" id="chkIsSpeciality" />
+                                            <label for="inlineCheckbox3"> Is Specility </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2">
+                                        <div class="checkbox-success checkbox-inline">
+                                            <input type="checkbox" id="chkIsActive" />
+                                            <label for="inlineCheckbox4"> Is Active </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-12 m-t">
+                                    <input class="btn btn-success" type="submit" id="btnSubmit" value="Save Changes" />
+                                    <button class="btn btn-default" id="btnCancel" type="button">Cancel</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+
+    document.getElementById("btnSubmit").addEventListener("click", function () {
+        document.getElementById("frmAddEditMeal").className = "submitted";
+    });
+
+    $("#frmAddEditMeal").submit(function (e) {
+        e.preventDefault();
+        CMeal.AddUpdateMeal(false);
+    });
+
+
+    var ListSubCat = [];
+    ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListSubCategories));
+   // $(".js-source-states-2").select2();
+    $(document).ready(function () {
+          Seller.SetHeader('@ViewBag.photo', 'Meal');
+            note.GetSellerDashboardNotice();
+            @if (id != 0)
+	        {
+		        <text>
+			        CMeal.GetMeal('@id');
+		        </text>
+	        }
+            $("#txtFolderID").val('@FolderID');
+            $("#txtProfileID").val('@sellerId');
+
+            $('#ddlMealCategory').on('change', function () {
+                $("#txtCategoryID").val(this.value);
+                populateSubCategory(this.value);
+            });
+
+            $('#ddlMealSubCategory').on('change', function () {
+                $("#txtSubCategoryID").val(this.value);
+            });
+
+    });
+
+ //   $('#btnSubmit').click(function () {
+
+	//});
+
+	$('#btnCancel').click(function () {
+			document.location = '@Url.Action("MealItems", "Seller")';
+	});
+
+    function populateSubCategory(value) {
+        if (ListSubCat) {
+            $('#ddlMealSubCategory').html('');
+            $('#ddlMealSubCategory')
+                .append($("<option></option>")
+                    .attr("value", 0)
+                    .text('select sub category'));
+
+            for (var i = 0; i < ListSubCat.length; i++) {
+                var val = ListSubCat[i].subCategoryID;
+                var id = ListSubCat[i].categoryID;
+                var name = ListSubCat[i].name;
+                if (id == value) {
+                    $('#ddlMealSubCategory')
+                        .append($("<option></option>")
+                            .attr("value", val)
+                            .text(name));
+                }
+            }
+        }
+        return;
+    }
+
+    $("#mealfiles").fileinput({
+			theme: 'fa',
+			uploadUrl: baseURL + 'Seller/UploadGallery',
+				allowedFileExtensions: ['jpg', 'png', 'gif'],
+				overwriteInitial: false,
+				//maxFileSize: 2000,
+                maxFileSize: 200,
+                msgSizeTooLarge: 'Meal picture "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+				maxFilesNum: 10,
+				minFileCount: 1,
+				uploadAsync: true,
+				slugCallback: function (filename) {
+
+					return filename.replace('(', '_').replace(']', '_');
+				},
+				uploadExtraData: function () {
+					return {
+						FolderID: '@FolderID'
+					};
+				}
+
+		});
+
+    $('#mealfiles').on('fileuploaded', function (event, data, previewId, index) {
+        AddItemInTable(data.response, String('@FolderID'), @id, @sellerId);
+        customPhotoValidationFailed = false;
+    });
+    $('#mealfiles').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#mealfiles').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#mealfiles").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+
+</script>

@@ -1,0 +1,234 @@
+﻿@model Entity.ContactUs
+    <style>
+        button:disabled {
+  background: #dddddd;
+}
+    </style>
+<!-- Title page -->
+<section class="how-overlay2 bg-img1" style="background-image: url(/content/images/contact-us.jpg);">
+    <div class="container">
+        <div class="txt-center p-t-160 p-b-165">
+
+
+
+        </div>
+    </div>
+</section>
+
+<!-- Form Contact -->
+<section class="bg0 p-t-100 p-b-100">
+    <div class="container">
+        <div class="size-a-1 flex-col-c-m p-b-70">
+            <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14">
+                Get In Touch
+
+                <div class="how-pos1">
+                    <img src="~/Content/images/icons/symbol-02.png" alt="IMG">
+                </div>
+            </div>
+
+            <h3 class="txt-center txt-l-101 cl3 respon1">
+                Leave us a message!
+            </h3>
+        </div>
+
+        @using (Html.BeginForm("SendContactUsEmail", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ContactUs-form" }))
+        {
+            <div class="row">
+                <div class="col-sm-6 p-b-30">
+                    <div class="validate-input">
+                        @Html.TextBoxFor(c => c.name, new { @class = "txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20", @placeholder = "Your Full Name *", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.name)</h6>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    <div class="validate-input">
+                        @Html.TextBoxFor(c => c.email, new { @class = "txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20", @placeholder = "Your Email *", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.email)</h6>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    <div>
+                        @Html.TextBoxFor(c => c.Address, new { @class = "txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20", @placeholder = "Your Address " })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Address)</h6>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    @Html.TextBoxFor(c => c.phone, new { @class = "txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20", @placeholder = "Your Phone " })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.phone)</h6>
+                </div>
+
+                <div class="col-12 p-b-30">
+                    <div class="validate-input" data-validate="Message is required">
+                        @Html.TextAreaFor(c => c.query, new { @class = "txt-s-101 cl3 plh1 size-a-47 bo-all-1 bocl15 focus1 p-rl-20 p-tb-10", @placeholder = "Your Message *", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.query)</h6>
+                    </div>
+                </div>
+                <div class="col-12 p-b-30 recaptcha-container">
+                    <div class="g-recaptcha" data-sitekey="6LfEDGcUAAAAABv3H0WVHRWJzrI3PJ1nUgvCpPnk" data-expired-callback="onRecaptchaExpired" data-callback="recaptcha_callback"></div>
+                </div>
+            </div>
+
+            <div class="flex-c p-t-10">
+                <button class="btn-send flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04  mble-border-l" id="Submitbutton" disabled>
+                    Send
+                </button>
+            </div>
+        }
+    </div>
+</section>
+
+<!-- Ccontact -->
+<section class="container p-t-0 p-b-45">
+    <div class="row">
+        <div class="col-sm-6 col-lg-3 p-b-50">
+
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+            <div class="flex-col-c-m p-rl-25">
+                <div class="wrap-pic-max-s p-b-25">
+                    <img src="~/Content/images/icons/icon-phone-03.png" alt="IMG">
+                </div>
+
+                <h5 class="txt-m-114 cl3 txt-center p-b-9">
+                    Phone
+                </h5>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    <a href="tel:+92 302 0198328" class="">+92 302 0198328</a>
+                </span>
+
+                <!-- <span class="txt-s-101 cl6 txt-center">
+                    (317) 799 7654
+                </span>-->
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+            <div class="flex-col-c-m p-rl-25">
+                <div class="wrap-pic-max-s p-b-25 p-t-5">
+                    <img src="~/Content/images/icons/icon-mail-03.png" alt="IMG">
+                </div>
+
+                <h5 class="txt-m-114 cl3 txt-center p-b-9">
+                    Emaill contact
+                </h5>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    <a href="mailto:support@tashty.com" class="">support@tashty.com</a>
+                </span>
+
+                <!--<span class="txt-s-101 cl6 txt-center">
+                    ryanpatel@example.com
+                </span>-->
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+
+        </div>
+    </div>
+</section>
+
+<!-- Subscribe -->
+<section class="sec-subscribe bg13 p-t-65 p-b-65">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 p-tb-15">
+                <div class="h-full flex-col-m">
+                    <h4 class="txt-m-110 cl3 p-b-4 txt-center">
+                        Subscribe Newsletter.
+                    </h4>
+
+                    <p class="txt-s-101 cl6 text-center">
+                        Get e-mail updates about our latest shop and special offers.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-7 p-tb-15">
+                <div class="flex-w flex-m h-full">
+                    <input class="size-a-6 txt-s-106 cl6 plh0 p-rl-30 w-full-sm" type="text" name="email" id="SubscribeEmail" placeholder="Your email address">
+                    <button class="btn-border-right bg10 size-a-5 txt-s-107 cl0 p-rl-15 trans-04 hov-btn2 mt-4 mt-sm-0" onclick="SubscribeEmail()">
+                        Subscribe
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+    $(document).ready(function () {
+        $('form').removeData('validator');
+        $('form').removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse('form');
+        var Ischecked = false;
+        var options = {
+            beforeSubmit: function (msg) {
+                var pattern = /^\b[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+
+                if (!pattern.test($('#email').val())) {
+                    toastr.error('this is not valid email'); e.preventDefault(); return false;
+                }
+
+                blockUI();
+            },
+            success: function (msg) {
+                unblockUI();
+                toastr.success("Form submitted successfully.");
+                ContactUs();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                toastr.error("failed");
+                unblockUI();
+                $(".btn").prop("disabled", false);
+
+            }
+        };
+        $('#ContactUs-form').ajaxForm(options);
+
+    })
+
+    function SubscribeEmail() {
+        if ($('#SubscribeEmail').val() == '') {
+            toastr.error("Please Enter email");
+            return false;
+        }
+        blockUI();
+        $.ajax({
+            type: "GET",
+            contentType: "html",
+            url: '/Home/Subscribe',
+            async: true,
+            data: { Email: $('#SubscribeEmail').val() },
+            success: function (data) {
+                unblockUI();
+                toastr.success("Email added successfully.");
+                ContactUs();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                unblockUI();
+                toastr.error("Email already subscribed.");
+            }
+        });
+
+    }
+      function recaptcha_callback() {
+
+			var signInBtnrregister = document.querySelector('#Submitbutton');
+			signInBtnrregister.removeAttribute('disabled');
+			signInBtnrregister.style.cursor = 'pointer';
+    }
+
+    var onRecaptchaExpired = function () {
+        //var signInBtnrregister = document.querySelector('#signInBtn');
+        //alert("Your recatpcha has expired, please verify again ...");
+        $("#Submitbutton").attr('disabled','disabled');
+    };
+</script>
+

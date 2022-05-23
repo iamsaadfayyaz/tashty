@@ -1,0 +1,65 @@
+﻿@{
+}
+<div class="containter-fluid maindashboard-cust">
+    <div class="container table-cells-dashboard">
+
+        <div class="row top-heading-dashboard">
+            <div class="col clr-black f-w-900">
+                <h2>ORDER HISTORY</h2>
+            </div>
+            <div class="row drop-dashboard">
+                @*<div class="col form-group">
+                    <select class="form-control or-history" id="CountryID" onchange="OrderReceivedResults(1)">
+                        <option value="0" selected>Pakistan</option>
+                        <option value="1">USA</option>
+                        <option value="2">France</option>
+                        <option value="3">UAE</option>
+                        <option value="4">UK</option>
+                    </select>
+                </div>*@
+                <div class="col form-group">
+                    <select class="form-control or-history" id="DateFilter" onchange="OrderReceivedResults(1)">
+                        <option value="30" selected>Last 30 Days</option>
+                        <option value="15">Last 15 Days</option>
+                        <option value="7">Last Week</option>
+                        <option value="1">Yesterday</option>
+                        <option value="0">Today</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div id="ReceivedResult"></div>
+    </div>
+
+    <!-- Table For Order History Ends -->
+    <!-- Page number row -->
+</div>
+<script>
+    $(document).ready(function () {
+        OrderReceivedResults(1);
+    })
+    function ChangeOrderStatus(orderID, ref) {
+        
+        var StatusID = $(ref).val();
+        blockUI();
+        $.ajax({
+            type: "GET",
+            contentType: "html",
+            url: '/Seller/OrderStatusUpdate',
+            async: true,
+            data: { orderID: orderID, orderStatusTypeID:StatusID },
+            success: function (data, textStatus, xhr) {
+                toastr.success("Status updated successfully.");
+                unblockUI();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+                handleErrors(textStatus, jqXHR.responseText);
+            }
+        });
+
+    }
+
+
+</script>
+

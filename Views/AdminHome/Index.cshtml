@@ -1,0 +1,368 @@
+﻿
+@{
+	ViewBag.Title = "Tashty | Home";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	string name = ViewBag.name;
+	string photo = ViewBag.photo;
+	Entity.User info = ViewBag.userInfo;
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12 text-center m-t-md">
+			<h2> Welcome to Tashty Admin Panel </h2>
+		</div>
+	</div>
+	<div class="row">
+
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading">
+					<div class="panel-tools">
+						<a class="showhide"><i class="fa fa-chevron-up"></i></a>
+						<a class="closebox"><i class="fa fa-times"></i></a>
+					</div>
+					Recent Activities
+				</div>
+				<div class="panel-body list">
+					<div class="table-responsive project-list">
+						<table class="table table-striped tablactivity">
+							<thead>
+								<tr>
+									<th>Activity Description</th>
+									<th>Date</th>
+									<th>Time</th>
+								</tr>
+							</thead>
+							<tbody id="timeline_item_table"></tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-3">
+			<div class="hpanel">
+				<div class="panel-body text-center h-200">
+					<i class="pe-7s-graph1 fa-4x"></i>
+					<h1 class="m-xs">$<span id="dashTotalIncome"></span></h1>
+					<h3 class="font-extra-bold no-margins text-success"> All Income </h3>
+					<small>This is the whole income till now.</small>
+				</div>
+				<div class="panel-footer text-center"><h4> All  Income</h4> </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="hpanel stats">
+				<div class="panel-body h-200">
+					<div class="stats-title pull-left">
+						<h4>Today income</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-cash fa-4x"></i>
+					</div>
+					<div class="clearfix"></div>
+					<div class="flot-chart">
+						<div class="flot-chart-content" id="flot-income-chart"></div>
+					</div>
+					<div class="m-t-xs">
+						<div class="row">
+							<div class="col-xs-5" style="">
+								<small class="stat-label">Today</small>
+								<h4>$<span id="dashTodayIncome"></span> </h4>
+							</div>
+							<div class="col-xs-7" style="">
+								<small class="stat-label">Last week</small>
+								<h4>$<span id="dashLWIncome"></span> <i class="fa fa-level-up text-success"></i></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer text-center"><h4> Today Income</h4> </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="hpanel stats">
+				<div class="panel-body h-200">
+					<div class="stats-title pull-left">
+						<h4>Service Providers</h4>
+					</div>
+					<div class="stats-icon pull-right"> <i class="pe-7s-id fa-4x"></i> </div>
+					<div class="m-t-xl">
+						<h1 class="text-success" id="dashTotalSeller"></h1>
+						<p class="m-b-xs">Total Service Providers</p>
+
+						<div class="row">
+							<div class="col-xs-6">
+								<small class="stats-label">Netherland</small>
+								<h4 id="dashNLSeller"></h4>
+							</div>
+							<div class="col-xs-6">
+								<small class="stats-label">Pakistan</small>
+								<h4 id="dashPKSeller"></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer text-center"><h4> Service Providers</h4> </div>
+			</div>
+		</div>
+		<div class="col-lg-3">
+			<div class="hpanel stats">
+				<div class="panel-body h-200">
+					<div class="stats-title pull-left">
+						<h4>Total Registered Buyers</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-cart fa-4x"></i>
+					</div>
+					<div class="clearfix"></div>
+					<div class="flot-chart">
+						<div class="flot-chart-content" id="flot-bar-chart"></div>
+					</div>
+					<div class="m-t-xs">
+						<div class="row">
+							<div class="col-xs-5">
+								<small class="stat-label">Netherland</small>
+								<h4 id="dashNLBuyers"> </h4>
+							</div>
+							<div class="col-xs-7">
+								<small class="stat-label">Pakistan</small>
+								<h4><span id="dashPKBuyers"></span><i class="fa fa-level-up text-success"></i></h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer text-center">
+					<h4> Total Buyer Request</h4>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<div class="row">
+		<div class="col-lg-5">
+			<div class="hpanel">
+				<div class="panel-body h-200 ">
+					<div class="stats-title pull-left">
+						<h4>Total Food Seller</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-coffee fa-4x"></i>
+					</div>
+					<div class="m-t-xl Address-History" style="width:100%;">
+						<div class="list-item-container" id="category_item_table">
+
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer text-center"><h4> Total Food Seller</h4> </div>
+			</div>
+		</div>
+
+		<div class="col-lg-7">
+			<div class="hpanel">
+				<div class="panel-body h-200 ">
+					<div class="stats-title pull-left">
+						<h4>Contact Us Queries</h4>
+					</div>
+					<div class="stats-icon pull-right">
+						<i class="pe-7s-coffee fa-4x"></i>
+					</div>
+					<div class="m-t-xl Address-History" style="width:100%;">
+						<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+						</div>
+					</div>
+				</div>
+				<div class="panel-footer text-center"><h4>Lastest Contact Us Queries</h4> </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$(function () {
+		adminDashboard.GetData();
+		$('#mnuHome a').trigger('click');
+
+		GetAllFilterInfo();
+
+	
+
+	});
+
+
+
+
+
+</script>
+
+
+<script>
+
+	//$(function () {
+
+	//	/**
+	//	 * Flot charts line data and options
+	//	 */
+	//	var chartIncomeData = [
+	//		{
+	//			label: "line",
+	//			data: [[1, 10], [2, 26], [3, 16], [4, 36], [5, 32], [6, 51]]
+	//		}
+	//	];
+
+	//	var chartIncomeOptions = {
+	//		series: {
+	//			lines: {
+	//				show: true,
+	//				lineWidth: 0,
+	//				fill: true,
+	//				fillColor: "#64cc34"
+
+	//			}
+	//		},
+	//		colors: ["#62cb31"],
+	//		grid: {
+	//			show: false
+	//		},
+	//		legend: {
+	//			show: false
+	//		}
+	//	};
+
+	//	$.plot($("#flot-income-chart"), chartIncomeData, chartIncomeOptions);
+
+
+	//	/**
+	//	 * Bar Chart data
+	//	 */
+	//	var flotChartData = [
+	//		{
+	//			label: "bar",
+	//			data: [[1, 12], [2, 14], [3, 18], [4, 24], [5, 32], [6, 22]]
+	//		}
+	//	];
+	//	/**
+	//	 * Bar Chart Options for Analytics
+	//	 */
+	//	var flotBarOptions = {
+	//		series: {
+	//			bars: {
+	//				show: true,
+	//				barWidth: 0.8,
+	//				fill: true,
+	//				fillColor: {
+	//					colors: [{ opacity: 1 }, { opacity: 1 }]
+	//				},
+	//				lineWidth: 1
+	//			}
+	//		},
+	//		xaxis: {
+	//			tickDecimals: 0
+	//		},
+	//		colors: ["#62cb31"],
+	//		grid: {
+	//			show: false
+	//		},
+	//		legend: {
+	//			show: false
+	//		}
+	//	};
+
+	//	$.plot($("#flot-bar-chart"), flotChartData, flotBarOptions);
+
+
+	//	/**
+	//	 * Pie Chart Data
+	//	 */
+	//	var pieChartData = [
+	//		{ label: "Data 1", data: 16, color: "#62cb31", },
+	//		{ label: "Data 2", data: 6, color: "#A4E585", },
+	//		{ label: "Data 3", data: 22, color: "#368410", },
+	//		{ label: "Data 4", data: 32, color: "#8DE563", }
+	//	];
+
+	//	/**
+	//	 * Pie Chart Options
+	//	 */
+	//	var pieChartOptions = {
+	//		series: {
+	//			pie: {
+	//				show: true
+	//			}
+	//		},
+	//		grid: {
+	//			hoverable: true
+	//		},
+	//		tooltip: true,
+	//		tooltipOpts: {
+	//			content: "%p.0%, %s", // show percentages, rounding to 2 decimal places
+	//			shifts: {
+	//				x: 20,
+	//				y: 0
+	//			},
+	//			defaultTheme: false
+	//		}
+	//	};
+
+	//	$.plot($("#flot-pie-chart"), pieChartData, pieChartOptions);
+
+
+	//	/**
+	//	 * Line Chart Data and Options
+	//	 */
+
+	//	var lineChartData = [
+	//		{
+	//			label: "line",
+	//			data: [[1, 24], [2, 15], [3, 29], [4, 34], [5, 30], [6, 40], [7, 23], [8, 27], [9, 40]]
+	//		}
+	//	];
+
+	//	var lineChartOptions = {
+	//		series: {
+	//			lines: {
+	//				show: true,
+	//				lineWidth: 1,
+	//				fill: true,
+	//				fillColor: {
+	//					colors: [{ opacity: 1 }, { opacity: 1 }
+	//					]
+	//				}
+	//			}
+	//		},
+	//		xaxis: {
+	//			tickDecimals: 0
+	//		},
+	//		colors: ["#62cb31"],
+	//		grid: {
+	//			tickColor: "#e4e5e7",
+	//			borderWidth: 1,
+	//			borderColor: '#e4e5e7',
+	//			color: '#6a6c6f'
+	//		},
+	//		legend: {
+	//			show: false
+	//		},
+	//		tooltip: true,
+	//		tooltipOpts: {
+	//			content: "x: %x, y: %y"
+	//		}
+	//	};
+
+	//	$.plot($("#flot-line-chart"), lineChartData, lineChartOptions);
+	//});
+
+</script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,385 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Detail";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    string currency = ViewBag.Currency;
+    bool isSeller = ViewBag.isSeller;
+}
+@if (profileID == 0)
+{
+    @section headerSection {
+        @Html.Partial("_LayoutSearchHeader")
+    }
+}
+else
+{
+    @section headerSection {
+        @Html.Partial("_LayoutInSearchHeader")
+    }
+}
+
+
+<section>
+    <input id="hdnSellerID" type="hidden" />
+    <input id="LastOrderID" type="hidden" />
+    <input id="LastOrderPrice" type="hidden" />
+    <input id="LastItemCount" type="hidden" />
+    
+    <div class="seller-cntr bg-light m-b-lg">
+        <div class="seller-profile"> <img id="imgBanner" src="@Url.Content("~/Content/images/default/profile-default-bannar.jpg")"> </div>
+        <div class="profile-picture">
+            <img id="imgDisplay" src="@Url.Content("~/Content/images/default/150x150-profilePic.jpg")" class="img-circle m-b avatar" alt="seller-image">
+            <div class=" text-center">
+                <div class="text-color h4"> <span class="font-extra-bold font-uppercase " id="txtDisplayTitle"></span></div>
+                <div id="idRating">
+                    <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                </div>
+                <p class="p-m" id="txtDescription"> </p>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <div class="container m-t-lg " id="detailContainer">
+        <nav class="navbar text-center">
+            <div class="container">
+                <div class="navbar-collapse">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a id="lnkMeal" class="page-scroll" href="#secMeal">Meal</a></li>
+                        <li><a id="lnkDeal" class="page-scroll" href="#secDeal">Deal</a></li>
+                        <li><a class="page-scroll" id="lnkBev" href="#secBeverage">Beverage</a></li>
+                        <li><a class="page-scroll" id="lnkDess" href="#secDessert">Dessert</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="hpanel forum-box">
+            <div class="col-md-8 col-sm-8 seller-leftbox">
+                <div id="secMeal">
+                    <h3 class="text-left font-bold">Meals</h3>
+                    <div id="mealHtml">
+
+                    </div>
+                </div>
+                <div id="secDeal">
+                    <h3 class="text-left font-bold">Deals</h3>
+                    <div id="dealHtml">
+
+                    </div>
+                </div>
+                <div id="secBeverage">
+                    <h3 class="text-left font-bold">Beverage</h3>
+                    <div id="BevHtml">
+
+                    </div>
+                </div>
+                <div id="secDessert">
+                    <h3 class="text-left font-bold">Dessert</h3>
+                    <div id="DessHtml">
+
+                    </div>
+                </div>
+            </div>
+            <div id="container-checkout" class="col-md-4 col-sm-4">
+                <div class="hpanel hgreen">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="text-center p-sm">
+                                <h3 class="font-bold">Your order Detail</h3>
+                                <p>
+                                    You haven’t added anything to your cart yet!<br>
+                                </p>
+                                <button type="button" class="btn btn-success btn-lg btn-block" disabled>Checkout</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer font14"> Add items to your cart and they’ll appear here. </div>
+                </div>
+            </div>
+            <div id="container-login-checkout" class="col-md-4 col-sm-4" style="display:none">
+                    <div class="hpanel hgreen">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="text-center p-sm">
+                                    <button type="button" id="btnCheckOut" class="btn btn-success btn-lg btn-block">Checkout</button>
+                                    <div class="row border-bottom" style="padding-top: 8%;">
+                                        <div class="col-lg-3">
+                                            <h5>Qty</h5>
+                                        </div>
+                                        <div class="col-lg-6 border-right border-left text-left">
+                                            <h5>Product Details</h5>
+                                        </div>
+                                        <div class="col-lg-3">
+                                            <h5>price</h5>
+                                        </div>
+                                    </div>
+                                    <div id="tblOrderList">
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-footer font14">
+                            <div class="row">
+                                <div class="col-lg-6 col-sm-6 border-right">
+                                    <p> Subtotal ( <span id="itemCount"> 2 </span> items) </p>
+                                </div>
+                                <div class="col-lg-6 col-sm-6 text-right">
+                                    <h4 class="text-success font-bold"><span id="totalPrice"></span></h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <div></div>
+        </div>
+    </div>
+</section>
+
+@Html.Partial("_DealDetail")
+@Html.Partial("_MealDetail")
+
+<script>
+    var slider = $('#lightSlider').lightSlider({});
+    $(function () {
+        $('#modal-meal-detail').on('show.bs.modal', function (e) {
+
+            $(window).resize();
+ 
+            if (slider)
+                slider.destroy();
+
+            $("#txtmQuantity").val('1');
+            resetQuantity();
+           
+        });
+
+        $('#modal-deal-detail').on('show.bs.modal', function (e) {
+            $(window).resize();
+            $("#txtQuantity").val('1');
+            resetQuantity();
+          
+        });
+
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        // Page scrolling feature
+        $('a.page-scroll').bind('click', function (event) {
+            var link = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $(link.attr('href')).offset().top - 50
+            }, 500);
+            event.preventDefault();
+        });
+
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+        $('.carousel').carousel({
+            interval: 5000,
+            pause: false
+        })
+
+
+
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $(window).scroll(function () { // check if scroll event happened
+            if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+
+                $(".navbar-fixed-top").css("background-color", "#fcfcfc"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+                $('.logo').addClass('small-logo2');
+            } else {
+                $(".navbar-fixed-top").css("background-color", "#fcfcfc"); // if not, change it back to transparent
+                $('.logo').removeClass('small-logo2');
+            }
+        });
+    });
+
+    function resetQuantity()
+    {
+        ;
+
+        $("#txtQuantity").data('oldValue', '1');
+        $(".btn-number").data('oldValue', '1');
+        $("input[name='quant[1]']").val('1');
+        $(".btn-number[data-type='plus'][data-field='quant[1]']").data('oldValue', '1');
+        $(".btn-number[data-type='minus'][data-field='quant[1]']").val('1');
+        $(".btn-number[data-type='plus'][data-field='quant[1]']").val('1');
+    }
+</script>
+
+<script>
+
+    
+    //plugin bootstrap minus and plus
+    //http://jsfiddle.net/laelitenetwork/puJ6G/
+    $('.btn-number').click(function (e) {
+        e.preventDefault();
+        ;
+        fieldName = $(this).attr('data-field');
+        type = $(this).attr('data-type');
+        var input = $("input[name='" + fieldName + "']");
+        var currentVal = parseInt(input.val());
+        if (!isNaN(currentVal)) {
+            if (type == 'minus') {
+
+                if (currentVal > input.attr('min')) {
+                    input.val(currentVal - 1).change();
+                }
+                if (parseInt(input.val()) == input.attr('min')) {
+                    $(this).attr('disabled', true);
+                }
+
+            } else if (type == 'plus') {
+
+                if (currentVal < input.attr('max')) {
+                    input.val(currentVal + 1).change();
+                }
+                if (parseInt(input.val()) == input.attr('max')) {
+                    $(this).attr('disabled', true);
+                }
+
+            }
+        } else {
+            input.val(0);
+        }
+    });
+    $('.input-number').focusin(function () {
+        ;
+        var item = $(this);
+        $(this).data('oldValue', $(this).val());
+    });
+    $('.input-number').change(function () {
+        ;
+        minValue = parseInt($(this).attr('min'));
+        maxValue = parseInt($(this).attr('max'));
+        valueCurrent = parseInt($(this).val());
+
+        name = $(this).attr('name');
+        if (valueCurrent >= minValue) {
+            $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the minimum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+        if (valueCurrent <= maxValue) {
+            $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+        } else {
+            alert('Sorry, the maximum value was reached');
+            $(this).val($(this).data('oldValue'));
+        }
+
+
+    });
+    $(".input-number").keydown(function (e) {
+        // Allow: backspace, delete, tab, escape, enter and .
+        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+            // Allow: Ctrl+A
+            (e.keyCode == 65 && e.ctrlKey === true) ||
+            // Allow: home, end, left, right
+            (e.keyCode >= 35 && e.keyCode <= 39)) {
+            // let it happen, don't do anything
+            return;
+        }
+        // Ensure that it is a number and stop the keypress
+        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+            e.preventDefault();
+        }
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function ()
+    {
+        var ListSubCat = [];
+       // alert(localStorage.getItem('SearchSelID'));
+        if (localStorage.getItem('SearchSelID')) {
+            var ID = localStorage.getItem('SearchSelID');
+            home.GetSellerDetail(ID);
+            _set('hdnSellerID', ID);
+            //localStorage.clear();
+        }
+
+        @if (!String.IsNullOrEmpty(username))
+        {<text> @*console.log('username =>' + @username);*@ _setIn('txtUsername','@username'); </text>}
+           @if (!String.IsNullOrEmpty(photo))
+           { <text> @*console.log('photo =>' + @photo);*@ $("#imgLogo").attr("src", baseURL + '/Uploads/ProfilePictures/thumb-70/@photo'); </text> }
+        @if (profileID != 0)
+              { <text> 
+                console.log('profileID =>' + '@profileID');
+                console.log('currency =>' + '@currency');
+                    var sellerID = _get("hdnSellerID");
+                    console.log('sellerID =>' + sellerID);
+                    home.GetBuyerOrderBySeller(sellerID,@profileID, '@currency');
+                </text> }
+         @if(isSeller==true) {
+                  <text>
+                        $("#lnkMyAcc").attr("href",'@Url.Action("Dashboard", "Seller")');
+                        $("#lnkSetting").show();
+                  </text>
+              }
+              else
+              {
+                  <text>
+                        $("#lnkMyAcc").attr("href",'@Url.Action("Dashboard", "Buyer")');
+                        $("#lnkSetting").hide();
+                  </text>
+              }
+
+
+         ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListCategories));
+         if (ListSubCat) { home.populateMenuCategories(ListSubCat);}
+
+
+
+    });
+
+    $('#btnCheckOut').click(function () {
+        var url = baseURL + 'Home/CheckOut';
+        window.location = url;
+    });
+
+    $("#tblOrderList").on('change', 'select', function () {
+
+        var itemPrice = $(this).attr("data-value");
+        var id = $(this).attr("data-id");
+
+        var oldPrice = $(".itemprice span[data-id=" + id + "]").attr("data-value");
+        var oldTotalPrice = _get("LastOrderPrice");
+
+        var preItemPrice = +oldTotalPrice - +oldPrice;
+
+       // alert("preItemPrice =>" + preItemPrice);
+
+        var newPrice = +this.value * +itemPrice;
+        var newTotalPrice = 0;
+       
+        newTotalPrice = +preItemPrice + +newPrice;
+  
+        //alert("oldPrice=>" + oldPrice + "* this.value=>" + this.value + "= newPrice=>" + newPrice);
+        //alert("oldTotalPrice=>" + oldTotalPrice + ", newTotalPrice=>" + newTotalPrice);
+        $(".itemprice span[data-id=" + id + "]").html(newPrice);
+        $(".itemprice span[data-id=" + id + "]").attr("data-value", newPrice);
+
+        _setIn('totalPrice', '@ViewBag.Currency' + newTotalPrice);
+        _set('LastOrderPrice', newTotalPrice);
+        cord.changeItemQuantity(id, this.value, newPrice, newTotalPrice);
+   
+    });
+
+</script>

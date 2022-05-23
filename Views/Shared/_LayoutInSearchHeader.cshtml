@@ -1,0 +1,61 @@
+﻿<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/images/Logo-small.png")" class="logo"></a>
+        </div>
+        <div id="navbar-client" class="navbar-collapse collapse">
+            <div class="col-sm-2 text-center m-t-md font16">
+
+                <div class="m-t-md" style="margin-top:10px!important;">
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="lnkCats" style="font-size: 14px; font-weight: 600; padding: 15px 15px;" href="#" data-toggle="dropdown" aria-expanded="false"> <i class="pe-7s-keypad"></i> <span style="padding-right:10px"> Catagories</span> </a>
+                        <ul id="catMenu" class="dropdown-menu animated flipInX megamenu"></ul>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-sm-5 hpanel m-t-sm">
+                <form id="frmAddSearch" action="#">
+                    <div class="input-group panel-body no-padding">
+                        <input id="txtSearch" class="form-control no-borders m-t-xs" autofocus type="text" placeholder="Street Address, City, postcode" />
+                        <span class="input-group-btn  p-xs">
+                            <svg width="23" height="23" viewBox="0 0 23 23">
+                                <g fill="none" fill-rule="evenodd">
+                                    <path stroke="#353534" d="M11.5 22.5v-2.986l.471-.028a8.001 8.001 0 0 0 7.515-7.515l.028-.471H22.5h-2.986l-.028-.471a8.001 8.001 0 0 0-7.515-7.515l-.471-.028V.5v2.986l-.471.028a8.001 8.001 0 0 0-7.515 7.515l-.028.471H.5h2.986l.028.471a8.001 8.001 0 0 0 7.515 7.515l.471.028V22.5z"></path>
+                                    <circle cx="11.5" cy="11.5" r="4" stroke="#353534"></circle>
+                                    <circle cx="11.5" cy="11.5" r="1" fill="#444548"></circle>
+                                </g>
+                            </svg>
+                        </span> <span class="input-group-btn">
+                            <input id="btnSearchAddress" type="submit" class="btn btn-primary2 btn-md p-xs" value="Search">
+                        </span>
+                    </div>
+                </form>
+            </div>
+            <div class="navbar-right">
+
+                <div class="projects pull-left">
+                    <li class="dropdown nolist m-t-sm">
+                        <a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown" aria-expanded="false">
+                            <div class="project-people"> <img alt="logo" id="imgLogo" class="img-circle box-b-border" src='@Url.Content("~/Content/images/default/150x150-profilePic.jpg")'> <span class="user-online-status online"> </span><span id="txtUsername"></span> </div>
+                        </a>
+                        <ul class="dropdown-menu hdropdown animated flipInX">
+                            <li> <a id="lnkMyAcc" href="@Url.Action("Dashboard","Seller")"> My Account </a> </li>
+                            <li id="lnkSetting"> <a href="@Url.Action("Settings","Seller")"> Settings </a> </li>
+                            <li> <a class="btnClientLogout" href="#"> Logout </a> </li>
+                        </ul>
+                    </li>
+
+
+                </div>
+                <div class="m-t-md pull-right m-l-lg">
+                    <input type="hidden" id="hdnItemCount" value="0"/>
+                    <button class="btn btn-success btn-circle" id="btnCartItems" type="button"><i class="fa fa-shopping-bag" aria-hidden="true"></i> </button><strong id="txtShopCount">0</strong>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+

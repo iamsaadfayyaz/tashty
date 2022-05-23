@@ -1,0 +1,246 @@
+﻿<div class="modal fade" id="join-us-model">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header close-mobile-display">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="#" id="BuyerLoginForm">
+                    <div class="row">
+                        <div class="col-md-6 p-t-b-50">
+                            <div class="padding-50px">
+
+                                <div class="row d-flex justify-content-center">
+                                    <h1 class="p-t-b-20">Join Tashty</h1>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <a id="btnFbJoinBuyer" data-size="large" data-button-type="continue_with" class="newbtn-fb"><i class="fa fa-facebook"></i>&nbsp; &nbsp;Sign in with Facebook</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <a id="signup-button-buyer" class="newbtn-gmail"><i class="fa fa-google"></i>&nbsp; &nbsp;Sign in with Gmail</a>
+                                    </div>
+
+                                    <div class="separator">&nbsp;or&nbsp;</div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="row ">
+                                        <p class="p-bold">Email address</p>
+                                        <input type="email" id="txtBuyerEmail" placeholder="enter your email" title="enter your email" class="form-control" required />
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div style="color:darkred" id="txtBuyerErrorMsg"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button type="submit" id="btnUserContinue" class="btn btn-continue">Continue</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row d-flex justify-content-center">
+                                        <p class="p-font">Already Have an Account? <a class="join-us-login" href="#">Sign in</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 bg-img-model1" style="background-image:linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.5)),url(/Content/New/images/modal1.jpg)">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="row d-flex justify-content-end txtalign-btm">
+
+                                <h1 class="h1-custom">JOIN NOW</h1>
+                                <P class="p-custom">Order your favourite food from best sellers</P>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*<div class="modal fade hmodal-success" id="join-us-model" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header p-sm">
+                    <h4 class="modal-title">Join Tashty</h4>
+                </div>
+                <div class="modal-body sellerbcm">
+                    <form action="#" id="BuyerLoginForm">
+                        <div class="m-b">
+                            <div class="m-b">
+                                <div class="btn btn-block btn-facebook btn-lg" id="btnFbJoinBuyer" data-size="large" data-button-type="continue_with" data-auto-logout-link="false" data-use-continue-as="false">Continue with Facebook </div>
+                                <a class="btn btn-block btn-google btn-lg" id="signup-button-buyer"> <span class="fa fa-google"></span> Continue with Google </a>
+                            </div>
+                            <h3><span>or</span></h3>
+
+                            <div class="form-group">
+                                <input type="email" id="txtBuyerEmail" placeholder="enter your email" title="enter your email" class="form-control input-lg" required>
+                            </div>
+                            <div class="form-group">
+                                <div style="color:darkred" id="txtBuyerErrorMsg"> </div>
+                            </div>
+                            <button type="submit" class="btn btn-success btn-block btn-lg" id="btnUserContinue">Continue</button>
+                        </div>
+                    </form>
+
+                    <div class="modal-footer"> Already a member? <a href="#" class="join-us-login">Sign In</a></div>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+<div class="modal fade" id="buyer-join-model">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header close-mobile-display">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <form action="#" id="buyerJoinForm">
+                    <input id="hdnBuyerEmail" type="hidden" />
+                    <div class="row">
+
+                        <div class="col-md-6 p-t-b-50">
+                            <div class="padding-50px">
+
+                                <div class="row d-flex justify-content-center">
+                                    <h1 class="p-t-b-20">JOIN TASHTY</h1>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <p class="p-bold" id="lblBuyerEmail">Email</p>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row ">
+                                        <p class="p-bold">Chose a Username</p>
+                                        <input type="text" id="txtBJUsername" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" placeholder="choose a username" title="choose a username" required class="form-control">
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="p-light">4 or maximum 20 characters longer Space/special characters not allowed.</p>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <p class="p-bold">Enter a Password</p>
+                                        <input type="password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" id="txtBJPassword" placeholder="choose a Password" title="password" class="form-control">
+
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <p class="p-light">8 characters or longer. Combine upper and lower case letters and numbers.</p>
+                                </div>
+                                <div class="green-space">
+
+                                </div>
+                                <!-- <div class="extra-space">
+
+                    </div> -->
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button type="submit" class="btn btn-continue">Continue</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row d-flex justify-content-center">
+                                        <p class="p-font">Already Have an Account?<a href="#" class="join-us-login">Sign in</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 bg-img-model2" style="background-image:linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.5)),url(/Content/New/images/modal2.jpg)">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <div class="row d-flex justify-content-end txtalign-btm">
+
+                                <h1 class="h1-custom">JOIN NOW</h1>
+                                <P class="p-custom">Order your favourite food from best sellers</P>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@*<div class="modal fade hmodal-success" id="buyer-join-model" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header p-sm">
+                    <h4 class="modal-title">Join Tashty </h4><h6 id="lblBuyerEmail"></h6>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="buyerJoinForm">
+                        <input id="hdnBuyerEmail" type="hidden" />
+                        <div class="form-group">
+                            <input type="text" id="txtBJUsername" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" placeholder="choose a username" title="choose a username" class="form-control  input-lg" required>
+                        </div>
+                        <p>
+                            <small>4  or  maximum 20 characters longer.Space/special characters not allowed.</small>
+                        </p>
+                        <div class="form-group">
+                            <input type="password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" id="txtBJPassword" placeholder="choose a Password" title="password" class="form-control  input-lg" required>
+                        </div>
+                        <p>
+                            <small>8 characters or longer. Combine upper and lowercase letters and numbers.</small>
+                        </p>
+                        <button type="submit" class="btn btn-success btn-block btn-lg" id="btnBuyerJoin">Join</button>
+                    </form>
+                </div>
+                <div class="modal-footer"> Already a member? <a href="#" class="join-us-login">Sign In</a></div>
+            </div>
+        </div>
+    </div>*@
+
+<script type="text/javascript">
+    function onSuccessBuyer(user) {
+        var obj = user.getBasicProfile();
+        reg.JoinTashty(obj.getEmail(), obj.getName(), '', false, obj.getId(), true, false);
+    }
+    $("#BuyerLoginForm").submit(function (e) {
+        
+        e.preventDefault();
+        var email = _get('txtBuyerEmail');
+        _set('hdnBuyerEmail', email);
+        _setIn('lblBuyerEmail', email);
+
+        reg.CheckEmail(email, 'join-us-model', 'buyer-join-model', 'txtBuyerErrorMsg', false, true, '', false, false);
+     });
+
+    $("#buyerJoinForm").submit(function (e) {
+        e.preventDefault();
+        updateSubmitButtonText("Processing", "btnBuyerJoin", "Join");
+        var email = _get('hdnBuyerEmail');
+        var username = _get('txtBJUsername');
+        var password = _get('txtBJPassword');
+
+        reg.JoinTashty(email, username, password, false, '', false, false);
+    });
+
+    $('.join-us-login').click(function () {
+        OpenModel("login-model");
+        CloseModel("join-us-model");
+        // CloseModel("buyer-join-model");
+    });
+    //document.getElementById("btnUserContinue").addEventListener("click", function () {
+    //    document.getElementById("BuyerLoginForm").className = "submitted";
+    //});
+
+</script>

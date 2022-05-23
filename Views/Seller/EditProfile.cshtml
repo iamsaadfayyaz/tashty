@@ -1,0 +1,556 @@
+﻿@model Entity.Seller
+@{
+    int id = (int)ViewData["profileID"];
+}
+@using (Html.BeginForm("SaveSellerPersonalInfo", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Prsettings-form" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    @Html.HiddenFor(c => c.sellerID)
+    @Html.HiddenFor(c => c.profileID, new { @value = id })
+
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-sm-3">
+
+            </div> -->
+            <div class="col-sm-12">
+                <h2 class="pr-info-head">Personal Information</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="formSel">
+                <div class="row sellform">
+                    &nbsp;&nbsp; Tell us a bit about yourself.
+                    <div class="col-sm-12 pd-mr-0"></div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Title</label>@Model
+                        <div class=" form-group mr-b-0r ">
+                            <select class="custom-select" id="profile_titleID" name="profile.titleID">
+                                <option value=""> select Title</option>
+                                @if (ViewBag.ListTitles != null)
+                                {
+                                    for (int i = 0; i < ViewBag.ListTitles.Count; i++)
+                                    {
+                                        string val = ViewBag.ListTitles[i].titleID.ToString();
+                                        string title = ViewBag.ListTitles[i].titleName.ToString();
+
+                                        <text>
+                                            <option value="@val">@title</option>  </text>
+                                    }
+
+                                }
+                            </select>
+
+                        </div>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Full Name</label>
+                        @Html.TextBoxFor(c => c.firstName, new { @class = "form-control", @placeholder = "Full Name" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.firstName)</h6>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Phone Number</label>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        @Html.TextBoxFor(c => c.workPhone, new { @class = "form-control", @placeholder = "Primary Phone" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.workPhone)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        @Html.TextBoxFor(c => c.SecondaryPhone, new { @class = "form-control", @placeholder = "Secondary Phone" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.workPhone)</h6>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Address Details</label>
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        @Html.TextBoxFor(c => c.permanentAddress, new { @class = "form-control", @placeholder = "Enter Address" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.permanentAddress)</h6>
+                    </div>
+
+                    <div class="col-sm-6 form-group mr-t-1r ">
+
+                        <select class="custom-select" id="address_addressTypeID" name="address.addressTypeID">
+                            <option selected>Address Type</option>
+                            <option value="1">One</option>
+                            <option value="2">Two</option>
+                            <option value="3">Three</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 form-group mr-t-1r">
+                        @*  @Html.DropDownListFor(c => c.countryID, (SelectList)ViewBag.ListCountries, new { @class = "custom-select", @placeholder = "Select Country" } )*@
+                        <select class="custom-select" id="countryID" name="countryID">
+                            <option value=""> select Country</option>
+                            @if (ViewBag.ListCountries != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                                {
+                                    string val = ViewBag.ListCountries[i].countryID.ToString();
+                                    string title = ViewBag.ListCountries[i].country.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+
+                    <div class="col-sm-6 form-group ">
+                        <select class="custom-select" id="address_cityID" name="address.cityID">
+                            <option value="">Your City</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        @Html.TextBoxFor(c => c.address.postalCode, new { @class = "form-control", @placeholder = "Postal Code" })
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
+    <br>
+    <br>
+
+    <div class="container">
+        <div class="row">
+            <!-- <div class="col-sm-3">
+
+            </div> -->
+            <div class="col-sm-12">
+                <h2 class="pr-info-head">Seller Form</h2>
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-3">
+                <div class="btn-group-vertical pr-info-tab-btn">
+                    <button type="submit" onclick="location.href='profilesettings.html'" class="btn tab-button" >Personal Information</button>
+                    <button type="submit" onclick="location.href='profilesetttings-changepassword.html'"class="btn tab-button">Change Password</button>
+                  </div>
+            </div> -->
+            <div class="formSel">
+                <div class="row sellform">
+                    &nbsp;&nbsp; Tell us a bit about yourself.
+                    <div class="col-sm-12 pd-mr-0">
+
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Pickup Address</label>
+                        @Html.TextBoxFor(c => c.lineAddress, new { @class = "form-control", @placeholder = "Pickup Address" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.lineAddress)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Seller Display Name <span class="mand-red">*</span></label>
+                        @Html.TextBoxFor(c => c.displayTitle, new { @class = "form-control", @placeholder = "Display Title", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.displayTitle)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Account Title <span class="mand-red">*</span></label>
+                        @Html.TextBoxFor(c => c.accountTitle, new { @class = "form-control", @placeholder = "Display Title" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.accountTitle)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Enter Bank Name <span class="mand-red">*</span></label>
+                        @Html.TextBoxFor(c => c.bankName, new { @class = "form-control", @placeholder = "Bank Name" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.bankName)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Account Number <span class="mand-red">*</span></label>
+                        @Html.TextBoxFor(c => c.accountNumber, new { @class = "form-control", @placeholder = "xxx-xxxx-xxxx-xx" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.accountNumber)</h6>
+                    </div>
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">CNIC No <span class="mand-red">*</span></label>
+                        @Html.TextBoxFor(c => c.NICNumber, new { @class = "form-control", @placeholder = "xxxxx-xxxxxxx-x" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.NICNumber)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">NTN</label>
+                        @Html.TextBoxFor(c => c.NTNNumber, new { @class = "form-control", @placeholder = "xxxxxxx-x" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.NTNNumber)</h6>
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">CNIC Front Picture</label>
+                        <center>
+                            <label class="cnic-front-pic mrgn-0" for="NICfrontPIC" style="padding: 3% 40%;border-style: dashed;
+                        background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                    <br><br>
+                                    <span style="color:#B0B4B3;font-size:0.8rem;">Add Image</span>
+                                </i>
+                            </label>
+                            <input type="file" class="choose-in" id="NICfrontPIC" />
+                            @Html.HiddenFor(m => m.CNICFrontPic)
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">CNIC Back Picture</label>
+                        <center>
+                            <label class="mrgn-0" for="NICBackPIC" style="padding: 3% 40%;border-style: dashed;
+                        background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                    <br><br>
+                                    <span style="color:#B0B4B3;font-size:0.8rem;">Add Image</span>
+                                </i>
+                            </label>
+                            <input type="file" class="choose-in" id="NICBackPIC" />
+                            @Html.HiddenFor(m => m.CNICBackPic)
+                    </div>
+                    <!-- <div class="col-sm-6 pd-mr-0">
+                      <label for="">Terms Info Conditions</label>
+                        <input type="file" class="form-control" placeholder="Upload Terms Files" required>
+                    </div> -->
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Upload your Logo</label>
+                        <center>
+                            <label class="mrgn-0" for="logoPic" style="padding: 3% 40%;border-style: dashed;
+                    background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                    <br><br>
+                                    <span style="color:#B0B4B3;font-size:0.8rem;">Add Image</span>
+                                </i>
+                            </label>
+                        </center>
+                        <input type="file" class="choose-in" id="logoPic" />
+                        @Html.HiddenFor(m => m.logo)
+                    </div>
+
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="">Upload your Profile Picture</label>
+                        <center>
+                            <label class="mrgn-0" for="profilePic" style="padding: 3% 40%;border-style: dashed;
+                    background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                    <br><br>
+                                    <span style="color:#B0B4B3;font-size:0.8rem;">Add Image</span>
+                                </i>
+                            </label>
+                            <input type="file" class="choose-in" id="profilePic" />
+                            @Html.HiddenFor(m => m.profilePhoto)
+                    </div>
+                    <div class="col-sm-12 pd-mr-0">
+                        <label for="">Description</label>
+                        @Html.TextAreaFor(c => c.description, new { @class = "form-control", @rows = "5" })
+                    </div>
+                    <button id="btnSavePersonalInfo" type="submit" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">CONTINUE</button>
+                    @*  <button id="btnSaveSellerForm" type="submit" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">CONTINUE</button>*@
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<script>
+        var loadedPhotoURL = "";
+        var customPhotoValidationFailed = false;
+
+        var ListCities = [];
+		reg.setProfileID(@ViewBag.profileID);
+
+
+        var readURL = function (input) {
+
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                   // $('.profile-photo').attr('src', e.target.result);
+                    loadedPhotoURL = e.target.result;
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+    $("#NICfrontPIC").on('change', function () {
+            readURL(this);
+    });
+     $("#NICBackPIC").on('change', function () {
+            readURL(this);
+     });
+     $("#profilePIC").on('change', function () {
+            readURL(this);
+     });
+    $("#logoPIC").on('change', function () {
+            readURL(this);
+        });
+
+    $(document).ready(function () {
+		ListCities = @Html.Raw(Json.Encode(ViewBag.ListCities));
+
+        $("#countryID").val(@ViewBag.CountryID);
+        _setSelect("countryID", @ViewBag.CountryID);
+        populateCities(@ViewBag.CountryID, ListCities, 'CountryID');
+
+        $('.file-input-new').hide();
+
+        $('#countryID').on('change', function () {
+			populateCities(this.value, ListCities,'address_cityID');
+		});
+        $('#profilePic').on('fileuploaded', function (event, data, previewId, index) {
+            $('.profile-photo').attr('src', loadedPhotoURL);
+            _set("profilePhoto", data.response);
+            customPhotoValidationFailed = false;
+        });
+        $('#profilePic').on('fileuploaderror', function (event, data, msg) {
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            
+            toastr.error(msg);
+        });
+        $('#profilePic').on('fileselect', function (event, numFiles, label) {
+
+            if (!customPhotoValidationFailed) {
+                $("#profilePic").fileinput("upload");
+            }
+            customPhotoValidationFailed = false;
+        });
+
+                $('#logoPic').on('fileuploaded', function (event, data, previewId, index) {
+            $('.profile-photo').attr('src', loadedPhotoURL);
+            _set("logo", data.response);
+            customPhotoValidationFailed = false;
+        });
+        $('#logoPic').on('fileuploaderror', function (event, data, msg) {
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            
+            toastr.error(msg);
+        });
+        $('#logoPic').on('fileselect', function (event, numFiles, label) {
+
+            if (!customPhotoValidationFailed) {
+                $("#logoPic").fileinput("upload");
+            }
+            customPhotoValidationFailed = false;
+        });
+
+
+        $('#NICfrontPIC').on('fileuploaded', function (event, data, previewId, index) {
+            
+            $('.cnic-front-pic').attr('src', loadedPhotoURL);
+            _set("CNICFrontPic", data.response);
+            customPhotoValidationFailed = false;
+        });
+        $('#NICfrontPIC').on('fileuploaderror', function (event, data, msg) {
+            
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            toastr.error(msg);
+        });
+        $('#NICfrontPIC').on('fileselect', function (event, numFiles, label) {
+            
+            if (!customPhotoValidationFailed) {
+                $("#NICfrontPIC").fileinput("upload");
+            }
+            customPhotoValidationFailed = false;
+        });
+
+        $('#NICBackPIC').on('fileuploaded', function (event, data, previewId, index) {
+            
+            _set("CNICBackPIC", data.response);
+            customPhotoValidationFailed = false;
+        });
+        $('#NICBackPIC').on('fileuploaderror', function (event, data, msg) {
+            
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            
+            toastr.error(msg);
+        });
+        $('#NICBackPIC').on('fileselect', function (event, numFiles, label) {
+            
+            if (!customPhotoValidationFailed) {
+                $("#NICBackPIC").fileinput("upload");
+            }
+            customPhotoValidationFailed = false;
+        });
+
+
+    });
+
+            		$("#NICBackPIC").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/UploadCNICBackPic',
+			dropZoneEnabled:false,
+			browseClass: "",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			maxFileSize: 10000,
+			allowedFileExtensions: ['jpg', 'png', 'gif'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            msgSizeTooLarge: 'CNIC Back photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+			});
+
+
+        		$("#NICfrontPIC").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/UploadCNICFrontPic',
+			dropZoneEnabled:false,
+			browseClass: "",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			maxFileSize: 10000,
+			allowedFileExtensions: ['jpg', 'png', 'gif'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            msgSizeTooLarge: 'Profile photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+			});
+
+
+    		$("#profilePic").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/UploadProfilePic',
+			dropZoneEnabled:false,
+			browseClass: "upload-button btn btn-primary",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			browseLabel: "Upload Picture",
+			maxFileSize: 2000,
+			allowedFileExtensions: ['jpg', 'png', 'gif'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            maxFileSize: 2000,
+            msgSizeTooLarge: 'Profile photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+            });
+
+        		$("#logoPic").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/UploadLogoPic',
+			dropZoneEnabled:false,
+			browseClass: "upload-button btn btn-primary",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			browseLabel: "Upload Picture",
+			maxFileSize: 2000,
+			allowedFileExtensions: ['jpg', 'png', 'gif'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            maxFileSize: 2000,
+            msgSizeTooLarge: 'Logo photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+			});
+            $('form').removeData('validator');
+            $('form').removeData('unobtrusiveValidation');
+            $.validator.unobtrusive.parse('form');
+            var options = {
+                beforeSubmit: function (msg) {
+                    blockUI();
+                },
+                success: function (msg) {
+                    unblockUI();
+                    toastr.success("Saved Successfully");
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    handleErrors(textStatus);
+                    unblockUI();
+                    $(".btn").prop("disabled", false);
+
+                }
+            };
+            $('#Prsettings-form').ajaxForm(options);
+
+</script>
+

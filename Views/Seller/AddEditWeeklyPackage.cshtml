@@ -1,0 +1,334 @@
+﻿@model TashtyWebProject.ViewModel.WeeklyPackageViewModel
+@{
+    DateTime startDate = new DateTime(2020, 05, 18);
+    DateTime endDate = new DateTime(2020, 05, 24);
+    List<Entity.Meal> meallist = Model.getAllMeals();
+    int count = 0;
+}
+<style>
+    .badge {
+        color: darkgray;
+        margin-right: 1%;
+    }
+</style>
+<div class="containter-fluid maindashboard-pr-settings">
+    <div class="row">
+        <div class="col-sm-12 ">
+            @using (Html.BeginForm("SaveWeeklyPackage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Weekly-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(c => c.Package.PackageID)
+                <input type="hidden" name="Package.PackageType" value="1" />
+                @Html.HiddenFor(c => c.Package.SellerID)
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group ">
+                                <div class="extra-space-top"></div>
+                                @Html.TextBoxFor(c => c.Package.Name, new { @class = "form-control", @placeholder = "Your Package name*", @required = "required" })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Name)</h6>
+                            </div>
+                            <div class="form-group ">
+                                <select class="custom-select" id="Package_NoOfMeals" name="Package.NoOfMeals" required onchange="WeeklyNoOfMeals(this)">
+                                    <option value="">Meals per day*</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                @Html.TextBoxFor(c => c.Package.Price, new { @class = "form-control", @placeholder = "Set Price", @required = "required" })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Price)</h6>
+                            </div>
+                            <div class="form-group ">
+                                @Html.TextBoxFor(c => c.Package.PackageDate, new { @class = "form-control", data_datepicker = "date", @placeholder = "Select date", @required = "required", @value = Model.Package.PackageDate })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.PackageDate)</h6>
+                            </div>
+                        </div>
+                        @*<div class="col-sm-6">
+                                <span class="file-header-txt">Add Preview Image</span>
+                                <div class="file-upload">
+                                    <div class="image-upload-wrap">
+                                        <input class="file-upload-input" onclick="removePackageImage('Package_Image','ShowWeeklyPaackageupload','ShowWeeklyPackageImage')" title="Remove" aria-hidden="true" type='file' onchange="readURL(this);" accept="image/*" />
+                                        @Html.HiddenFor(m => m.Package.Image)
+                                        <div class="drag-text">
+                                            <img class="imgicon-custm" src="img/imageicon.png">
+                                            <br>
+                                            <span class="file-font">Add Preview Images</span>
+                                            <p class="file-p">Drag and drop your files <br> here to start upload</p>
+                                        </div>
+                                    </div>
+                                    <div class="file-upload-content">
+                                        <img class="file-upload-image" src="#" alt="your image" />
+                                        <div class="image-title-wrap">
+                                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded Image</span></button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Image)</h6>
+
+                            </div>*@
+                        <div class="col-sm-6" style="margin-top:16px">
+                            <div id="ShowWeeklyPackageImage" style="display:none">
+                                <img src="" alt="Image" id="WeeklyPackageImagesrc" style="width:200px;height:100px" />
+                                <i class="fa fa-times-circle" onclick="removePackageImage('Package_Image','ShowWeeklyPaackageupload','ShowWeeklyPackageImage')" title="Remove" aria-hidden="true"></i>
+                            </div>
+                            <div id="ShowWeeklyPaackageupload" style="display:none">
+                                <center>
+                                    <label class="cnic-back-pic mrgn-0" for="WeeklyPackageImage" style="padding: 3% 40%;border-style: dashed;
+                background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                        <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                            <br><br>
+                                            <span style="color:#B0B4B3;font-size:0.8rem;">Add Preview Image</span>
+                                        </i>
+                                    </label>
+                                    <!--  <input type="file" class="choose-in" id="WeeklyPackageImage" />
+      @Html.HiddenFor(m => m.Package.Image)-->
+</div>
+                            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Image)</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="container cstm-bg-grey">
+                    @for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                    {
+
+                        <div class="row pd-t-b-deal">
+                            <div class="col-sm-2 pd-mr-0 ">
+                                <p></p>
+                            </div>
+                            @if (date.DayOfWeek == DayOfWeek.Monday)
+                            {
+                                for (int i = 1; i < 4; i++)
+                                {
+                                    <div class="col-sm-3 pd-mr-0 text-center pd-btm-m Mealtime-@i">
+                                        <p>Meal @i </p>
+                                    </div>
+
+                                }
+                            }
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2 pd-mr-0 ">
+                                <p>@date.DayOfWeek</p>
+                            </div>
+                            @if (Model.packageDetails.Count > 0)
+                            {
+                                <input type="hidden" name="packageDetails[@count].PackageDetailID" value="@Model.packageDetails[count].PackageDetailID" />
+
+                            }
+                            else
+                            {
+                                <input type="hidden" name="packageDetails[@count].PackageDetailID" />
+                            }
+                            <input type="hidden" name="packageDetails[@count].Day" value="@date.DayOfWeek" />
+                            <div class="col-sm-3 pd-mr-0 Mealtime-1">
+                                <select name="packageDetails[@count].MealTime1array" id="packageDetails[@count].MealTime1array" class="form-control" multiple="multiple" style="display: none;">
+                                    @foreach (var meal in meallist)
+                                    {
+                                        if (Model.packageDetails.Count > 0 && Model.packageDetails[count].MealTime1 != null && Model.packageDetails[count].MealTime1.Split(',').Contains(meal.mealID.ToString()))
+                                        {
+                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@meal.mealID">@meal.title</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-3 pd-mr-0 Mealtime-2">
+                                <select name="packageDetails[@count].MealTime2array" id="packageDetails[@count].MealTime2array" class="form-control" multiple="multiple" style="display: none;">
+                                    @foreach (var meal in meallist)
+                                    {
+                                        if (Model.packageDetails.Count > 0 && Model.packageDetails[count].MealTime2 != null && Model.packageDetails[count].MealTime2.Split(',').Contains(meal.mealID.ToString()))
+                                        {
+                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@meal.mealID">@meal.title</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-sm-3 pd-mr-0 Mealtime-3">
+                                <select name="packageDetails[@count].MealTime3array" id="packageDetails[@count].MealTime3array" class="form-control" multiple="multiple" style="display: none;">
+                                    @foreach (var meal in meallist)
+                                    {
+                                        if (Model.packageDetails.Count > 0 && Model.packageDetails[count].MealTime3 != null && Model.packageDetails[count].MealTime3.Split(',').Contains(meal.mealID.ToString()))
+                                        {
+                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@meal.mealID">@meal.title</option>
+                                        }
+
+                                    }
+                                </select>
+                            </div>
+                            @{count = count + 1;
+                            }
+
+                        </div>
+                    }
+                </div> <div class="container">
+                    <div class="row ptb-cp">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            @if (Model.Package.PackageID > 0)
+                            {
+                                <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem cp-btn " style="width:100%; margin-top: 1rem;">Edit PACKAGE</button>
+                            }
+                            else
+                            {
+                                <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem cp-btn " style="width:100%; margin-top: 1rem;">CREATE PACKAGE</button>
+                            }
+
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+            var customPhotoValidationFailed = false;
+    $(document).ready(function () {
+
+         $("#WeeklyPackageImage").on('change', function () {
+            readURL(this);
+         });
+        if ('@Model.Package.NoOfMeals' != null) {
+            $('#Package_NoOfMeals').val(@Model.Package.NoOfMeals);
+            WeeklyNoOfMeals();
+        }
+        if ('@Model.Package.Image' != null && '@Model.Package.Image' != '' && '@Model.Package.Image' != undefined) {
+            $('#WeeklyPackageImagesrc').attr('src', '/Uploads/Package/@Model.Package.Image');
+            $('#ShowWeeklyPackageImage').show();
+        }
+         else {
+            $('#ShowWeeklyPaackageupload').show();
+        }
+                $('#WeeklyPackageImage').on('fileuploaded', function (event, data, previewId, index) {
+            unblockUI();
+            $("#Package_Image").val(data.response);
+            $('#WeeklyPackageImagesrc').attr('src', '/uploads/Package/' + data.response);
+            $('#ShowWeeklyPackageImage').show();
+            $('#ShowWeeklyPaackageupload').hide();
+
+            customPhotoValidationFailed = false;
+        });
+        $('#WeeklyPackageImage').on('fileuploaderror', function (event, data, msg) {
+             unblockUI();
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            
+            toastr.error(msg);
+        });
+        $('#WeeklyPackageImage').on('fileselect', function (event, numFiles, label) {
+             blockUI();
+            if (!customPhotoValidationFailed) {
+                $("#WeeklyPackageImage").fileinput("upload");
+            }
+            else {
+                 customPhotoValidationFailed = false;
+            unblockUI();
+            }
+        });
+                    		$("#WeeklyPackageImage").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/WeeklyPackageImage',
+			dropZoneEnabled:false,
+			browseClass: "",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			maxFileSize: 10000,
+			allowedFileExtensions: ['jpg', 'png','jpeg'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            msgSizeTooLarge: 'CNIC Back photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+			});
+
+       $("select[multiple='multiple']").bsMultiSelect();
+         $('form').removeData('validator');
+            $('form').removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse('form');
+         var Ischecked = false;
+            var options = {
+                beforeSubmit: function (msg) {
+                    blockUI();
+                },
+                success: function (msg) {
+                    unblockUI();
+                    toastr.success("Package updated successfully.");
+                    SellerPackages();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastr.error("failed");
+                    unblockUI();
+                    $(".btn").prop("disabled", false);
+
+                }
+            };
+            $('#Weekly-form').ajaxForm(options);
+    })
+
+      function removePackageImage(id,show,hide) {
+        $('#' + id).val('');
+        $('#' + show).show();
+         $('#' + hide).hide();
+    }
+
+    function WeeklyNoOfMeals() {
+        for (var j = 1; j < 6; j++) {
+            $('.Mealtime-' + j).hide();
+        }
+        var v = $('#Package_NoOfMeals').val();
+        for (var i = 1; i <= v; i++) {
+            $('.Mealtime-' + i).show();
+        }
+    }
+
+</script>
+<script src="~/Content/New/js/uploadfile.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+    $('input[data-datepicker="date"]').datetimepicker({
+        format: "L",
+        minDate: date
+    });
+    if ('@Model.Package.PackageDate' != null) {
+    $('input[data-datepicker="date"]').val('@Model.Package.PackageDate.ToLongDateString()');
+    }
+</script>

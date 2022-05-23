@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>@ViewBag.Title</title>
+
+	@Scripts.Render("~/bundles/modernizr")
+
+	@Styles.Render("~/Content/ClientVendorStyle")
+	@Styles.Render("~/Content/ClientFontStyle")
+	@Styles.Render("~/Content/ClientStyle")
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/jqueryval")
+	@Scripts.Render("~/bundles/ClientVendorScript")
+	@Scripts.Render("~/bundles/ClientScript")
+
+</head>
+<body class="landing-page">
+
+
+    <!-- Header -->
+    @Html.Partial("_LayoutBuyerHeader")
+
+    <div>
+        @RenderBody()
+    </div>
+    <!-- Footer -->
+    @Html.Partial("_LayoutFooter")
+
+    @RenderSection("scripts", required: false)
+
+    @Html.Partial("_JoinAsSeller")
+
+
+    <script>
+        $(document).ready(function () {
+            setBaseURL(window.location.protocol);
+            // Page scrolling feature
+            $('a.page-scroll').bind('click', function (event) {
+                var link = $(this);
+                $('html, body').stop().animate({
+                    scrollTop: $(link.attr('href')).offset().top - 50
+                }, 500);
+                event.preventDefault();
+            });
+
+            $('body').scrollspy({
+                target: '.navbar-fixed-top',
+                offset: 80
+            });
+            $('.carousel').carousel({
+                interval: 5000,
+                pause: false
+            })
+
+
+
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            bu.SetDashboard('@ViewBag.username', '@ViewBag.photo','@ViewBag.description');
+            note.GetBuyerDashboardNotice();
+            $(window).scroll(function () { // check if scroll event happened
+                if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+
+                    $(".navbar-fixed-top").css("background-color", "#e8edf1"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+                    $('.logo').addClass('small-logo2');
+                } else {
+                    $(".navbar-fixed-top").css("background-color", "transparent"); // if not, change it back to transparent
+                    $('.logo').removeClass('small-logo2');
+                }
+            });
+        });
+    </script>
+
+    <script>
+        var url2 = window.location;
+        var txt = String(url2);
+        $(document).ready(function () {
+
+
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            if (txt.indexOf("#") > -1) {
+                return;
+            } else {
+                $('ul.nav a[href="' + url2 + '"]').parent().addClass('active');
+                $('ul.nav a').filter(function () {
+                    return this.href == url2;
+                }).parent().addClass('active');
+            }
+
+        });
+
+        $("ul.nav li a").click(function (e) {
+            e.preventDefault(); // prevent default link button redirect behaviour
+            var url = $(this).attr("href");
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            $(this).parent().addClass('active');
+            if (url.indexOf("#") > -1) {
+                return;
+            }
+            else { window.location = url; }
+        });
+
+        $(function () {
+            $(".btnClientLogout").click(function () {
+                $.ajax({
+                    url: baseURL + 'Home/LogOff',
+                    type: 'POST',
+                    cache: false,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data, textStatus, jqXHR) {
+             
+                        var response = null;
+                        if (data != null) {
+                            response = data;
+                            //if (response.error === "") {
+                            localStorage.setItem("LoggedOut", "1");
+
+                            window.location.href = baseURL + "/" + response.controller + "/" + response.action;
+
+                            //}
+                            //else {
+                            //	//add logic here to handle error
+                            //	window.location.href = "/" + response.controller;
+                            //}
+                        }
+                    },//end success
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        window.location.href = "/" + response.controller;
+                    }//end error
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
+

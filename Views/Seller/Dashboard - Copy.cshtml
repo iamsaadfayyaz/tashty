@@ -1,0 +1,606 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    //int id = (int)ViewData["profileID"];
+    int rating = ViewBag.rating;
+    int regID = ViewBag.regID;
+}
+<div class="containter-fluid maindashboard">
+    <div class="full-bg-img">
+        <img src="~/Content/images/logo/slider.jpg" alt="Snow" style="width:100%">
+        <div class="row btn-align ">
+
+            <a href="/Seller/AddEditDeal" class="btn">CREATE A DEAL</a>
+            <a href="/Seller/AddEditMeal" class="btn-2">Add ITEM</a>
+
+        </div>
+    </div>
+    <div class="bg-wite">
+
+    </div>
+    <div class="white-section ">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row">
+                    <div class="container">
+                        <div class="border-img">
+                            <img class="cstm-size" src="~/Content/images/icons/dishes.png">
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ">
+                    <div class="container">
+                        <h3 class="qz">QUIZNOS</h3>
+                        <P class="qz-txt"></P>
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-10 custom-pl">
+                <div class="row d-flex flex-row">
+                    <div class="">
+                        <div class="starrating risingstar  ">
+
+                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">
+                                <span class="rating-txt">4.5 ratings</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-row">
+                    <div class="">
+                        <div class="xtra-txt-p">
+                            <p class="qz-txt-2"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xtra-spc">
+
+                    </div>
+                </div>
+                <!-- <div class="row ">
+                    <nav class="custom-pl">
+                      <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Home</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Profile</a>
+
+                      </div>
+                    </nav>
+
+
+                </div> -->
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row d-flex justify-content-center ">
+                <nav>
+                    <div class="nav nav-tabs nav-fill custom-nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Dishes (5)</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meal Plans (0)</a>
+
+                    </div>
+                </nav>
+
+
+            </div>
+        </div>
+        <hr class="line-width">
+
+        <div class="second-wt-sec">
+            <div class="row d-flex justify-content-center">
+
+
+
+                <nav>
+                    <div class="nav custom-nav-tabs-2 nav-fill" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">All Products</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-profile" aria-selected="false">Vegetable</a>
+                        <a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-contact" aria-selected="false">Fruit</a>
+                        <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-about" aria-selected="false">Fruit Juic</a>
+                        <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-about" aria-selected="false">Dried</a>
+                        <a class="nav-item nav-link" id="nav-about-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-about" aria-selected="false">Other</a>
+                    </div>
+                </nav>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="top-space">
+                            <div class="row d-flex justify-content-center">
+
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+
+                                        <div class="ex-space"></div>
+
+                                    </div>
+
+                                </div>
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+                                        <div class="ex-space"></div>
+
+
+                                    </div>
+                                </div>
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+
+                                        <div class="ex-space"></div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                            <div class="row d-flex justify-content-center">
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+
+                                        <div class="ex-space"></div>
+
+                                    </div>
+
+                                </div>
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+                                        <div class="ex-space"></div>
+
+
+                                    </div>
+                                </div>
+                                <div class="card-pd">
+                                    <div class="mycard" style="width: 15rem;">
+                                        <div class="item">
+                                            <a href="#">
+                                                <span class="notify-badge">45 Mins</span>
+                                                <img src="~/Content/images/cards-images.jpg" class="card-img-top resize-img" alt="...">
+                                            </a>
+                                        </div>
+
+                                        <div class="mycard-body">
+                                            <div class="row d-flex justify-content-center">
+                                                <div class="col-8">
+                                                    <h5 class="mycard-title">Banoffee Pie<br><p class="ct-text-black">by<span class="ct-text-red"> The Dessert Coffee</span></p></h5>
+                                                </div>
+                                                <div class="col-4">
+                                                    <p class="card-text">Rs.<span class="s-card-text"> 375</span></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-body-2">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                        <div class="card-body-3">
+                                            <div class="row d-flex justify-content-center ">
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">350 grams</p>
+                                                </div>
+                                                <div class="col">
+                                                    <img src="~/Content/images/micro-2.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Dessert</p>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <!-- <div class="mycard-body">
+                                           <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                              <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label><p class="text-border">Earliest Delivery: Friday at 1:00 pm</p></div>
+                                        </div> -->
+
+                                        <div class="ex-space"></div>
+
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+@*<section>
+        <div class="container sectionspc">
+            <div class="col-md-4 col-sm-4">
+                <div class="seller-leftbox text-center">
+                    <div class="img-circlebig"> <img src="@Url.Content("~/Content/images/default/150x150-profilePic.jpg")" id="imgPhoto" class="img-circle m-b" alt="logo"></div>
+                    <div class="stats-label text-color"> <span id="spnDisplayTitle" class="font-extra-bold font-uppercase"></span></div>
+            @if (rating == 0)
+             {<text>
+                    <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+             </text>
+             }
+            else if (rating == 1)
+             {<text>
+                   <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+             </text>
+             }
+            else if (rating == 2)
+            {<text>
+                    <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                </text>
+            }
+            else if (rating == 3)
+            {<text>
+                    <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span> <span class="fa fa-star"></span>
+                </text>
+            }
+            else if (rating == 4)
+            {<text>
+                    <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star"></span>
+                </text>
+            }
+            else if (rating == 5)
+            {<text>
+                    <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span> <span class="fa fa-star checked"></span>
+                </text>
+            }
+
+                    <p class="p-m">
+                        <span id="spnDescription">
+                            <br />
+                            <small></small>
+                        </span>
+                    </p>
+                </div>
+            </div>
+            <div class="col-md-8 col-sm-8">
+                <h2 class="text-left">Meal Items</h2>
+                <div class="row product-container">
+                    <div id="meal-items">
+
+                    </div>
+               @if (regID == 4)
+               {
+                    <text>
+                            <div class="col-md-12 text-right"><a href="@Url.Content("~/Seller/AddEditMeal")"  style="cursor:pointer!important;" class="btn btn-success btn-lg">Add Meal</a></div>
+                    </text>
+               }
+               else
+               {
+                   if (regID == 6)
+                   {
+                           <text>
+                                <div class="col-md-12 text-right"><a href="#" title="Please complete your profile!"  style="cursor:not-allowed!important;" class="btn btn-success btn-lg">Add Meal</a></div>
+                           </text>
+                   }
+                   else
+                   {
+                             <text>
+                            <div class="col-md-12 text-right"><a href="#" title="Inprogress registeration process!"   style="cursor:not-allowed!important;" class="btn btn-success btn-lg">Add Meal</a></div>
+                             </text>
+                   }
+               }
+                </div>
+                <h2 class="text-left">Deal Items</h2>
+                <div class="row product-container">
+                    <div id="deal-items">
+
+                    </div>
+                    @if (regID == 4)
+                    {
+                        <text>
+                            <div class="col-md-12 text-right"><a href="@Url.Content("~/Seller/AddEditDeal")"  style="cursor:pointer!important;"  class="btn btn-info btn-lg">Add Deal</a></div>
+                        </text>
+                    }
+                    else
+                    {
+                        if (regID == 6)
+                        {
+                            <text>
+                                <div class="col-md-12 text-right"><a href="#" title="Please complete your profile!"  style="cursor:not-allowed!important;" class="btn btn-info btn-lg">Add Deal</a></div>
+                            </text>
+                        }
+                        else
+                        {
+                            <text>
+                                <div class="col-md-12 text-right"><a href="#" title="Inprogress registeration process!" style="cursor:not-allowed!important;" class="btn btn-info btn-lg">Add Deal</a></div>
+                            </text>
+                        }
+                    }
+
+
+                </div>
+            </div>
+        </div>
+    </section>*@
+<script>
+    $(document).ready(function ()
+    {
+        Seller.SetDashboard('@ViewBag.username', '@ViewBag.photo', '@ViewBag.displayTitle', '@ViewBag.description', @regID);
+        Seller.GetDashboardMeals();
+        Seller.GetDashboardDeals();
+        note.GetSellerDashboardNotice();
+
+    });
+
+</script>

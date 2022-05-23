@@ -1,0 +1,128 @@
+.maindashboard-cust{padding: 4% 0%;
+  
+    border: 30px solid #F2F6F9;
+    background-color: white;}
+.orderhistory-table {
+	color:#49484D;
+	font-size: 0.8rem;
+	background-color: white;
+}
+.orderhistory-table tbody tr:hover{
+	box-shadow: 0px 0px 10px 10px rgba(5, 5, 5, 0.05)
+}
+.orderhistory-table tbody tr td {
+	font-size: 12px;
+	vertical-align:middle;
+}
+.table-cells-dashboard {
+	background-color: white;
+}
+.row .top-heading-dashboard {
+	display: block !important;
+}
+.top-heading-dashboard h2 {
+	font-weight: 700;
+	padding: 2.5% .5% .5% 2.5%;
+}
+.drop-dashboard {
+	padding: 2.5% 2.5% 0.1% 0.5%;
+}
+.user-image-dashboard{
+	width: 40px;
+    height: 40px;
+    border-radius: 50px;
+    padding: 4px;
+}
+select.form-control.or-history {
+	background-color: white !important;
+	width: 165px;
+ }
+.dr-db {
+	padding: 5%;
+}
+span.label.status-cancelled {
+	display: block;
+	color: white;
+	background-color: #FA3148;;
+	padding: 5px;
+    border-radius: 15px;
+}
+span.label.status-delivered {
+	display: block;
+	color: white;
+	background-color: #32B965;
+	padding: 5px;
+    border-radius: 15px;
+}
+span.label.status-hold {
+	display: block;
+	color: white;
+	background-color: #FEAE3B;
+	padding: 5px;
+    border-radius: 15px;
+}
+span.label.status-pending {
+	display: block;
+	color: white;
+	background-color: #DA4039;
+	padding: 5px;
+    border-radius: 15px;
+}
+span.label.pg-no {
+	display: block;
+    padding: 6px 7px ;
+    border-radius: 50%;
+    background-color: white;
+    margin: 4px;
+    color: #ACACAC;
+    font-size: 11px;
+    box-shadow: 0px 0px 1px 0.5px rgba(5, 5, 5, 0.05)
+}
+span.label.pg-no:hover {
+	color: white;
+	background-color: #6EA744;
+	cursor: pointer;
+}
+.clr-gr-dashboard{
+	color: #ACACAC
+}
+.clr-pink-dashboard{
+	color: #F23755;
+	font-weight: bold;
+}
+.clr-black {
+	color: black
+}
+
+.page-number-dashboard {
+	float: right;
+	padding:10px;
+	padding-right: 50px;
+}
+.pr-bk-icon {
+	padding: 5px;
+}
+.pr-bk-icon:hover {
+	cursor: pointer;
+}
+@media only screen and (min-width:768px) and (orientation : portrait)  {
+	span.label.status-cancelled {
+		font-size: 8px;
+		padding: 4px;
+		
+
+	}
+	span.label.status-delivered {
+		font-size: 8px;
+		padding: 4px;
+	}
+	span.label.status-hold {
+		font-size: 8px;
+		padding: 4px;
+	}
+	span.label.status-pending {
+		font-size: 8px;
+		padding: 4px;
+	}
+
+}

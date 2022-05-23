@@ -1,0 +1,146 @@
+﻿<div id="carousel" class="carousel slide carousel-fade" data-ride="carousel">
+	<div class="carousel-caption">
+		<div class="container">
+			<div class="col-lg-12">
+                <h1>
+                    Order Affordable & <span style="color:#85cb15">‘Tashty’ </span>Homemade  
+                    Food from a <span style="color:#85cb15;">Variety </span> of Menus.
+                </h1>
+				<p style="color: #fff;">
+					Tashty connects foodies with cooks, allowing them to buy and sell homemade food within minutes.
+				</p>
+				
+				
+				<div class="col-sm-7 hpanel m-t-md  homesearch">
+                    <form id="frmAddsearch" action="#">
+                        <div class="input-group panel-body no-padding">
+                            <input class=" form-control " autofocus  type="text" id="txtAutocomplete" @*onFocus="geolocate()"*@ placeholder="Enter your location (postcode, area, or street) " />
+                            <span class="input-group-btn  p-sm">
+                                <svg width="23" height="23" viewBox="0 0 23 23">
+                                    <g fill="none" fill-rule="evenodd">
+                                        <path stroke="#353534" d="M11.5 22.5v-2.986l.471-.028a8.001 8.001 0 0 0 7.515-7.515l.028-.471H22.5h-2.986l-.028-.471a8.001 8.001 0 0 0-7.515-7.515l-.471-.028V.5v2.986l-.471.028a8.001 8.001 0 0 0-7.515 7.515l-.028.471H.5h2.986l.028.471a8.001 8.001 0 0 0 7.515 7.515l.471.028V22.5z"></path>
+                                        <circle cx="11.5" cy="11.5" r="4" stroke="#353534"></circle>
+                                        <circle cx="11.5" cy="11.5" r="1" fill="#444548"></circle>
+                                    </g>
+                                </svg>
+                            </span> <span class="input-group-btn">
+                        <input type="submit" class="btn btn-primary2 btn-lg p-sm" id="btnAddressSearch" value="Search"/>
+                            </span>
+                        </div>
+                    </form>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+	<!-- Carousel items -->
+	<div class="carousel-inner">
+		<div class="active item"><img src="@Url.Content("~/Content/images/newslider-01.jpg")" /></div>
+		<div class="item"><img src="@Url.Content("~/Content/images/newslider-02.jpg")" /></div>
+		<div class="item"><img src="@Url.Content("~/Content/images/newslider-03.jpg")" /></div>
+	</div>
+</div>
+
+<script>
+	var placeSearch, autocomplete;
+	var componentForm = {
+		street_number: 'short_name',
+		route: 'long_name',
+		locality: 'long_name',
+		administrative_area_level_1: 'short_name',
+		country: 'long_name',
+		postal_code: 'short_name'
+	};
+
+	function initAutocomplete() {
+		// Create the autocomplete object, restricting the search to geographical
+		// location types.
+		////autocomplete = new google.maps.places.Autocomplete(
+		////	/** type {!HTMLInputElement} */
+		////	(document.getElementById('autocomplete')),
+		////	{ types: ['geocode'] });
+
+		////// When the user selects an address from the dropdown, populate the address
+		////// fields in the form.
+		////autocomplete.addListener('place_changed', fillInAddress);
+	}
+
+	function geolocate() {
+		if (navigator.geolocation) {
+			navigator.geolocation.getCurrentPosition(function (position) {
+				var geolocation = {
+					lat: position.coords.latitude,
+					lng: position.coords.longitude
+				};
+				var circle = new google.maps.Circle({
+					center: geolocation,
+					radius: position.coords.accuracy
+				});
+				autocomplete.setBounds(circle.getBounds());
+			});
+		}
+	}
+
+	function fillInAddress() {
+		// Get the place details from the autocomplete object.
+		var place = autocomplete.getPlace();
+
+		//for (var component in componentForm) {
+		//	//document.getElementById(component).value = '';
+		//	//document.getElementById(component).disabled = false;
+		//}
+
+		// Get each component of the address from the place details
+		// and fill the corresponding field on the form.
+		for (var i = 0; i < place.address_components.length; i++) {
+			var addressType = place.address_components[i].types[0];
+			if (componentForm[addressType]) {
+				var val = place.address_components[i][componentForm[addressType]];
+				//document.getElementById(addressType).value = val;
+				//alert(val);
+			}
+		}
+	}
+
+	$(document).ready(function () {
+
+		
+		//$('.owl-carousel').owlCarousel({
+
+		//	loop: true,
+		//	margin: 10, autoplay: true,
+		//	responsiveClass: true,
+		//	responsive: {
+		//		0: {
+		//			items: 1,
+		//			nav: true
+		//		},
+		//		600: {
+		//			items: 2,
+		//			nav: true
+		//		},
+		//		1000: {
+		//			items: 3,
+		//			nav: true,
+		//			loop: true,
+		//			margin: 20
+		//		}
+		//	}
+		//})
+
+
+    });
+
+    $('#btnAddressSearch').on('click', function () {
+       
+        var address = $('#txtAutocomplete').val();
+        localStorage.setItem("SearchText", address);
+        var url = baseURL + 'Home/SearchResult/' + profileID;
+        window.location = url;
+        return false;
+    });
+
+
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBQbuCVGvHpFrHtOtk0Y6_P9ffKvK9YyZo&libraries=places&callback=initAutocomplete" async defer></script>

@@ -1,0 +1,292 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Contact Us";
+    Layout = "~/Views/Shared/_LayoutStaticPages.cshtml";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    bool isSeller = ViewBag.isSeller;
+
+}
+@if (profileID == 0)
+{
+    @section headerSection {
+        @Html.Partial("_LayoutStaticHeader")
+    }
+}
+else
+{
+    @section headerSection {
+        @Html.Partial("_LayoutInUserHeader")
+    }
+}
+<section class="how-overlay2 bg-img1" style="background-image: url(~/Content/images/contact-us.jpg);">
+    <div class="container">
+        <div class="txt-center p-t-160 p-b-165">
+
+
+
+        </div>
+    </div>
+</section>
+
+<!-- Form Contact -->
+<section class="bg0 p-t-100 p-b-100">
+    <div class="container">
+        <div class="size-a-1 flex-col-c-m p-b-70">
+            <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14">
+                Get In Touch
+
+                <div class="how-pos1">
+                    <img src="~/Content/images/icons/symbol-02.png" alt="IMG">
+                </div>
+            </div>
+
+            <h3 class="txt-center txt-l-101 cl3 respon1">
+                Leave us a message!
+            </h3>
+        </div>
+
+        <form id="contact-form" class="validate-form" method="post" action="includes/contact-form.php" name="contact">
+            <div class="row">
+                <div class="col-sm-6 p-b-30">
+                    <div class="validate-input" data-validate="Name is required">
+                        <input class="txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20" type="text" name="name" placeholder="Your Full Name *">
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    <div class="validate-input" data-validate="Valid email is: ex@abc.xyz">
+                        <input class="txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20" type="text" name="email" placeholder="Your Email *">
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    <div>
+                        <input class="txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20" type="text" name="address" placeholder="Your Address">
+                    </div>
+                </div>
+
+                <div class="col-sm-6 p-b-30">
+                    <div class="validate-input" data-validate="Phone is required">
+                        <input class="txt-s-101 cl3 plh1 size-a-46 bo-all-1 bocl15 focus1 p-rl-20" type="text" name="phone" placeholder="Your Phone *">
+                    </div>
+                </div>
+
+                <div class="col-12 p-b-30">
+                    <div class="validate-input" data-validate="Message is required">
+                        <textarea class="txt-s-101 cl3 plh1 size-a-47 bo-all-1 bocl15 focus1 p-rl-20 p-tb-10" name="msg" placeholder="Your Message"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-c p-t-10">
+                <button class="btn-send flex-c-m txt-s-103 cl0 bg10 size-a-2 hov-btn2 trans-04">
+                    Send us now
+                </button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+
+<!-- Ccontact -->
+<section class="container p-t-0 p-b-45">
+    <div class="row">
+        <div class="col-sm-6 col-lg-3 p-b-50">
+
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+            <div class="flex-col-c-m p-rl-25">
+                <div class="wrap-pic-max-s p-b-25">
+                    <img src="~/Content/images/icons/icon-phone-03.png" alt="IMG">
+                </div>
+
+                <h5 class="txt-m-114 cl3 txt-center p-b-9">
+                    Phone
+                </h5>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    (426) 460 8668
+                </span>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    (317) 799 7654
+                </span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+            <div class="flex-col-c-m p-rl-25">
+                <div class="wrap-pic-max-s p-b-25 p-t-5">
+                    <img src="~/Content/images/icons/icon-mail-03.png" alt="IMG">
+                </div>
+
+                <h5 class="txt-m-114 cl3 txt-center p-b-9">
+                    Emaill contact
+                </h5>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    kevin.price@example.com
+                </span>
+
+                <span class="txt-s-101 cl6 txt-center">
+                    ryanpatel@example.com
+                </span>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-lg-3 p-b-50">
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<!-- Subscribe -->
+<section class="sec-subscribe bg13 p-t-65 p-b-65">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-5 p-tb-15">
+                <div class="h-full flex-col-m">
+                    <h4 class="txt-m-110 cl3 p-b-4 txt-center">
+                        Subscribe Newsletter.
+                    </h4>
+
+                    <p class="txt-s-101 cl6 text-center">
+                        Get e-mail updates about our latest shop and special offers.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-7 p-tb-15">
+                <form class="flex-w flex-m h-full">
+                    <input class="size-a-6 txt-s-106 cl6 plh0 p-rl-30 w-full-sm" type="text" name="email" placeholder="Your email address">
+                    <button class="btn-border-right bg10 size-a-5 txt-s-107 cl0 p-rl-15 trans-04 hov-btn2 mt-4 mt-sm-0">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section>
+
+        <div style="background-image:url(@Url.Content("~/Content/images/top-headerbg.jpg")); padding: 11% 0;" class="text-center">
+            <h2 style="color: #fff">Contact Us</h2>
+        </div>
+        <div class="container sectionspc">
+
+            <div class="col-md-6">
+                <h2>Customer Service Enquiries</h2>
+                <p class="font18">
+                    Have questions about your order or anything else? <br /><br>
+                    Send us an email directly at<br />
+                    <i class="pe-7s-mail-open-file"></i> <a href="mailto:support@tashty.com" class="text-info">support@tashty.com</a> or send us a message via the contact form.
+                    <br><br>
+                    <div style="display: none;">or call us on <br /><i class="pe-7s-call"></i><strong class="text-success"> +44 203 699 9977</strong></div>
+                </p>
+
+                <h4>Want to sell food on Tashty?</h4>
+
+
+                <p>
+                    Contact us with your complete details at <a href="mailto:support@tashty.com" class="text-info">support@tashty.com</a> and let us know what you can bring to the table (include information about your cooking experience, skills, and best food items).
+
+                    Please note that all orders are placed online via our marketplace. If you want to order food, you can sign in and start browsing available menus near your location.
+                </p>
+                <hr />  <p>Please note we don't currently accept orders over the phone - so if you'd like to place an order, please place it online. </p>
+            </div>
+            <div class="col-md-6">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <div class="page-header" style="margin: 0;">
+                            <h3 class="font-bold">Contact Us</h3>
+                            <p>We'll do Our Best to get back to you as soon as possible</p>
+                        </div>
+                        <form action="#" id="contactfrm">
+                            <div class="row">
+                                <div class="form-group col-md-12">
+                                    <label>Your Name</label>
+                                    <input type="text" id="txtName" value="" class="form-control" name="txtName" required />
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Email Address</label>
+                                    <input value="" id="txtContactUsEmail" type="email" class="form-control" name="txtEmail" required />
+                                </div>
+                                <div class="form-group col-lg-6">
+                                    <label>Phone Number</label>
+                                    <input type="tel" value="" id="txtPhone" pattern="^[0-9-+s()]*$" class="form-control" name="txtPhone" required />
+                                </div>
+                                <div class="form-group col-md-12">
+                                    <label>Message</label>
+                                    <textarea class="form-control" id="txtMsg" required></textarea>
+                                </div>
+                            </div>
+                            <div class="text-left">
+                                <button class="btn btn-success btn-block btn-lg has-spinner" type="submit" id="btnSendEmail"><span class="spinnerIn"><i class="fa fa-refresh fa-spin"></i></span>Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script type="text/javascript">
+
+
+        document.getElementById("btnSendEmail").addEventListener("click", function () {
+            document.getElementById("contactfrm").className = "submitted";
+        });
+
+        $("#contactfrm").submit(function (e) {
+            e.preventDefault();
+            updateSubmitButtonText("Processing","btnSendEmail","submit");
+
+            var phone = _get("txtPhone");
+            var name = _get("txtName");
+            var email = _get("txtContactUsEmail");
+            var msg = _get("txtMsg");
+            sendEmailToTashty(phone, name, email, msg)
+        });
+
+
+        function sendEmailToTashty(phone,name,email,msg) {
+
+            var parameters = { 'phone': String(phone), 'name': String(name), 'email': String(email), 'reply': String(msg)};
+                $.ajax({
+                    url: '@Url.Content("~/Home/SendContactUsEmail")', //baseURL + 'home/SetCountryData',
+                    type: 'POST',
+                    data: JSON.stringify(parameters),
+                    cache: false,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data, textStatus, jqXHR) {
+
+                        sleep(10000);
+                        updateSubmitButtonText("submit", "btnSendEmail", "submit");
+                        var response = null;
+                        if (data) {
+                            if (data.obj) {
+                                var urls = '@Url.Content("~/Home/Index")';
+                                window.location = urls;
+                                toastr.success("Your message has been sent successfully!")
+                            }
+                        }
+                        else { toastr.error("Your message has not been sent try again!")}
+                    },//end success
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        sleep(10000);
+                        updateSubmitButtonText("submit", "btnSendEmail", "submit");
+                        errorCLog("contact-us :" + errorThrown + textStatus);
+                    }//end error
+                });
+            }
+    </script>*@

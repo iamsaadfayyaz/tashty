@@ -1,0 +1,43 @@
+﻿form.submitted input:required:invalid {
+    border: 1px solid #e64637 !important;
+    border-radius: 4px !important;
+}
+
+form.submitted textarea:required:invalid {
+    border: 1px solid #e64637 !important;
+    border-radius: 4px !important;
+}
+
+form.submitted select:required:invalid {
+    border: 1px solid #e64637 !important;
+    border-radius: 4px !important;
+}
+
+
+:required {
+    background: url(../images/star-13-16.ico) no-repeat;
+    background-size: 5px 5px;
+    background-position: right top;
+}
+
+.spinnerIn {
+    display: inline-block;
+    opacity: 0;
+    max-width: 0px;
+    -webkit-transition: opacity 0.25s, max-width 0.45s;
+    -moz-transition: opacity 0.25s, max-width 0.45s;
+    -o-transition: opacity 0.25s, max-width 0.45s;
+    transition: opacity 0.25s, max-width 0.45s;
+    /* Duration fixed since we animate additional hidden width */
+}
+
+.has-spinner.active {
+    cursor: progress;
+}
+
+    .has-spinner.active .spinnerIn {
+        opacity: 1;
+        /*max-width: 100px;*/
+        padding-right: 20px
+        /* More than it will ever come, notice that this affects on animation duration */
+    }

@@ -1,0 +1,1040 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    string FbAppID = ViewBag.fbAppID;
+    string FbAppKey = ViewBag.fbAppKey;
+    string gglAppID = ViewBag.gglAppID;
+    string gglAppKey = ViewBag.gglAppKey;
+    int countryID = ViewBag.CountryID;
+    List<Entity.Seller> sellers = ViewBag.PopularSellers;
+    List<Entity.Meal> Meals = ViewBag.PopularFoods;
+    int count = 1;
+    Entity.Deal TopDeal = ViewBag.Deal;
+    string endTime = "11:59 PM";
+    TimeSpan DealTime = DateTime.Parse(endTime).Subtract(DateTime.Now);
+}
+@*<link href="~/Content/New/css/glider.css" rel="stylesheet" />*@
+
+<style>
+   
+
+</style>
+
+@*<style type="text/css">
+
+    .glider-contain {
+        width: 90%;
+       
+        margin: 0 auto;
+    }
+    .glider-track {
+        transform: translateZ(0);
+        width: 100%;
+        
+       
+        display: flex;
+        z-index: 1;
+    }
+
+    .glider-slide {
+        min-height: 150px;
+    }
+
+        .glider-slide img {
+            width: 100%;
+        }
+</style>*@
+<!-- Slider -->
+<div class="header-row desktop-header">
+    @*<div class="glider-contain">
+        <div id="glider" class="glider">
+            <div> <img src="~/Content/images/logo/slider-01.jpg" alt="slider-001"></div>
+            <div> <img src="~/Content/images/logo/slider-1.jpg" alt="slider-002"></div>
+            <div> <img src="~/Content/images/logo/image-6.jpg" alt="slider-003"></div>
+
+
+        </div>
+
+        <button aria-label="Previous" class="glider-prev">«</button>
+        <button aria-label="Next" class="glider-next">»</button>
+        <div role="tablist" class="dots"></div>
+    </div>*@
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+             Indicators
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+
+             The slideshow
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Content/images/logo/slider-01.jpg" alt="slider-001">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/images/logo/slider-1.jpg" alt="slider-002">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/images/logo/image-6.jpg" alt="slider-003">
+                </div>
+            </div>
+
+             @*Left and right controls*@
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>
+
+    <div class="row d-flex justify-content-center">
+        @*<h3 class="custom-h3-header">What are you feeling <br> like<span class="h3-red"> eating</span> today?</h3>*@
+        <h3 class="custom-h3-header">What are you feeling like<span class="h3-red"> eating</span> today?</h3>
+        <div class="row main">
+
+            <!-- Actual search box -->
+
+
+            <div class="col-sm-4 form-group has-search barlocation ">
+                <div class="p-10">
+                    <span class="fa form-control-feedback"></span>
+                    <input type="text" class="form-control inputbar SearchQuery" placeholder="Try homemade food like biryani or spaghetti...">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary  clicksearch" type="button" onclick="MainSearch(1)">
+                    SEARCH
+                </button>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+<!--mobile header start  -->
+<div class="header-row mobile-header">
+
+
+    <div id="demo" class="carousel slide" data-ride="carousel">
+
+
+        <div class="row d-flex justify-content-center order-position hero-section-content">
+
+            <h3 class="order-h3-header">What are you feeling like <span class="h3-red">eating</span> today?</h3>
+        </div>
+        <div class="row order-position-2 hero-section-content">
+
+            <!-- Actual search box -->
+
+
+            <div class="col-sm-4 form-group has-search barlocation ">
+                <div class="p-10">
+                    @*<span class="fa fa-map-marker form-control-feedback" ></span>*@
+                    <input type="text" class="form-control inputbar SearchQueryMobile" placeholder="Try homemade food like biryani or spaghetti...">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary order-btn clicksearch" type="button" onclick="MainSearchMobile()">
+                        SEARCH
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <!-- Indicators -->
+        <ul class="carousel-indicators">
+            <li data-target="#demo" data-slide-to="0" class="active"></li>
+            <li data-target="#demo" data-slide-to="1"></li>
+            <li data-target="#demo" data-slide-to="2"></li>
+        </ul>
+
+        <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/Content/images/logo/slider-01.jpg" alt="slider-1">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/images/logo/slider-1.jpg" alt="slider-2">
+            </div>
+            <div class="carousel-item">
+                <img src="~/Content/images/logo/image-6.jpg" alt="slider-3">
+            </div>
+        </div>
+
+        <!-- Left and right controls -->
+        <a class="carousel-control-prev mobile-display" href="#demo" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span>
+        </a>
+        <a class="carousel-control-next mobile-display" href="#demo" data-slide="next">
+            <span class="carousel-control-next-icon"></span>
+        </a>
+
+    </div>
+
+
+</div>
+<!-- box shadow row -->
+<div id="MainDiv">
+    <div class="container conta">
+        <div class="row discover" style="background-color: white;">
+
+            <div class="row ">
+
+                <div class="col-sm iconsrow" style="border-left: none !important;">
+                    <img src="~/Content/images/logo/color-1.png" alt="discover">
+                    <h6> Discover </h6>
+                    <p> Can't decide what to eat? We got biryani, pulao, karahi, burgers and whatnot. Discover delicious and healthy food cooked by homechefs across Karachi.</p>
+                </div>
+                <div class="col-sm iconsrow">
+                    <img src="~/Content/images/logo/color-2.png" alt="order">
+                    <h6> Order </h6>
+                    <p style="color: black;"> What's for lunch? You order, we deliver. Simply add all your favourite dishes to your shopping cart and place your order.</p>
+                </div>
+                <div class="col-sm iconsrow">
+                    <img src="~/Content/images/logo/color-3.png" alt="enjoy">
+                    <h6> Enjoy </h6>
+                    <p> Sit back, relax and enjoy a delicious homemade meal delivered right to your doorstep.</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- About us card -->
+    <section id="about-us">
+        <div class="row  justify-content-center cardbg">
+            <div class="card" style="margin:8% 30%; ">
+
+                <div class="card-body bg-ab-spoon">
+                    <h2 class="card-title">About Us</h2>
+                    <img src="~/Content/images/logo/title_sepp_1.png" alt="about-us" style="width:100px">
+                    <p class="card-text se-1 text-center"><strong>Just by being out, you shouldn't miss on the taste of home.</strong></p>
+                    <p class="card-text se-2 text-center clr-gray"> Tashty was founded on the belief that nothing beats the taste of home. Restraunts and Cafes may have a varied menu, but their menu items almost always taste the same. If you are ordering the same burger everyday, you'll likely experience the same taste everyday. Tashty aims to end not only that but to also give you the alternative to a healthy lifestyle. </p>
+                    <div class="btn-r-more">
+                        <!-- <button class="btnr"><span class="spanbuttonread">Read More</span></button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- MILE STONE -->
+    <div class="sec-number parallax100 p-tb-3-18 bg-prallax">
+        <div class="container ">
+            <div class="flex-w flex-str">
+                <div class="size-w-2 flex-col-c-m p-rl-15 p-tb-25 respon8 how-line3">
+                    <div class="m-b-15">
+                        <img src="~/Content/images/icons/symbol-26.png" alt="symbol-26" class="w-h-65">
+                    </div>
+
+                    <span class="txt-center txt-l-111 cl0 p-b-7 counter txt-l-24p ">1356</span>
+
+                    <span class="txt-center txt-m-501 cl0 fs-15">
+                        <strong>Happy Tummies</strong>&nbsp;&nbsp;
+                    </span>
+                </div>
+
+                <div class="size-w-2 flex-col-c-m p-rl-15 p-tb-25 respon8 how-line3">
+                    <div class="m-b-15">
+                        <img src="~/Content/images/icons/symbol-27.png" alt="symbol-27" class="w-h-65">
+                    </div>
+
+                    <span class="txt-center txt-l-111 cl0 p-b-7 counter txt-l-24p ">750</span>
+
+                    <span class="txt-center txt-m-501 cl0 fs-15">
+                        <strong>Chefs Working</strong>
+                    </span>
+                </div>
+
+                <div class="size-w-2 flex-col-c-m p-rl-15 p-tb-25 respon8 how-line3">
+                    <div class="m-b-15">
+                        <img src="~/Content/images/icons/symbol-28.png" alt="symbol-28" class="w-h-65">
+                    </div>
+
+                    <span class="txt-center txt-l-111 cl0 p-b-7 counter txt-l-24p ">289</span>
+
+                    <span class="txt-center txt-m-501 cl0 fs-15">
+                        <strong>Customer Reviews</strong>
+                    </span>
+                </div>
+
+                <div class="size-w-2 flex-col-c-m p-rl-15 p-tb-25 respon8 how-line3">
+                    <div class="m-b-15">
+                        <img src="~/Content/images/icons/symbol-29.png" alt="symbol-29" class="w-h-65">
+                    </div>
+
+                    <span class="txt-center txt-l-111 cl0 p-b-7 counter txt-l-24p ">102</span>
+
+                    <span class="txt-center txt-m-501 cl0 fs-15">
+                        <strong>Deliveries</strong>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Product -->
+    <!-- Product -->
+    <section id="featuredchefs">
+        <div class="sec-product bg0 p-t-80">
+            <div class="container">
+                <div class="size-a-1 flex-col-c-m p-b-48">
+                    <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14 f-s-17">
+                        Featured Chefs
+
+                        <div class="how-pos1">
+                            <img src="~/Content/images/icons/symbol-02.png" alt="symbol-02" class="h17p">
+                        </div>
+                    </div>
+
+                    <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p">
+                        OUR BEST CHEFS
+                    </h3>
+                    <!-- <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p f-s-14">
+                        OUR BEST CHEFS
+                    </h3> -->
+
+                </div>
+
+                <div class="container carddd">
+                    <div class="row main-row-pl-r">
+                        @for (int i = 0; i < sellers.Count; i++)
+                        {
+                            var filePath = "Uploads/Logo/" + sellers[i].logo;
+                            var absolutePath = System.Web.HttpContext.Current.Server.MapPath("~/" + filePath);
+                            if (System.IO.File.Exists(absolutePath))
+                            {
+                                @Html.Raw("<div class='columnn imagecardx' style='background-image: url(~/Uploads/Logo/" + @sellers[i].logo + "'>");
+                            }
+                            else
+                            {
+                                @Html.Raw("<div class='columnn imagecardx'>");
+                            }
+                            <span class="badge badge-dark">  @sellers[i].SellerMeals.Count Dishes</span>
+                            <div class="cardd cr-1">
+                                <img src="~/Content/images/dish-p.png" alt="dish-p" class="imagecard">
+                                <div class="arrow-right">
+                                    <span>Great<br>Cheff</span>
+                                </div>
+                                <h3>@sellers[i].displayTitle</h3>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="starrating risingstar d-flex justify-content-center star-0p">
+                                            <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                            <p class="rating-text-w">&nbsp;4.5 - 86 Ratings</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            @Html.Raw("</div>");
+                        }
+                    </div>
+                </div>
+
+
+
+
+            </div>
+    </section>
+
+
+
+    <div class="col viewmorebutton text-center txt-s-103 flex-c-m size-a-2 .mybuttontimer bocl11 cl14">
+        <a href="#featured-chefs" class="mybuttontimer flex-c-m txt-s-103 cl14 size-a-2 how-btn1 bo-all-1 bocl11 hov-btn2 trans-04" onclick="DiscoveredChef()">
+            VIEW MORE
+            <span class="lnr lnr-chevron-right m-l-7"></span>
+            <span class="lnr lnr-chevron-right"></span>
+        </a>
+    </div>
+
+    @if (TopDeal != null && TopDeal.dealID > 0)
+    {
+        <div class="row">
+            <div id="demo1" class="carousel slide" data-ride="carousel">
+
+
+                <ul class="carousel-indicators">
+                    <li data-target="#demo1" data-slide-to="0" class="active"></li>
+                    <li data-target="#demo1" data-slide-to="1"></li>
+                    <li data-target="#demo1" data-slide-to="2"></li>
+                </ul>
+
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="img-h-m" src="~/Uploads/Product/@TopDeal.FolderID/@TopDeal.gallery.filename" alt="deal-day-1" width="1100" height="500">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-h-m" src="~/Uploads/Product/@TopDeal.FolderID/@TopDeal.gallery.filename" alt="deal-day-2" width="1100" height="500">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="img-h-m" src="~/Uploads/Product/@TopDeal.FolderID/@TopDeal.gallery.filename" alt="deal-day-3" width="1100" height="500">
+                    </div>
+                </div>
+
+
+                <a class="carousel-control-prev " href="#demo1" data-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next " href="#demo1" data-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </a>
+            </div>
+            <!-- <div id="myCarousel" class="carousel slide" data-ride="carousel">
+
+              <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+              </ol>
+
+
+              <div class="carousel-inner">
+                <div class="item active ">
+                  <img class="img-h-m" src="~/Content/images/deal-day-1.jpg" alt="deal 1" style="width:100%;">
+                </div>
+
+                <div class="item">
+                  <img class="img-h-m" src="~/Content/images/deal-day-2.jpg" alt="deal 2" style="width:100%;">
+                </div>
+
+                <div class="item">
+                  <img class="img-h-m" src="~/Content/images/deal-day-3.jpg" alt="deal 3" style="width:100%;">
+                </div>
+              </div>
+
+
+              <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+              </a>
+            </div> -->
+
+            <div class="custom-position">
+
+
+                <div class="col-sm-8 contenttimer p-t-100">
+                    <div class="txt-m-201 cl10 how-pos1-parent m-b-14 f-s-17 f-s-17-left">
+                        Best Price For You
+                        <div class="how-pose">
+                            <img src="~/Content/images/icons/symbol-02.png" alt="symbol-02" class="h17p">
+                        </div>
+                        <div class="col-sm-1">
+
+                        </div>
+                    </div>
+                    <div class="timerdiv">
+                        <h3> DEAL OF THE DAY </h3>
+                        <p id="one"><strong> @TopDeal.title</strong></p>
+                        <p id="two"> <b>  Rs @TopDeal.CalculatedByMeal <span style="color:#81b03f"> Now Only Rs @TopDeal.Price</span></b></p>
+                        <p id="three">
+                            @TopDeal.description
+                        </p>
+                        <div class="row flex-w flex-c-m coutdown100 p-tb-32" data-year="0" data-month="0" data-date="@DealTime.Days" data-hours="@DealTime.Hours" data-minutes="@DealTime.Minutes" data-seconds="@DealTime.Seconds" data-timezone="auto">
+                            <div class="flex-col-c-m how1 p-b-5 m-rl-10">
+                                <span class="txt-l-102 cl6 days fs25p">@DealTime.Days</span>
+
+                                <span class="txt-m-106 cl6 fs13p b">
+                                    days
+                                </span>
+                            </div>
+
+                            <div class="flex-col-c-m how1 p-b-5 m-rl-10 ">
+                                <span class="txt-l-102 cl6 hours fs25p">@DealTime.Hours</span>
+
+                                <span class="txt-m-106 cl6 fs13p b">
+                                    hours
+                                </span>
+                            </div>
+
+                            <div class="flex-col-c-m how1 p-b-5 m-rl-10 ">
+                                <span class="txt-l-102 cl6 minutes fs25p">@DealTime.Minutes</span>
+
+                                <span class="txt-m-106 cl6 fs13p b">
+                                    mins
+                                </span>
+                            </div>
+
+                            <div class="flex-col-c-m how1 p-b-5 m-rl-10 ">
+                                <span class="txt-l-102 cl6 seconds fs25p">@DealTime.Seconds</span>
+
+                                <span class="txt-m-106 cl6 fs13p b">
+                                    secs
+                                </span>
+                            </div>
+                            <div class="card-body-5 mycard-p-20">
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@TopDeal.dealID',true)">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    }
+
+    <!-- Testimonials -->
+    <section class="sec-testimonials bg0 p-t-80 p-b-45">
+        <div class="container">
+            <!--mycards start-->
+            <div class="size-a-1 flex-col-c-m p-b-40">
+                <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14 f-s-17">
+                    Featured Products
+
+                    <div class="how-pos1">
+                        <img src="~/Content/images/icons/symbol-02.png" alt="symbol-02" class="h17p">
+                    </div>
+                </div>
+
+                <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p">
+                    THESE DISHES ARE JUST YUM
+                </h3>
+                <!-- <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p f-s-14">
+                    THESE DISHES ARE JUST YUM
+                </h3> -->
+            </div>
+
+
+            <div class="row d-flex justify-content-center">
+                @for (int i = 0; i < Meals.Count; i++)
+                {
+                    if (i == 3)
+                    {
+                        break;
+                    }
+                    <div class="card-pd">
+                        <div class="mycard" style="width: 17rem;">
+                            <div class="item">
+                                <a href="inactiveLink" style="pointer-events: none; cursor: default;">
+                                    @if (!string.IsNullOrEmpty(Meals[i].CookingTime))
+                                    {
+                                        <span class="notify-badge">@Meals[i].CookingTime Mins</span>
+                                    }
+                                    @{
+                                        var filePath = "Uploads/Product/" + Meals[i].FolderID + "/thumb-60/" + Meals[i].gallery.filename;
+                                        var absolutePath = System.Web.HttpContext.Current.Server.MapPath("~/" + filePath);
+                                    }
+                                    @if (System.IO.File.Exists(absolutePath))
+                                    {
+                                        <img src="~/Uploads/Product/@Meals[i].FolderID/thumb-60/@Meals[i].gallery.filename" class="card-img-top" alt="No file">
+                                    }
+                                    else
+                                    {
+                                        <img src="/Content/New/images/Icon Placeholder.png" class="card-img-top" />
+                                    }
+                                </a>
+                            </div>
+
+                            <div class="mycard-body">
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-8">
+                                        <h5 class="mycard-title">@Meals[i].title<br><p class="ct-text-black">by<span class="ct-text-red"> @Meals[i].displayTitle</span></p></h5>
+                                    </div>
+                                    <div class="col-4">
+                                        <p class="card-text">RS.<span class="s-card-text">@Meals[i].price</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body-2">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="starrating risingstar d-flex justify-content-left star-p">
+                                            <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                            <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                            <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                            <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                            <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                            <p class="rating-text">&nbsp;4.5 - 86 Ratings</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="card-body-3">
+                                <div class="row d-flex justify-content-center ">
+                                    <div class="col">
+                                        <!--  <p class="pd-top icon-txt"> <span class="micro-2">2</span>Serves @Meals[i].serving</p>-->
+                                        <img src="~/Content/images/Tashty- serving.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Serves @Meals[i].serving</p>
+                                    </div>
+                                    <div class="col">
+                                        <img src="~/Content/images/Tashty-deliverytime.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">< 1 Hour</p>
+                                    </div>
+                                    <div class="col">
+                                        <img src="~/Content/images/tashty- category.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">@Meals[i].category.Replace("Asian (Indian/Pakistani)", "Pak Foods")</p>
+                                    </div>
+                                </div>
+
+                            </div>
+                            @*<div class="mycard-body">
+                                    <div class="starrating risingstar d-flex justify-content-left  border-red">
+                                        &nbsp;&nbsp;<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>&nbsp;&nbsp;<p class="text-border">Earliest Delivery:Friday at 1:00 pm</p>
+                                    </div>
+                                </div>*@
+                            <div class="card-body-5 mycard-p-20">
+                                <div class="row ">
+                                    <div class="col-md-12">
+                                        <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@Meals[i].mealID')">Add to Cart</button>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    count = count + 1;
+                }
+            </div>
+            <br>
+            <br>
+
+            <div class="size-a-1 flex-col-c-m p-b-45 p-t-40 ">
+                <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14 f-s-17">
+                    Our Testimonials
+
+                    <div class="how-pos1">
+                        <img src="~/Content/images/icons/symbol-02.png" alt="symbol-02" class="h17p">
+                    </div>
+                </div>
+
+                <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p">
+                    Foodies really like tashty
+                </h3>
+            </div>
+
+            <!-- slide7 -->
+            <div class="wrap-slick7 m-rl--15">
+                <div class="slick7">
+                    <!-- - -->
+                    <div class="item-slick7 p-rl-15">
+                        <div class="row d-flex justify-content-center  flex-w flex-sb-t bo-all-2 bocl18 p-rl-33 p-t-33 p-b-30 hov7-parent p-rl-15-sm">
+                            <div class="size-a-14 wrap-pic-s bo-3-rad-50per bocl11 of-hidden trans-04 hov7">
+                                <img src="~/Content/images/test-1.jpg" alt="avatar-01">
+                            </div>
+
+                            <div class="size-w-7 flex-col-l p-t-10 w-full-sm testimonialpara">
+                                <p class="fs13p cl6 p-b-17 text-left">
+
+                                    Tashty has changed my life. I was a qualified chef looking for work but didn’t find any place where I could show my passion for cooking and cook what I wanted to cook. Tashty has brought me the opportunity to cook my specialities and share my cooking with amazing people who make such appreciative comments that motivates me more.
+
+                                </p>
+
+                                <span class="txt-m-117 cl3 p-b-4 b ">
+                                    Sarosh Hasan
+                                </span>
+
+                                <span class=" txt-s-106 cl10 ">
+                                    Chef
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- - -->
+                    <div class="item-slick7 p-rl-15">
+                        <div class="row d-flex justify-content-center  flex-w flex-sb-t bo-all-2 bocl18 p-rl-33 p-t-33 p-b-30 hov7-parent p-rl-15-sm">
+                            <div class="size-a-14 wrap-pic-s bo-3-rad-50per bocl11 of-hidden trans-04 hov7">
+                                <img src="~/Content/images/test-2.jpg" alt="avatar-02">
+                            </div>
+
+                            <div class="size-w-7 flex-col-l p-t-10 w-full-sm testimonialpara">
+                                <p class="fs13p cl6 p-b-17 text-left">
+                                    Tashty has been an interesting journey so far. I never thought I could share my cooking so easily. Now I can earn a little extra on the side which really helps 😊.
+                                </p>
+
+                                <span class="txt-m-117 cl3 p-b-4 b">
+                                    Zoha Rashid
+                                </span>
+
+                                <span class="txt-s-106 cl10">
+                                    Chef
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- - -->
+                    <div class="item-slick7 p-rl-15">
+                        <div class="row d-flex justify-content-center flex-w flex-sb-t bo-all-2 bocl18 p-rl-33 p-t-33 p-b-30 hov7-parent p-rl-15-sm">
+                            <div class="size-a-14 wrap-pic-s bo-3-rad-50per bocl11 of-hidden trans-04 hov7">
+                                <img src="~/Content/images/test-3.jpg" alt="avatar-03">
+                            </div>
+
+                            <div class="size-w-7 flex-col-l p-t-10 w-full-sm testimonialpara">
+                                <p class="fs13p cl6 p-b-17 text-left">
+                                    I always wanted to have homemade food in my office but I did not want to trouble my Mom everyday. She had been preparing lunch for me ever since school. Tashty is a big help. It has given me the best of both worlds.
+                                </p>
+
+                                <span class="txt-m-117 cl3 p-b-4 b">
+                                    Ahmad Bilal
+                                </span>
+
+                                <span class="txt-s-106 cl10">
+                                    Foodie
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- - -->
+                    <div class="item-slick7 p-rl-15">
+                        <div class="row d-flex justify-content-center flex-w flex-sb-t bo-all-2 bocl18 p-rl-33 p-t-33 p-b-30 hov7-parent p-rl-15-sm">
+                            <div class="size-a-14 wrap-pic-s bo-3-rad-50per bocl11 of-hidden trans-04 hov7">
+                                <img src="~/Content/images/test-4.jpg" alt="avatar-04">
+                            </div>
+
+                            <div class="size-w-7 flex-col-l p-t-10 w-full-sm testimonialpara">
+                                <p class="fs13p cl6 p-b-17 text-left ">
+                                    One day I was just going through my phone deciding what to get myself for lunch and I came across Tashty’s app and decided to try something new. I ordered and it was the best thing ever!
+                                </p>
+
+                                <span class="txt-m-117 cl3 p-b-4 b">
+                                    Laiba Waqar
+                                </span>
+
+                                <span class="txt-s-106 cl10">
+                                    Foodie
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="wrap-dot-slick7 p-rl-15 p-t-65"></div>
+            </div>
+        </div>
+    </section>
+
+    <div class="container-fluid bg-three-step p-t-100 p-b-80 d-s-three">
+        <div class="text-center txt-m-201 m-b-14 ">
+            <h3 class="learn-process">Learn About Process</h3>
+            <img src="~/Content/images/icons/w-light-flower.png" alt="white-light-flower">
+            <h3 class="txt-center txt-l-101  respon1 f-s-30p">
+                THE THREE STEPS OF GETTING HOMEMADE FOOD
+            </h3>
+            <!-- <h3 class="txt-center txt-l-101  respon1 f-s-30p f-s-14">
+                THE THREE STEPS OF GETTING HOMEMADE FOOD
+            </h3> -->
+        </div>
+        <div class="row three-stp">
+            <div class="col-sm-4 ">
+                <center><img src="~/Content/images/icons/st-1.png" alt="st-01" class="m-t-5" width="70px" height="70px"></center>
+                <div class="arrow-right-three"><img src="~/Content/images/icons/arrow-02.png" alt="arrow-02" class="a-01"></div>
+                <h4 class="text-center hd-1-three">Choose a Dish</h4>
+                <p class="text-center pd-1-three p-t-15">We've got you covered with over registered chefs.</p>
+            </div>
+            <div class=" col-sm-4  mid-row-three">
+                <div class="arrow-right-three-two"><img src="~/Content/images/icons/arrow-02.png" alt="arrow-02" class=" a-02 mr-tm-100"></div>
+                <center><img src="~/Content/images/icons/st-2.png" class="m-t-5" alt="st-02" width="70px" height="70px"></center>
+
+                <h4 class="text-center hd-1-three three-top">Add your meal to cart</h4>
+                <p class="text-center  pd-1-three p-t-15">Like Biryani with salad and raita.</p>
+            </div>
+            <div class="col-sm-4 mid-row-last">
+                <center><img src="~/Content/images/icons/st-3.png" alt="st-3" class="m-t-5" width="70px" height="70px"></center>
+                <h4 class="text-center hd-1-three three-top">Enjoy homemade food at your doorstep</h4>
+                <p class="text-center  pd-1-three p-t-15">Enter your location and wait for the food.</p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center p-t-50">
+            <p class="text-center p-b-c">Pay by Cash on delivery, or through Card in advance.</p>
+        </div>
+
+    </div>
+    <!-- for mobile -->
+    <div class="container-fluid bg-three-step p-t-100 p-b-100 d-m-three">
+        <div class="text-center txt-m-201 m-b-14 ">
+            <h3 class="learn-process">Learn About Process</h3>
+            <img src="~/Content/images/icons/w-light-flower.png" alt="w-light-flower">
+            <h3 class="txt-center txt-l-101  respon1 f-s-30p">
+                THE THREE STEPS OF GETTING HOMEMADE FOOD
+            </h3>
+        </div>
+        <div class="row three-stp">
+            <div class="col-sm-4 p-t-20 ">
+                <center><img src="~/Content/images/icons/st-1.png" alt="st-1" width="100px" height="100px"></center>
+
+                <h4 class="text-center hd-1-three">Choose a Dish</h4>
+                <p class="text-center pd-1-three p-t-15">We've got you covered with over registered chefs.</p>
+            </div>
+            <div class=" col-sm-4 p-t-20">
+
+                <center><img src="~/Content/images/icons/st-2.png" alt="st-2" width="100px" height="100px"></center>
+
+                <h4 class="text-center hd-1-three">Add your meal to cart</h4>
+                <p class="text-center  pd-1-three p-t-15">Like Biryani with salad and raita.</p>
+            </div>
+            <div class="col-sm-4 p-t-20">
+                <center><img src="~/Content/images/icons/st-3.png" alt="st-3" width="100px" height="100px"></center>
+                <h4 class="text-center hd-1-three">Enjoy homemade food at your doorstep</h4>
+                <p class="text-center  pd-1-three p-t-15">Enter your location and wait for the food.</p>
+            </div>
+        </div>
+        <div class="row d-flex justify-content-center p-t-50">
+            <p class="text-center">Pay by Cash on delivery, Card or PayPal</p>
+        </div>
+
+    </div>
+
+    <!-- Blog -->
+    <section class="sec-blog bg0 p-t-80 p-b-45">
+        <div class="container " style="padding-left: 5%;
+			padding-right: 5%;">
+            <div class="size-a-1 flex-col-c-m p-b-40">
+                <div class="txt-center txt-m-201 cl10 how-pos1-parent m-b-14 f-s-17">
+                    Keep Updated With Us
+
+                    <div class="how-pos1">
+                        <img src="~/Content/images/icons/symbol-02.png" alt="symbol-02" class="h17p">
+                    </div>
+                </div>
+
+                <h3 class="txt-center txt-l-101 cl3 respon1 f-s-30p">
+                    From our blog
+                </h3>
+            </div>
+
+            <div class="row blogdiv">
+                <div class="col-sm-10 col-md-8 col-lg-6 p-b-30 m-rl-auto">
+                    <div class="p-r-30 p-r-0-lg blogrows">
+                        <div class="flex-w flex-sb-t">
+                            <a href="blog-single.html" class="wrap-pic-w hov4 w-full pos-relative w-full-sm m-r-0-sm m-b-15">
+                                <img src="~/Content/images/blog-001.jpg" alt="BLOG">
+
+                                <div class="ab-t-l size-a-12 bbg flex-c-m txt-s-111 cl0 p-rl-10">
+                                    4 april 2020
+                                </div>
+                            </a>
+
+                            <div class="w-full p-t-12 w-full-sm m-b-15">
+                                <h4 class="p-b-10">
+                                    <a href="blog-single.html" class="txt-m-120 cl3 hov-cl10 trans-04 f-s-18">
+                                        Why Homemade?
+                                    </a>
+                                </h4>
+
+                                <p class="txt-s-101 paragraphblog p-b-20 fs13p ">
+                                    The novelty of outdoor food wears off surprisingly fast. You might have a craving for a cheeseburger from a renowned brand one day, and then another. But it gets old. After two or three days you probably wouldn't want a burger or any similar food like pizza. Another unpleasant side-effect is the weight you will most likely gain with such food which leads us to...
+                                </p>
+
+                                @*<div class="how-line2 p-l-40">
+                                        <a href="blog-single.html" class="txt-s-105 readblog hov-cl10 trans-04 btn-read-red">
+                                            Read more
+                                        </a>
+                                    </div>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-10 col-md-8 col-lg-6 p-b-30 m-rl-auto ">
+                    <div class="row ">
+                        <div class="col-12 m-rl-auto p-b-15 blogrow">
+                            <div class="flex-w flex-sb-t">
+                                <a href="blog-single.html" class="wrap-pic-w hov4 size-w-29 pos-relative w-full-sm m-r-0-sm m-b-15">
+                                    <img src="~/Content/images/blog-001.jpg" alt="BLOG">
+
+                                    <div class="ab-t-l size-a-12 bbg flex-c-m txt-s-111 cl0 p-rl-10">
+                                        4 april 2020
+                                    </div>
+                                </a>
+
+                                <div class="size-w-30 p-t-12 w-full-sm m-b-15">
+                                    <h4 class="p-b-10">
+                                        <a href="blog-single.html" class="txt-m-109 cl3 hov-cl10 trans-04 f-s-18">
+                                            No more junk food
+                                        </a>
+                                    </h4>
+
+                                    <p class="txt-s-101 paragraphblog p-b-20 fs13p">
+                                        The health risks of junk food are simply not worth it. You can not consistently go for junk foods and hope to maintain a healthy outlook. With Tashty you have a healthy and tasty alternative to sate your appetite.
+                                    </p>
+
+                                    <div class="how-line2 p-l-40">
+                                        @*<a href="blog-single.html" class="txt-s-105 readblog hov-cl10 trans-04">
+                                                Read more
+                                            </a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-12 m-rl-auto p-b-15 blogrow">
+                            <div class="flex-w flex-sb-t">
+                                <a href="blog-single.html" class="wrap-pic-w hov4 size-w-29 pos-relative w-full-sm m-r-0-sm m-b-15">
+                                    <img src="~/Content/images/blog-001.jpg" alt="BLOG">
+
+                                    <div class="ab-t-l size-a-12 bbg flex-c-m txt-s-111 cl0 p-rl-10">
+                                        4 april 2020
+                                    </div>
+                                </a>
+
+                                <div class="size-w-30 p-t-12 w-full-sm m-b-15">
+                                    <h4 class="p-b-10">
+                                        <a href="blog-single.html" class="txt-m-109 cl3 hov-cl10 trans-04 f-s-18">
+                                            What's on the menu?
+                                        </a>
+                                    </h4>
+
+                                    <p class="txt-s-101 paragraphblog p-b-20 fs13p">
+                                        We have signed up with Chefs with a specialty in a plethora of dishes that you can try. Rate your experience with each dish to help out your fellow foodies!
+                                    </p>
+
+                                    <div class="how-line2 p-l-40">
+                                        @*<a href="blog-single.html" class="txt-s-105 readblog hov-cl10 trans-04">
+                                                Read more
+                                            </a>*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</div>
+<script src="~/Content/New/js/glider.js"></script>
+@*<script>
+    $(document).ready(function () {
+        console.log("ready!");
+    });
+    window._ = new Glider(document.querySelector('.glider'), {
+        slidesToShow: 1, //'auto',
+        slidesToScroll: 1,
+        itemWidth: 1920,
+        draggable: true,
+        scrollLock: false,
+        dots: '#dots',
+        rewind: true,
+        arrows: {
+            prev: '.glider-prev',
+            next: '.glider-next'
+        },
+        responsive: [
+            {
+                breakpoint: 800,
+                settings: {
+                    slidesToScroll: '1',
+                    slidesToShow: 1,
+                    itemWidth: 1920,
+                    slidesToShow: 'auto',
+                    exactWidth: true
+                }
+            },
+            {
+                breakpoint: 700,
+                settings: {
+                    slidesToScroll: 4,
+                    slidesToShow: 4,
+                    dots: false,
+                    arrows: false,
+                }
+            },
+            {
+                breakpoint: 600,
+                settings: {
+                    slidesToScroll: 3,
+                    slidesToShow: 3
+                }
+            },
+            {
+                breakpoint: 500,
+                settings: {
+                    slidesToScroll: 2,
+                    slidesToShow: 2,
+                    dots: false,
+                    arrows: false,
+                    scrollLock: true
+                }
+            }
+        ]
+    });
+    var glider = new Glider(document.getElementById('glider'));
+
+    function sliderAuto(slider, miliseconds) {
+        const slidesCount = slider.track.childElementCount;
+        let slideTimeout = null;
+        let nextIndex = 1;
+
+        function slide() {
+            slideTimeout = setTimeout(
+                function () {
+                    if (nextIndex >= slidesCount) {
+                        nextIndex = 0;
+                    }
+                    slider.scrollItem(nextIndex++);
+                },
+                miliseconds
+            );
+        }
+
+        slider.ele.addEventListener('glider-animated', function () {
+            window.clearInterval(slideTimeout);
+            slide();
+        });
+
+        slide();
+    }
+
+    sliderAuto(glider, 6000)
+</script>*@
+<script>
+     $('.SearchQuery').on('keyup', function (e) {
+        
+        if (e.which === 13) {
+            MainSearch();
+        }
+     });
+
+    $('.SearchQueryMobile').on('keyup', function (e) {
+        
+        if (e.which === 13) {
+            MainSearchMobile();
+        }
+    });
+</script>

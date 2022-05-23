@@ -1,0 +1,42 @@
+﻿<nav class="navbar  navbar-fixed-top navbar-default">
+	<div class="container">
+		<div class="navbar-header">
+			<button aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<a href="@Url.Action("Index","Home")"><img src="@Url.Content("~/Content/images/Logo-small.png")" class="logo" /></a>
+		</div>
+		<div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-left col-md-offset-1">
+                <li class="active"><a href="@Url.Action("Dashboard","Buyer")">My Account</a></li>
+                <li><a href="@Url.Action("BuyerOrders","Buyer")"> My Orders </a></li>
+                <li><a href="@Url.Action("CheckOut","home")">My Bucket</a></li>
+                <li><a href="@Url.Action("Favourites","Buyer")">Favourites</a></li>
+                <li class="dropdown social-talk label-menu-corner" id="lnkHeadNotice">
+                    <a class="dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="true"><span class="label label-success" id="lnkCountNotice" style="right: 0;">0</span> Notification </a>
+                    <ul id="lnkNotice" class="dropdown-menu hdropdown notification animated flipInX"></ul>
+                </li>
+            </ul>
+			<div class="navbar-right ">
+				<ul class=" pull-left p-m nolist">
+					<li><a class="text-success" href="#" id="btnSwitchProfile" >Switch To Seller</a></li>
+				</ul>
+				<div class="projects pull-left">
+					<li class="dropdown nolist">
+						<a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown">
+							<div class="project-people"> <img alt="logo" class="img-circle box-b-border" id="logoProfilePic" src="@Url.Content("~/Content/images/default/150x150-profilePic.jpg")"> <span class="user-online-status online"> </span> </div>
+						</a>
+						<ul class="dropdown-menu hdropdown animated flipInX">
+							<li> <a href="@Url.Action("EditProfile","Buyer")"> My Profile </a> </li>
+							<li> <a class="btnClientLogout"> Logout </a> </li>
+						</ul>
+					</li>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>
+
+<script type="text/javascript">
+    $('#lnkHeadNotice').on('click', function () {
+        note.MarkNoticeRead( @ViewBag.profileID, false);
+    });
+</script>

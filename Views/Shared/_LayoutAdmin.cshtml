@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/VendorStyle")
+    @Styles.Render("~/Content/fontStyle")
+    @Styles.Render("~/Content/adminAppStyle")
+
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/AdminScript")
+
+    @Scripts.Render("~/bundles/VendorScript")
+
+
+    <script>
+        //  	$(document).ready(function () {
+        //	$("ul.nav li.act a").click(function (e) {
+        //		e.preventDefault(); // prevent default link button redirect behaviour
+        //		var url = $(this).attr("href");
+        //		if (url) {
+        //			console.log(url);
+        //			if (url.indexOf('Home') == -1)
+        //				$('#inContant').load(url);
+        //		}
+        //	});
+        //});
+    </script>
+
+
+
+</head>
+<body class="fixed-navbar fixed-sidebar">
+
+    <!-- Header -->
+    @Html.Partial("_AdminLayoutHeader")
+
+    <!-- Navigation -->
+    @Html.Partial("_AdminLayoutLeftMenu")
+
+    <div id="wrapper">
+        <div id="inContant">
+            @RenderBody()
+        </div>
+
+        <!-- Right sidebar -->
+        @Html.Partial("_AdminLayoutRightMenu")
+
+        @Html.Partial("_AdminLayoutFooter")
+        @{
+            Html.RenderPartial("_EditUserProfile");
+        }
+
+    </div>
+
+    <script type="text/javascript">
+
+
+        //$(document).ajaxComplete(function (event, xhr, settings) {
+        //	rdirectLogin(xhr.responseText);
+        //});
+
+        //function rdirectLogin(response) {
+        //	try {
+        //		response = JSON.parse(response);
+        //	} catch (e) {
+        //		response = null;
+        //	}
+
+        //	if (response != null && response.ReturnUrl != null && response.ReturnUrl != undefined && response.ReturnUrl != "") {
+        //		window.location.href = baseURL + "/AdminLogin";
+        //	}
+
+        //};
+
+
+        //$( document ).ready(function() {
+        //	$('.navbar-collapse a').click(function () {
+        //		$('.navbar-collapse').css('height', '0');
+        //		$('.navbar-collapse').removeClass('in');
+        //		});
+        //	});
+
+    </script>
+    @RenderSection("scripts", required: false)
+    <script>
+
+		@if (ViewBag.name != "") {
+			<text>
+				_set('dashName', '@ViewBag.name');
+			</text>
+
+		}
+
+				@if (ViewBag.photo != "") {
+
+					<text>
+						$("#dashPhoto").attr("src", baseURL + "/Uploads/ProfilePictures/thumb-70/@ViewBag.photo");
+					</text>
+				}
+
+				//$("#add-edit-admin-profile").on('hidden.bs.modal', function () {
+
+				//});
+		$(".btnleftProfile").on('click', function () {
+				OpenModel('add-edit-admin-profile');
+			});
+
+    </script>
+
+
+</body>
+</html>

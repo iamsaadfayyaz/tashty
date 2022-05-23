@@ -1,0 +1,616 @@
+﻿@model TashtyWebProject.ViewModel.MonthlyPackageViewModel
+@{
+    DateTime startDate = new DateTime(2020, 05, 18);
+    DateTime endDate = new DateTime(2020, 05, 24);
+    List<Entity.Meal> meallist = Model.getAllMeals();
+    int count = 0;
+}
+<style>
+    .badge {
+        color: darkgray;
+        margin-right: 1%;
+    }
+</style>
+<div class="containter-fluid maindashboard-pr-settings">
+    <div class="row">
+        <div class="col-sm-12 ">
+            @using (Html.BeginForm("SaveMonthlyPackage", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", @id = "Monthly-form" }))
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                @Html.HiddenFor(c => c.Package.PackageID)
+                <input type="hidden" name="Package.PackageType" value="2" />
+                @Html.HiddenFor(c => c.Package.SellerID)
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group ">
+                                @Html.TextBoxFor(c => c.Package.Name, new { @class = "form-control", @placeholder = "Your Package name*", @required = "required" })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Name)</h6>
+                            </div>
+                            <div class="form-group ">
+                                <select class="custom-select" id="Package_NoOfMeals" name="Package.NoOfMeals" onclick="MonthlyNoOfMeals(this)" required>
+                                    <option selected>Meals per day*</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </div>
+                            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.NoOfMeals)</h6>
+                            <div class="form-group">
+                                @Html.TextBoxFor(c => c.Package.Price, new { @class = "form-control", @placeholder = "Set Price", @required = "required" })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Price)</h6>
+                            </div>
+                            <div class="form-group ">
+                                @Html.TextBoxFor(c => c.Package.PackageDate, new { @class = "form-control", data_datepicker = "date", @placeholder = "Select date", @required = "required", @value = Model.Package.PackageDate })
+                                <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.PackageDate)</h6>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div id="ShowMonthlyPackageImage" style="display:none">
+                                <img src="" alt="Image" id="MonthlyPackageImagesrc" style="width:200px;height:100px" />
+                                <i class="fa fa-times-circle" onclick="removePackageImage('Package_Image','ShowMonthlyPaackageupload','ShowMonthlyPackageImage')" title="Remove" aria-hidden="true"></i>
+                            </div>
+                            <div id="ShowMonthlyPaackageupload" style="display:none">
+                                <center>
+                                    <label class="cnic-back-pic mrgn-0" for="MonthlyPackageImage" style="padding: 3% 40%;border-style: dashed;
+                        background: #F5F9F8;width: 100%;border-color:#E8E8E8;">
+                                        <i class="fas fa-plus" style="color:#808080;font-size:1.1rem;">
+                                            <br><br>
+                                            <span style="color:#B0B4B3;font-size:0.8rem;">Add Preview Image</span>
+                                        </i>
+                                    </label>
+                                    <!--<input type="file" class="choose-in" id="MonthlyPackageImage" />
+    @Html.HiddenFor(m => m.Package.Image)-->
+</div>
+                            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Package.Image)</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <h3 class=" sel-h-s txt-center txt-l-101 cl3 respon1 f-s-30p">
+                                Create Meal Package
+                            </h3>
+                        </div>
+                    </div>
+                </div>
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+                                WEEK 1
+                            </a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner week-body-p">
+                                @{
+                                    count = 0;
+                                }
+                                @for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                                {
+                                <div class="row pd-t-b-deal">
+                                    <div class="col-sm-2 pd-mr-0 ">
+                                        <p></p>
+                                    </div>
+                                    @if (date.DayOfWeek == DayOfWeek.Monday)
+                                    {
+                                        for (int i = 1; i < 4; i++)
+                                        {
+                                            <div class="col-sm-3 pd-mr-0 text-center pd-btm-m Mealtime-@i">
+                                                <p>Meal @i </p>
+                                            </div>
+                                        }
+                                    }
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2 pd-mr-0 ">
+                                            <p>@date.DayOfWeek</p>
+                                        </div>
+                                        @if (Model.packageDetailWeek1.Count > 0)
+                                        {
+                                            <input type="hidden" name="packageDetailWeek1[@count].PackageDetailID" value="@Model.packageDetailWeek1[count].PackageDetailID" />
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" name="packageDetailWeek1[@count].PackageDetailID" />
+                                        }
+                                        <input type="hidden" name="packageDetailWeek1[@count].Day" value="@date.DayOfWeek" />
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-1">
+                                            <select name="packageDetailWeek1[@count].MealTime1array" id="packageDetailWeek1[@count].MealTime1array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek1.Count > 0 && Model.packageDetailWeek1[count].MealTime1 != null && Model.packageDetailWeek1[count].MealTime1.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-2">
+                                            <select name="packageDetailWeek1[@count].MealTime2array" id="packageDetailWeek1[@count].MealTime2array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek1.Count > 0 && Model.packageDetailWeek1[count].MealTime2 != null && Model.packageDetailWeek1[count].MealTime2.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-3">
+                                            <select name="packageDetailWeek1[@count].MealTime3array" id="packageDetailWeek1[@count].MealTime3array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek1.Count > 0 && Model.packageDetailWeek1[count].MealTime3 != null && Model.packageDetailWeek1[count].MealTime3.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        @{
+                                            count = count + 1;
+                                        }
+
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsetwo">
+                                WEEK 2
+                            </a>
+                        </div>
+                        <div id="collapsetwo" class="accordion-body collapse">
+                            <div class="accordion-inner week-body-p">
+                                <div class="container ">
+                                    @{
+                                        count = 0;
+                                    }
+                                    @for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                                    {
+                                    <div class="row pd-t-b-deal">
+                                        <div class="col-sm-2 pd-mr-0 ">
+                                            <p></p>
+                                        </div>
+                                        @if (date.DayOfWeek == DayOfWeek.Monday)
+                                        {
+                                            for (int i = 1; i < 4; i++)
+                                            {
+                                                <div class="col-sm-3 pd-mr-0 text-center pd-btm-m Mealtime-@i">
+                                                    <p>Meal @i </p>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-2 pd-mr-0 ">
+                                            <p>@date.DayOfWeek</p>
+                                        </div>
+
+                                        @if (Model.packageDetailWeek2.Count > 0)
+                                        {
+                                            <input type="hidden" name="packageDetailWeek2[@count].PackageDetailID" value="@Model.packageDetailWeek2[count].PackageDetailID" />
+                                        }
+                                        else
+                                        {
+                                            <input type="hidden" name="packageDetailWeek2[@count].PackageDetailID" />
+                                        }
+                                        <input type="hidden" name="packageDetailWeek2[@count].Day" value="@date.DayOfWeek" />
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-1">
+                                            <select name="packageDetailWeek2[@count].MealTime1array" id="packageDetailWeek2[@count].MealTime1array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek2.Count > 0 && Model.packageDetailWeek2[count].MealTime1 != null && Model.packageDetailWeek2[count].MealTime1.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-2">
+                                            <select name="packageDetailWeek2[@count].MealTime2array" id="packageDetailWeek2[@count].MealTime2array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek2.Count > 0 && Model.packageDetailWeek2[count].MealTime2 != null && Model.packageDetailWeek2[count].MealTime2.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        <div class="col-sm-3 pd-mr-0 Mealtime-3">
+                                            <select name="packageDetailWeek2[@count].MealTime3array" id="packageDetailWeek2[@count].MealTime3array" class="form-control" multiple="multiple" style="display: none;">
+                                                @foreach (var meal in meallist)
+                                                {
+                                                    if (Model.packageDetailWeek2.Count > 0 && Model.packageDetailWeek2[count].MealTime3 != null && Model.packageDetailWeek2[count].MealTime3.Split(',').Contains(meal.mealID.ToString()))
+                                                    {
+                                                        <option value="@meal.mealID" selected>@meal.title</option>
+                                                    }
+                                                    else
+                                                    {
+                                                        <option value="@meal.mealID">@meal.title</option>
+                                                    }
+                                                }
+                                            </select>
+                                        </div>
+                                        @{count = count + 1;
+                                        }
+
+                                    </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsethree">
+                                WEEK 3
+                            </a>
+                        </div>
+                        <div id="collapsethree" class="accordion-body collapse">
+                            <div class="accordion-inner week-body-p">
+                                <div class="container ">
+                                    @{
+                                        count = 0;
+                                    }
+                                    @for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                                    {
+                                    <div class="row pd-t-b-deal">
+                                        <div class="col-sm-2 pd-mr-0 ">
+                                            <p></p>
+                                        </div>
+                                        @if (date.DayOfWeek == DayOfWeek.Monday)
+                                        {
+                                            for (int i = 1; i < 4; i++)
+                                            {
+                                                <div class="col-sm-3 pd-mr-0 text-center pd-btm-m Mealtime-@i">
+                                                    <p>Meal @i </p>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-2 pd-mr-0 ">
+                                                <p>@date.DayOfWeek</p>
+                                            </div>
+                                            <input type="hidden" name="packageDetailWeek3[@count].Day" value="@date.DayOfWeek" />
+                                            @if (Model.packageDetailWeek3.Count > 0)
+                                            {
+                                                <input type="hidden" name="packageDetailWeek3[@count].PackageDetailID" value="@Model.packageDetailWeek3[count].PackageDetailID" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" name="packageDetailWeek3[@count].PackageDetailID" />
+                                            }
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-1">
+                                                <select name="packageDetailWeek3[@count].MealTime1array" id="packageDetailWeek3[@count].MealTime1array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek3.Count > 0 && Model.packageDetailWeek3.Count > 0 && Model.packageDetailWeek3[count].MealTime1 != null && Model.packageDetailWeek3[count].MealTime1.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-2">
+                                                <select name="packageDetailWeek3[@count].MealTime2array" id="packageDetailWeek3[@count].MealTime2array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek3.Count > 0 && Model.packageDetailWeek3[count].MealTime2 != null && Model.packageDetailWeek3[count].MealTime2.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-3">
+                                                <select name="packageDetailWeek3[@count].MealTime3array" id="packageDetailWeek3[@count].MealTime3array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek3.Count > 0 && Model.packageDetailWeek3[count].MealTime3 != null && Model.packageDetailWeek3[count].MealTime3.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            @{count = count + 1;
+                                            }
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapsefour">
+                                WEEK 4
+                            </a>
+                        </div>
+                        <div id="collapsefour" class="accordion-body collapse">
+                            <div class="accordion-inner week-body-p">
+                                <div class="container ">
+                                    @{
+                                        count = 0;
+                                    }
+                                    @for (DateTime date = startDate; date <= endDate; date = date.AddDays(1))
+                                    {
+                                    <div class="row pd-t-b-deal">
+                                        <div class="col-sm-2 pd-mr-0 ">
+                                            <p></p>
+                                        </div>
+                                        @if (date.DayOfWeek == DayOfWeek.Monday)
+                                        {
+                                            for (int i = 1; i < 4; i++)
+                                            {
+                                                <div class="col-sm-3 pd-mr-0 text-center pd-btm-m Mealtime-@i">
+                                                    <p>Meal @i </p>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                        <div class="row">
+                                            <div class="col-sm-2 pd-mr-0 ">
+                                                <p>@date.DayOfWeek</p>
+                                            </div>
+                                            <input type="hidden" name="packageDetailWeek4[@count].Day" value="@date.DayOfWeek" />
+                                            @if (Model.packageDetailWeek4.Count > 0)
+                                            {
+                                                <input type="hidden" name="packageDetailWeek4[@count].PackageDetailID" value="@Model.packageDetailWeek4[count].PackageDetailID" />
+                                            }
+                                            else
+                                            {
+                                                <input type="hidden" name="packageDetailWeek4[@count].PackageDetailID" />
+                                            }
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-1">
+                                                <select name="packageDetailWeek4[@count].MealTime1array" id="packageDetailWeek4[@count].MealTime1array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek4.Count > 0 && Model.packageDetailWeek4[count].MealTime1 != null && Model.packageDetailWeek4[count].MealTime1.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-2">
+                                                <select name="packageDetailWeek4[@count].MealTime2array" id="packageDetailWeek4[@count].MealTime2array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek4.Count > 0 && Model.packageDetailWeek4[count].MealTime2 != null && Model.packageDetailWeek4[count].MealTime2.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-3 pd-mr-0 Mealtime-3">
+                                                <select name="packageDetailWeek4[@count].MealTime3array" id="packageDetailWeek4[@count].MealTime3array" class="form-control" multiple="multiple" style="display: none;">
+                                                    @foreach (var meal in meallist)
+                                                    {
+                                                        if (Model.packageDetailWeek4.Count > 0 && Model.packageDetailWeek4[count].MealTime3 != null && Model.packageDetailWeek4[count].MealTime3.Split(',').Contains(meal.mealID.ToString()))
+                                                        {
+                                                            <option value="@meal.mealID" selected>@meal.title</option>
+                                                        }
+                                                        else
+                                                        {
+                                                            <option value="@meal.mealID">@meal.title</option>
+                                                        }
+                                                    }
+                                                </select>
+                                            </div>
+                                            @{count = count + 1;
+                                            }
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="row ptb-cp">
+                        <div class="col-sm-4"></div>
+                        <div class="col-sm-4">
+                            @if (Model.Package.PackageID > 0)
+                            {
+                                <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem cp-btn " style="width:100%; margin-top: 1rem;">Edit PACKAGE</button>
+                            }
+                            else
+                            {
+                                <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem cp-btn " style="width:100%; margin-top: 1rem;">CREATE PACKAGE</button>
+                            }
+                        </div>
+                        <div class="col-sm-4"></div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+<script>
+            var customPhotoValidationFailed = false;
+    $(document).ready(function () {
+         $("#MonthlyPackageImage").on('change', function () {
+            readURL(this);
+         });
+          if ('@Model.Package.NoOfMeals' != null) {
+              $('#Package_NoOfMeals').val(@Model.Package.NoOfMeals);
+              MonthlyNoOfMeals();
+        }
+        if ('@Model.Package.Image' != null && '@Model.Package.Image' != '' && '@Model.Package.Image' != undefined) {
+            $('#MonthlyPackageImagesrc').attr('src', '/Uploads/Package/@Model.Package.Image');
+            $('#ShowMonthlyPackageImage').show();
+        }
+         else {
+            $('#ShowMonthlyPaackageupload').show();
+        }
+                $('#MonthlyPackageImage').on('fileuploaded', function (event, data, previewId, index) {
+            unblockUI();
+            $("#Package_Image").val(data.response);
+            $('#MonthlyPackageImagesrc').attr('src', '/uploads/Package/' + data.response);
+            $('#ShowMonthlyPackageImage').show();
+            $('#ShowMonthlyPaackageupload').hide();
+
+            customPhotoValidationFailed = false;
+        });
+        $('#MonthlyPackageImage').on('fileuploaderror', function (event, data, msg) {
+             unblockUI();
+            customPhotoValidationFailed = true;
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            
+            toastr.error(msg);
+        });
+        $('#MonthlyPackageImage').on('fileselect', function (event, numFiles, label) {
+             blockUI();
+            if (!customPhotoValidationFailed) {
+                $("#MonthlyPackageImage").fileinput("upload");
+            }
+            else {
+                 customPhotoValidationFailed = false;
+            unblockUI();
+            }
+        });
+            $("#MonthlyPackageImage").fileinput({
+			theme: 'fa',
+			uploadUrl: '/Seller/WeeklyPackageImage',
+			dropZoneEnabled:false,
+			browseClass: "",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			maxFileSize: 10000,
+			allowedFileExtensions: ['jpg', 'png','jpeg'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            msgSizeTooLarge: 'CNIC Back photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+
+			});
+
+       $("select[multiple='multiple']").bsMultiSelect();
+         $('form').removeData('validator');
+            $('form').removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse('form');
+         var Ischecked = false;
+            var options = {
+                beforeSubmit: function (msg) {
+                    
+                    blockUI();
+                },
+                success: function (msg) {
+                     unblockUI();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+
+                    toastr.error("failed");
+                    unblockUI();
+                    $(".btn").prop("disabled", false);
+
+                }
+            };
+            $('#Monthly-form').ajaxForm(options);
+    })
+
+      function removePackageImage(id,show,hide) {
+        $('#' + id).val('');
+        $('#' + show).show();
+         $('#' + hide).hide();
+    }
+
+
+</script>
+<script src="~/Content/New/js/uploadfile.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+    $('input[data-datepicker="date"]').datetimepicker({
+        format: "L",
+        minDate: date
+    });
+    if ('@Model.Package.PackageDate' != null) {
+        $('input[data-datepicker="date"]').val('@Model.Package.PackageDate.ToLongDateString()');
+    }
+     function MonthlyNoOfMeals() {
+        for (var j = 1; j < 6; j++) {
+            $('.Mealtime-' + j).hide();
+        }
+        var v = $('#Package_NoOfMeals').val();
+        for (var i = 1; i <= v; i++) {
+            $('.Mealtime-' + i).show();
+        }
+    }
+</script>

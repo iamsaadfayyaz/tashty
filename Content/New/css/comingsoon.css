@@ -1,0 +1,19 @@
+.bg-section-coming{
+    background-image: url('../images/comingsoon-background.jpg');
+    background-size: 100% 100%;
+    padding-bottom: 15%;
+    padding-top:15%;
+    
+    
+}
+.custom-coming-h{font-size:42px;
+color:#EF4836;
+font-style: italic;
+}
+/* .coming-logo{max-height: 68%;} */
+.social-icons-h{max-height: 60%;}
+.coming-logo-h{height:90px;}
+.mg-btm{margin-bottom:1%;}
+.mg-btm-2{margin-bottom:2%;}
+.p-r{padding-left:1%;
+padding-right:1%}

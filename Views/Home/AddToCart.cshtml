@@ -1,0 +1,498 @@
+﻿@model Entity.Order
+@{
+    Model.PickUpDate = DateTime.Now;
+}
+<link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.7.14/css/bootstrap-datetimepicker.css" rel="stylesheet" />
+@using (Html.BeginForm("UpdateCart", "Home", FormMethod.Post, new { enctype = "multipart/form-data", @id = "AddToCart-form" }))
+{
+    @Html.HiddenFor(x => x.buyerProfileID)
+    @Html.HiddenFor(x => x.orderID)
+    @Html.HiddenFor(x => x.totalPrice)
+    @Html.HiddenFor(x => x.price)
+    @Html.HiddenFor(x => x.deliveryAddress)
+    @Html.HiddenFor(x => x.CouponID)
+    <input type="hidden" name="orderNumber" value="@Model.orderNumber" />
+    <div class="containter-fluid maindashboard-cart">
+        <div class="d-flex justify-content-center bg-green bg-green">
+        </div>
+        <h6 class="text-center carT">- CART -</h6>
+        <!-- card deatils start -->
+        <div class="row mr-t-6p">
+            <!-- first section side start -->
+            <div class="col-sm-8">
+
+                <div class="row">
+                    <table class="table table-borderless add-menu-cart" id="cart-table">
+                        <thead class="add-cart-thead">
+                            <tr>
+                                <th scope="col">Product</th>
+                                <th scope="col">Price</th>
+                                <th scope="col">Count</th>
+                                <th scope="col">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for (int i = 0; i < Model.Items.Count; i++)
+                            {
+                            <tr>
+                                <th scope="row">
+                                    <div class="row">
+                                        @Html.HiddenFor(x => x.Items[i].title)
+                                        @Html.HiddenFor(x => x.Items[i].Seller)
+                                        @Html.HiddenFor(x => x.Items[i].mealID)
+                                        @Html.HiddenFor(x => x.Items[i].dealID)
+                                        @Html.HiddenFor(x => x.Items[i].PackageID)
+                                        @Html.HiddenFor(x => x.Items[i].isPackage)
+                                        @Html.HiddenFor(x => x.Items[i].isDeal)
+                                        @Html.HiddenFor(x => x.Items[i].price)
+                                        @Html.HiddenFor(x => x.Items[i].Weight)
+                                        @Html.HiddenFor(x => x.Items[i].photo)
+                                        @Html.HiddenFor(x => x.Items[i].PackageStartDate)
+                                        <div class="col-sm main-top-cart-heading">
+                                            @if (@Model.Items[i].isPackage != null && Model.Items[i].isPackage == true)
+                                            {
+                                                if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Package/" + Model.Items[i].photo)))
+                                                {
+                                                    <img src="~/Uploads/Package/@Model.Items[i].photo" alt="No file">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/New/images/Icon Placeholder.png" alt="...">
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + Model.Items[i].FolderID + "/thumb-60/" + Model.Items[i].photo)))
+                                                {
+                                                    <img src="~/Uploads/Product/@Model.Items[i].FolderID/thumb-60/@Model.Items[i].photo" alt="No file">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/New/images/Icon Placeholder.png" alt="...">
+                                                }
+                                            }
+                                            <h6 class="font-size"> @Model.Items[i].title </h6>
+                                            <p class="font-size">BY @Model.Items[i].Seller </p>
+                                        </div>
+                                    </div>
+                                </th>
+                                <td class="font-size">@Model.Items[i].price</td>
+                                @if (Model.Items[i].isPackage != null && Model.Items[i].isPackage == true)
+                                {
+                            <td>
+                                @Html.HiddenFor(x => x.Items[i].quantity, new { @value = "1" })
+                            </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <div class="input-group input-number-group">
+                                            <div class="input-group-button">
+                                                <span class="input-number-decrement">-</span>
+                                            </div>
+                                            @Html.TextBoxFor(x => x.Items[i].quantity, new { @class = "input-number", @type = "number", @value = "1", @min = "1", @max = "1000", @onchange = "calculate()", @required = "required" })
+                                            <div class="input-group-button">
+                                                <span class="input-number-increment">+</span>
+                                            </div>
+                                        </div>
+                                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Items[i].quantity)</h6>
+                                    </td>
+                                }
+                                @if (Model.Items[i].mealID != null && Model.Items[i].mealID > 0)
+                                {
+                                    <td><a class="fa fa-trash" href="#" style="color:red" onclick="RemoveItem(this,'@Model.Items[i].mealID')"></a></td>
+                                }
+                                else if (Model.Items[i].dealID != null && Model.Items[i].dealID > 0)
+                                {
+                                    <td><a class="fa fa-trash" href="#" style="color:red" onclick="RemoveItem(this,'@Model.Items[i].dealID')"></a></td>
+                                }
+                                else
+                                {
+                                    <td><a class="fa fa-trash" href="#" style="color:red" onclick="RemoveItem(this,'@Model.Items[i].PackageID')"></a></td>
+                                }
+                            </tr>
+
+                            }
+                        </tbody>
+                    </table>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Delivery Date <span class="mand-red">*</span></label>
+                        <div class="input-group time">
+                            @Html.TextBoxFor(c => c.PickUpDate, new { @class = "form-control", data_datepicker = "date", @placeholder = "Select date", @required = "required" })
+                            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.PickUpDate)</h6>
+                        </div>
+                        @* <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>*@
+                    </div>
+                    <div class="col-sm-6 pd-mr-0">
+                        <label for="email">Delivery Time <span class="mand-red">*</span></label>
+                        <div class="input-group time" id="timepicker-2">
+                            @Html.TextBoxFor(c => c.PickUpTime, new { @class = "input-group-append input-group-addon form-control", data_datepicker = "time", @placeholder = "Select time", @required = "required" })
+                            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.PickUpTime)</h6>
+                        </div>
+                        @* <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>*@
+                    </div>
+                    <div class="col-sm-1"></div>
+                    @if (Model.buyerProfileID > 0)
+                    {
+                        @*<div class="col-sm-8">
+                                <div class=" col input-group">
+                                    <input type="text" id="Coupon" class="form-control br-top-left" placeholder="Coupon Code" aria-label="" aria-describedby="basic-addon2">
+                                    <div class="input-group-append">
+                                        <button type="button" class="input-group-text" id="basic-addon2" style="" onclick="AddCoupon()">Use</button> <br>
+                                    </div>
+                                </div>
+                            </div>*@
+                    }
+
+                    <div class="col-sm-3 ">
+                        <!-- <a href="#" class="link-coupon">Update Cart</a> -->
+                        @*<button type="submit" class="link-coupon  mybuttontimer flex-c-m txt-s-103 cl14 size-a-2 how-btn1 bo-all-1 bocl11 hov-btn2 trans-04">
+                                Update Cart
+                                <span class="lnr lnr-chevron-right m-l-7"></span>
+                                <span class="lnr lnr-chevron-right"></span>
+                            </button>*@
+                    </div>
+                </div>
+                <br>
+                <br>
+            </div>
+
+
+            <!-- second section side start -->
+            <div class="col first-right-sidee ">
+                <div class="container pd-lr-0">
+                    <div class="row pd-0">
+                        <div class="col-sm-12 pd-lr-0 b-b-1">
+                            <h4 class="text-center pd-5p or-summary">Order Summary</h4>
+                            <span class="text-center" style="display: block; padding-bottom:2px;">ORDER NUMBER @Model.orderNumber</span>
+                            @*<span class="text-center pd-5p or-summary" style="display: block;float:right">@Model.orderNumber</span>*@
+                        </div>
+                        <div class="col-sm-12 pd-5p b-b-1 fw-700">
+                            <span style="display: block;float:left">SUBTOTAL</span>
+                            <span style="display: block;float:right" id="TotalPrice">@Model.totalPrice</span>
+                        </div>
+                        <div class="col-sm-12 pd-5p b-b-1 fw-700">
+                            <div class="col-sm-12 ">
+                                <input id="radio-1" class="radio-custom" name="radio-group" type="radio" checked>
+                                <label for="radio-1" class="radio-custom-label">CASH ON DELIVERY</label>
+                            </div>
+                            @*<div class="col-sm-12 ">
+                <input id="radio-2" class="radio-custom" name="radio-group" type="radio">
+                <label for="radio-2" class="radio-custom-label">PAY USING CREDIT CARD</label>
+            </div>*@
+                        </div>
+                        <div class="col-sm-12 pd-5p fw-700">
+
+                            @if (Model.deliveryAddress != null && Model.deliveryAddress.Length > 0)
+                            {
+                                <p>Delivery Address : @Model.deliveryAddress</p>
+                                <p>Postal Code : @Model.PostalCode</p>
+                                <p>City : @Model.City</p>
+                            }
+                        </div>
+
+                        <div class="col-sm-12 pd-5p fw-700">
+                                <p style="font-size:large">Delivery Free</p>
+                        </div>
+                        <div class="col-sm-12 ">
+                            <button type="submit" class="btn btn-primary paynow " id="CheckOut">
+                                Proceed to Checkout<br>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        @*<div class="col-sm-12 bd-top" style="margin-top: 2%;">
+                <span class="top-span-c">CHOOSE FROM</span><br>
+                <span class="bottom-span-c">PREVIOUS</span><span class="top-span-d"> ADDRESSES</span>
+
+            </div>
+
+            <table class="col-sm-12 table table-bordered bg-white ">
+                <thead>
+                    <tr>
+                        <th scope="col">Address </th>
+                        <th scope="col" style="border-left: 1px solid #E3E3E3;">Type</th>
+
+
+
+                    </tr>
+                </thead>
+                <tbody class="Order-Prev">
+                    <tr class="selected">
+                        <td>
+                            <div>
+                                <label>
+                                    <input type="radio" class="option-input radio" name="example" checked />
+                                    House # 1658 , Street # 61, Phase 3, Bahria Town, Islamabad, Pakistan
+                                </label>
+                            </div>
+                        </td>
+                        <td>House</td>
+                    </tr>
+
+                    <tr class="">
+                        <td>
+                            <div>
+                                <label>
+                                    <input type="radio" class="option-input radio" name="example" />
+                                    House # 1658 , Street # 61, Phase 3, Bahria Town, Islamabad, Pakistan
+
+                                </label>
+                            </div>
+                        </td>
+                        <td>Office</td>
+                    </tr>
+                    <tr class="">
+                        <td>
+                            <div>
+                                <label>
+                                    <input type="radio" class="option-input radio" name="example" />
+                                    House # 1658 , Street # 61, Phase 3, Bahria Town, Islamabad, Pakistan
+
+                                </label>
+                            </div>
+                        </td>
+                        <td>House</td>
+                    </tr>
+                    <tr class="">
+                        <td>
+                            <div>
+                                <label>
+                                    <input type="radio" class="option-input radio" name="example" />
+                                    House # 1658 , Street # 61, Phase 3, Bahria Town, Islamabad, Pakistan
+
+                                </label>
+                            </div>
+                        </td>
+                        <td>Delivery Place</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="col-sm-12 pd-lr-0" style="margin-top: 2%;">
+                <div class="col-sm-12 bd-top ">
+                    <span class="top-span-c">Add A NEW</span><br>
+                    <span top-span-c class="bottom-span-c">NEW</span><span class="top-span-d">    ADDRESS</span>
+                    <div class="row ">
+                        <div class="col-12 pd-mr-0">
+                            <input type="text" class="form-control" placeholder="House No *">
+                        </div>
+                        <div class="col pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Zip Code">
+                        </div>
+                        <div class="col pd-mr-0">
+                            <input type="text" class="form-control" placeholder="Country">
+                        </div>
+                        <div class="col pd-mr-0">
+                            <input type="text" class="form-control" placeholder="City">
+                        </div>
+                    </div>
+                    <div class="col-sm-12 ">
+                        <button type="submit" class="btn btn-primary paynow ">ADD ADDRESS</button>
+                    </div>
+                </div>
+
+
+
+            </div>*@
+
+
+    </div>
+}
+
+<script>
+    var isCheckOut = false;
+    var CurrentDate = new Date();
+    var CurrentTime =  CurrentDate.getHours() + ":" + CurrentDate.getMinutes() + ":" + CurrentDate.getSeconds();
+    $('#CheckOut').on('click', function () {
+        isCheckOut = true;
+    })
+
+    function calculate() {
+        
+        var totalPrice = 0;
+        $("#cart-table tr:gt(0)").each(function () {
+            var price = $(this).find('td:eq(0)').html();
+            var quantity = $(this).find('td:eq(1) input').val();
+            if (quantity != null && quantity != "") {
+                totalPrice = eval(totalPrice + (price * quantity));
+            }
+            else {
+                totalPrice = eval(totalPrice + parseInt(price));
+            }
+        });
+        $('#TotalPrice').html(totalPrice);
+        $('#totalPrice').val(totalPrice);
+    }
+
+
+
+    $(document).ready(function () {
+        calculate();
+        $('.input-number-increment').click(function () {
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            var val = parseInt($input.val(), 10);
+            $input.val(val + 1);
+            calculate();
+        });
+
+        $('.input-number-decrement').click(function () {
+            var $input = $(this).parents('.input-number-group').find('.input-number');
+            if ($input.val() < 2) {
+                return false;
+            }
+            var val = parseInt($input.val(), 10);
+            $input.val(val - 1);
+            calculate();
+        })
+        $('form').removeData('validator');
+        $('form').removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse('form');
+        var Ischecked = false;
+        var options = {
+            beforeSubmit: function (msg) {
+                var pickUpDate = $('#PickUpDate').val();
+                var pickUpTime =  $('#PickUpTime').val();
+                var cDate = new Date(pickUpDate + " " + pickUpTime);
+                var CurrentDate = new Date();
+                var TimeDifference = cDate - CurrentDate;
+                var inputs = $(".input-number");
+                for (var i = 0; i < inputs.length; i++) {
+                    if ($(inputs[i]).val() <= 0) {
+                        $(inputs[i]).focus();
+                        toastr.error("Quantity should be greater than zero.");
+                        return false;
+                    }
+                }
+                vtablerows = $('#cart-table tr').length;
+                if (vtablerows < 2) {
+                    toastr.error("No item in cart.");
+                    return false;
+                }
+                if (((TimeDifference)/1000/60/60) < 6) {
+                        toastr.error("The pickup time can't be less than 6 hours.");
+                    return false;
+                }
+                if (vtablerows < 2) {
+                    toastr.error("No item in cart.");
+                    return false;
+                }
+                if ($('#totalPrice').val() < 350) {
+                      toastr.error("Minimum order price is 350.");
+                    return false;
+                }
+                blockUI();
+
+            },
+            success: function (msg) {
+                unblockUI();
+                if (msg > 0) {
+                    if (isCheckOut) {
+                        isCheckOut = false;
+                        if ($('#MainProfileID').val() != null && $('#MainProfileID').val() != undefined && $('#MainProfileID').val() != '' && $('#MainProfileID').val() != 0) {
+                            toastr.success("Order Created successfully.");
+                            window.location.href = "/Seller/Index";
+                        }
+                        else {
+                            toastr.warning("Login/Signup to complete your order.");
+                            $('#isSeller').val(false);
+                            $('#join-seller-model').modal('toggle');
+                        }
+                    }
+                }
+
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                toastr.error("failed");
+                unblockUI();
+            }
+        };
+        $('#AddToCart-form').ajaxForm(options);
+
+
+    })
+
+    function RemoveItem(ref, itemID) {
+        
+        if (window.confirm("Are you sure you want to remove this item?")) {
+            $(ref).closest('tr').remove();
+            calculate();
+            var tt = document.getElementById("CartItemsCount");
+            var count = $('#CartItemsCount').attr('data-notify');
+            count = eval(parseInt(count) - 1);
+            $('#CartItemsCount').attr('data-notify', count);
+            tt.setAttribute("data-notify", count);
+            var items = $('#cartItems').val();
+            var cartItemsDeal = $("#cartItemsDeal").val();
+            $('#cartItems').val(removeValue(items, itemID, ","));
+            $('#cartItemsDeal').val(removeValue(cartItemsDeal, itemID, ","));
+             var PackageItems = $('#cartItemsPackage').val();
+            $('#cartItemsPackage').val(removeValue(PackageItems, itemID, ","));
+            AddToCartPage();
+        }
+    }
+
+    var removeValue = function (list, value, separator) {
+        separator = separator || ",";
+        var values = list.split(separator);
+        for (var i = 0; i < values.length; i++) {
+            if (values[i] == value) {
+                values.splice(i, 1);
+                return values.join(separator);
+            }
+        }
+        return list;
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $('#myBtn').trigger('click');
+    })
+    function AddCoupon() {
+        if ($('#Coupon').val() == "") {
+            toastr.error("Please enter Coupon first.");
+            return false;
+        }
+        blockUI();
+        $.ajax({
+            type: "GET",
+            contentType: "html",
+            url: '/Home/CheckCouponExist',
+            async: true,
+            data: { Coupon: $('#Coupon').val() },
+            success: function (data) {
+                unblockUI();
+                $("#CouponID").val(data);
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                unblockUI();
+                toastr.error(jqXHR.responseText);
+            }
+        });
+
+    }
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    var date = new Date();
+    date.setDate(date.getDate() + 1);
+    
+    $('input[data-datepicker="time"]').datetimepicker({
+        format: "LT",
+        icons: {
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down"
+        }
+    })
+    $('input[data-datepicker="date"]').datetimepicker({
+        format: "L",
+        minDate: date
+    });
+    $('input[data-datepicker="date"]').val(date.toDateString());
+</script>
+

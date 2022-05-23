@@ -1,0 +1,203 @@
+﻿<div class="modal fade" id="modal-meal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-right p-sm"> <a class="btn btn-warning btn-circle" data-dismiss="modal"><i class="fa fa-times"></i></a> </div>
+            <div class="modal-body" style="overflow: hidden">
+                <div class="col-md-6 col-sm-6">
+                    <input id="hdnMealID" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnCount" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnMealTitle" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnMealPrice" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnMealActualPrice" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnMealAddOnPrice" class="mealhiddenvalue" type="hidden" />
+                    <input id="hdnCount" class="mealhiddenvalue" type="hidden" />
+                    <div class="demo">
+                        <ul id="lightSlider"></ul>
+                    </div>
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="seller-leftbox">
+                        <div class="m-b-md">
+                            <h3 class="font-bold"><span id="txtmName">Sausage Egg McMuffin - Meal</span></h3>
+                            <small><span id="txtmCat">450 - 620 Cal.</span></small>
+                        </div>
+                        <p id="txtmDes">
+                           
+                        </p>
+                        <div id="ListAddOns">
+
+                        </div>
+                        <div class="input-group col-md-5">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"> <span class="glyphicon glyphicon-minus"></span> </button>
+                            </span>
+                            <input type="text" id="txtmQuantity" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"> <span class="glyphicon glyphicon-plus"></span> </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row p-lg">
+                        <div class="col-md-7">
+                            <button type="button"  onclick="AddMealtoCart(true,0);" class="btn btn-success btn-lg btn-block">Add to Cart</button>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <h3 class="no-margins font-extra-bold text-success" id="txtmPrice">$7.90</h3>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="modal-footer"> </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var selectedOptions = [];
+
+    function AddMealtoCart(loggedIn,logID) {
+        //  displayValue();
+        MealItemAddedInCart = false;
+        var mealID = _get("hdnMealID");
+        var title = _get("hdnMealTitle");
+        var qty = _get("txtmQuantity");
+        var price = _get("hdnMealActualPrice");
+        var addOnsPrice = _get("hdnMealAddOnPrice");
+        var ttlPrice = +price + +addOnsPrice;
+        var pID = @ViewBag.profileID;
+        if (@ViewBag.profileID> 0) {
+            home.addMealToCart(mealID, title, qty, ttlPrice, pID, selectedOptions, '@ViewBag.Currency', loggedIn);
+        } else if (loggedIn == false) {
+            home.addMealToCart(mealID, title, qty, ttlPrice, logID, selectedOptions, '@ViewBag.Currency', loggedIn);
+        }
+        else {
+            MealItemAddedInCart = true;
+            CloseModel('modal-meal-detail');
+            OpenModel('login-model');
+         
+        }
+    }
+
+    function AddOptionToCart(optionID) {
+
+        if (selectedOptions.length > 0) {
+            for (var i = 0; i < selectedOptions.length; i++) {
+                if (selectedOptions[i] == optionID) {
+                    return;
+                }
+            }
+        }
+        selectedOptions.push(optionID)
+        return;
+    }
+
+    function RemoveOptionToCart(optionID) {
+        var newList = [];
+        if (selectedOptions.length > 0) {
+            for (var i = 0; i < selectedOptions.length; i++) {
+                if (selectedOptions[i] != optionID) {
+                    newList.push(selectedOptions[i]);
+                }
+            }
+        }
+        selectedOptions = newList;
+        return;
+    }
+
+    var selectedOptions = [];
+    $(document).on('click', '.checkbox input[type="checkbox"]', function () {
+        //alert("On checkbox Check");
+        var oldPrice = _get('hdnMealActualPrice');
+        var AddedAddOnPrice = _get('hdnMealAddOnPrice');
+        var itemPrice = $(this).attr("data-value");
+        var optionID = $(this).attr("data-id");
+        var qty = _get("txtmQuantity");
+        var newPrice = 0;
+
+            if (this.checked) {
+                AddedAddOnPrice = +AddedAddOnPrice + +itemPrice;
+                newPrice = (+oldPrice + +AddedAddOnPrice) * +qty;
+
+                _set('hdnMealPrice', newPrice);
+                _set('hdnMealAddOnPrice', AddedAddOnPrice);
+                _setIn('txtmPrice', '@ViewBag.Currency' + newPrice);
+                AddOptionToCart(optionID);
+            }
+            else {
+                AddedAddOnPrice = +AddedAddOnPrice - +itemPrice;
+                newPrice = (+oldPrice + +AddedAddOnPrice) * +qty;
+                _set('hdnMealPrice', newPrice);
+                _set('hdnMealAddOnPrice', AddedAddOnPrice);
+                _setIn('txtmPrice', '@ViewBag.Currency' + newPrice);
+                RemoveOptionToCart(optionID);
+            }
+    });
+
+
+
+    $(document).on('click', '.radio input[type="radio"]', function () {
+        ;
+        //alert("On radio");
+            var oldPrice = _get('hdnMealActualPrice');
+            var AddedAddOnPrice = _get('hdnMealAddOnPrice');
+            var itemPrice = $(this).attr("data-value");
+            var optionID = $(this).attr("data-id");
+            var addOnID = $(this).attr("id");
+            var oldOptionID = $("#hdnrdo" + addOnID).data("id");
+
+           
+            var oldValue = _get("hdnrdo" + addOnID);
+        console.log("addOnID=" + addOnID);
+        console.log("oldValue=" + oldValue);
+
+        if (oldValue) {
+            console.log("AddedAddOnPrice=" + AddedAddOnPrice);
+            AddedAddOnPrice = +AddedAddOnPrice - +oldValue;
+            console.log("+AddedAddOnPrice - +oldValue=" + AddedAddOnPrice);
+            console.log("oldOptionID=" + oldOptionID);
+            console.log("optionID=" + optionID);
+            RemoveOptionToCart(oldOptionID);
+             }
+        _set("hdnrdo" + addOnID, itemPrice);
+        $("#hdnrdo" + addOnID).data("id", optionID);
+
+            var qty = _get("txtmQuantity");
+            var newPrice = 0;
+         if (this.checked) {
+                AddedAddOnPrice = +AddedAddOnPrice + +itemPrice;
+             newPrice = (+oldPrice + +AddedAddOnPrice) * +qty;
+
+                _set('hdnMealPrice', newPrice);
+                _set('hdnMealAddOnPrice', AddedAddOnPrice);
+                _setIn('txtmPrice', '@ViewBag.Currency' + newPrice);
+                AddOptionToCart(optionID);
+            }
+         @*else {
+               
+                newPrice = (+oldPrice + +itemPrice) * +qty;
+                _set('hdnMealPrice', newPrice);
+                _set('hdnMealAddOnPrice', AddedAddOnPrice);
+                _setIn('txtmPrice', '@ViewBag.Currency' + newPrice);
+                RemoveOptionToCart(optionID);
+            }*@
+    });
+
+
+    $(document).on('change', '#txtmQuantity', function () {
+        //alert("On checkbox Check");
+       
+        var oldPrice = _get('hdnMealActualPrice');
+        var AddedAddOnPrice = _get('hdnMealAddOnPrice');
+        var newPrice = +this.value *(+oldPrice + +AddedAddOnPrice);
+  
+        //alert("oldPrice=>" + oldPrice);
+        //alert("this.value=>" + this.value);
+        //alert("newPrice=>" + newPrice);
+                _set('hdnMealPrice', newPrice);
+                _setIn('txtmPrice', '@ViewBag.Currency' + newPrice);
+    });
+
+   
+</script>

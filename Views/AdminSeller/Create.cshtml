@@ -1,0 +1,591 @@
+﻿@model Entity.Seller
+@{
+    ViewBag.Title = "Tashty | Admin Seller";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+    //Layout = null;
+    int id = (int)ViewData["id"];
+
+}
+
+<script type="text/javascript">
+ 
+            function OnSuccessCreate(res) {
+                ;
+                var response = JSON.parse(res);
+                if (response.obj == 4) {
+                    toastr.error("Email already exists!");
+                }
+                else if (response.obj == 5) {
+                    toastr.error("Username already exists!");
+                }
+                if (response.obj == 1) {
+                    if (response.id)
+                        toastr.success("Seller profile updated successfully!");
+                    else toastr.success("Seller profile created successfully");
+                    sleep(80000);            
+                var url = '@Url.Content("~/AdminSeller/Index/")';
+                location.href = url;
+                }
+
+            }
+
+    function OnFailureCreate(error) {
+        var response = JSON.parse(error);
+        if (response.id)
+            toastr.error("Whoops! That didn't go so well did it ! Failed to update seller profile");
+        else toastr.error("Whoops! That didn't go so well did it ! Failed to create new seller profile.");
+        console.log("Whoops! That didn't go so well did it?" + response.error);
+            }
+
+</script>
+
+@using (Ajax.BeginForm("Create", "AdminSeller", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnBegin = "",
+    OnSuccess = "OnSuccessCreate(data); ",
+    OnFailure = "OnFailureCreate(data); ",
+    OnComplete = "",
+}, htmlAttributes: new { autocomplete = "off", @class = "form-horizontal", name = "#frmSeller" }))
+{
+
+    this.ViewContext.ClientValidationEnabled = false;
+
+	@Html.HiddenFor(model => model.sellerID)
+	@Html.HiddenFor(model => model.profileID)
+	@Html.HiddenFor(model => model.address.countryID)
+	@Html.HiddenFor(model => model.address.cityID)
+	<div class="content animate-panel">
+		<div class="hpanel">
+			<div class="panel-heading m-b-sm">
+				@if (id == 0)
+				{
+					<text>  <h4> Create New  Seller Profile</h4> </text>
+				}
+				else
+				{ <text><h4> Edit Seller Profile</h4>  </text>
+
+			}
+			</div>
+			<div class="panel-body">
+                <div class="row">
+                    @*<form action="#" id="EditForm">*@
+                    <div class="form-group col-lg-4">
+                        <label>First Name*</label>
+                        @Html.TextBoxFor(model => model.profile.firstName, new { placeholder = "First Name", @class = "form-control", @maxlength = "32", @pattern = "[A-Za-z]{1,32}", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Middle Name</label>
+                        @Html.TextBoxFor(model => model.profile.middleName, new { placeholder = "Middle Name", @maxlength = "32", @pattern = "[A-Za-z]{1,32}", @class = "form-control" })
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Last Name*</label>
+                        @Html.TextBoxFor(model => model.profile.lastName, new { placeholder = "Last Name", @class = "form-control", @maxlength = "32", @pattern = "[A-Za-z]{1,32}", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>User Name*</label>
+                        @if (id == 0)
+                        {
+                            @Html.TextBoxFor(model => model.profile.username, new { placeholder = "User Name", @maxlength = "32", @pattern = "^[a-zA-Z][a-zA-Z0-9-_\\.]{3,20}$", @class = "form-control", @required = true })}
+                        else
+                        {
+                            @Html.TextBoxFor(model => model.profile.username, new { placeholder = "User Name", @class = "form-control", @readonly = true })
+                        }
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Email Address*</label>
+                        @if (id == 0)
+                        {
+                            @Html.TextBoxFor(model => model.profile.email, new { placeholder = "Email Address", @type = "email", @class = "form-control", @required = true })
+                        }
+                        else
+                        { @Html.TextBoxFor(model => model.profile.email, new { placeholder = "Email Address", @class = "form-control", @readonly = true })}
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>CNIC*</label>
+                        @Html.TextBoxFor(model => model.NICNumber, new { placeholder = "CNIC", @maxlength = "32", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4 validatedForm">
+                        <label>Password*</label>
+                        @if (id == 0)
+                        {
+                            @Html.PasswordFor(model => model.profile.password, new { @pattern = "(?=^.{6,}$)(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\\s).*$", placeholder = "********", @class = "form-control", @required = true })
+                        }
+                        else
+                        {
+                            @Html.PasswordFor(model => model.profile.password, new { placeholder = "********", @class = "form-control", @readonly = "true" })
+                        }
+                        <p>
+                            <small>6 characters or longer. Combine upper and lowercase letters and numbers.</small>
+                        </p>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Confirm Password*</label>
+                        @if (id == 0)
+                        {
+                            <text> <input class="form-control validatedForm" type="password" id="txtConfirmPassword" placeholder="Confirm Password" required> </text>
+                        }
+                        else
+                        {
+                            <text><input class="form-control" type="password" id="txtConfirmPassword" placeholder="Confirm Password" readonly></text>
+                        }
+                    </div>
+                    @*<div class="form-group col-lg-4">
+        <label>Date Of Birth</label>
+        @*Html.TextBoxFor(model => model.profile.DOB, new { placeholder = "Date Of Birth", @class = "form-control"})*@
+                    @* </div>*@
+                    <div class="form-group col-lg-4">
+                        <label> Title*</label>
+                        @Html.DropDownListFor(model => model.profile.titleID, new SelectList(ViewBag.ListTitles, "titleID", "titleName"), "Select Title", new { @id = "title", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Marital Status*</label>
+                        @Html.DropDownListFor(model => model.profile.maritalStatusID, new SelectList(ViewBag.ListMaritalStatus, "maritalStatusID", "maritalStatusName"), "Select Marital Status", new { @id = "MaritalStatus", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Gender*</label>
+                        @Html.DropDownListFor(model => model.profile.genderID, new SelectList(ViewBag.ListGenders, "genderID", "name"), "Select Gender", new { @id = "Gender", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Mobile Number*</label>
+                        @Html.TextBoxFor(model => model.profile.mobile, new { placeholder = "Mobile Number", @class = "form-control", @maxlength = "12", @pattern = "\\d*", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Work Phone*</label>
+                        @Html.TextBoxFor(model => model.profile.phoneNumber, new { placeholder = "Phone Number", @class = "form-control", @maxlength = "12", @pattern = "\\d*", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Registration Status*</label>
+                        @Html.DropDownListFor(model => model.registrationStatusID, new SelectList(ViewBag.ListSellerRegStatus, "registrationStatusID", "registrationStatus"), "Select Status", new { @id = "registrationStatusID", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Religion</label>
+                        @Html.TextBoxFor(model => model.religion, new { placeholder = "Religion", @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Nationality</label>
+                        @Html.TextBoxFor(model => model.nationality, new { placeholder = "Nationality", @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>postalCode</label>
+                        @Html.TextBoxFor(model => model.address.postalCode, new { placeholder = "postalCode", @class = "form-control", @pattern = "[a-zA-Z0-9]{1,20}" })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Street Address</label>
+                        @Html.TextBoxFor(model => model.address.address, new { placeholder = "Street Address", @class = "form-control", @required = true })
+                    </div>
+
+                    <div class="form-group col-lg-4">
+                        <label>Country</label>
+
+                        @Html.HiddenFor(model => model.address.country)
+                        <select id="ddlCountry" class="form-control" required>
+                            <option value=""> Select Country</option>
+                            @if (ViewBag.ListCountries != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                                {
+                                    string val = ViewBag.ListCountries[i].countryID.ToString();
+                                    string title = ViewBag.ListCountries[i].country.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>City</label>
+                        @Html.HiddenFor(model => model.address.city)
+                        <select id="ddlCity" class="form-control" required>
+                            <option value=""> Select City</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Display Title</label>
+                        @Html.TextBoxFor(model => model.displayTitle, new { placeholder = "Display Title", @class = "form-control" })
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Delivery Range</label>
+                        @Html.DropDownListFor(model => model.deliveryRange, new List<SelectListItem>
+                                        {
+                                        new SelectListItem{ Text="0 km", Value = "0" },
+                                        new SelectListItem{ Text="10 km", Value = "10" },
+                                        new SelectListItem{ Text="20 km", Value = "20" },
+                                        new SelectListItem{ Text="30 km", Value = "30" },
+                                        new SelectListItem{ Text="40 km", Value = "40" },
+                                        new SelectListItem{ Text="50 km", Value = "50" },
+                                        new SelectListItem{ Text="60 km", Value = "60" },
+                                        new SelectListItem{ Text="70 km", Value = "70" },
+                                        new SelectListItem{ Text="80 km", Value = "80" },
+                                        new SelectListItem{ Text="90 km", Value = "90" },
+                                        new SelectListItem{ Text="100 km", Value = "100" },
+                                        new SelectListItem{ Text="200 km", Value = "200" }
+                                        }, new { placeholder = "Select Range", @class = "form-control" })
+
+                    </div>
+                    <div class="form-group col-lg-12">
+                        <label>Description</label>
+                        @Html.TextAreaFor(model => model.description, new { placeholder = "Description", @class = "form-control" })
+
+                    </div>
+                    <div class="col-lg-12">
+                        <label>Upload Profile Picture</label>
+                        @Html.HiddenFor(model => model.profile.profilePhoto)
+                        @if (!String.IsNullOrEmpty(Model.profile.profilePhoto))
+                        {
+                            <img class="profile-pic-seller" width="150" height="150" src="@Url.Content("~/Uploads/ProfilePictures/"+ Model.profile.profilePhoto)" />
+                            <div class="col-lg-12">
+                                <div class="file-loading">
+                                    <input id="fileSellerProfilePhoto" type="file" style="margin-left:3%;" />
+
+                                </div>
+                            </div>
+                        }
+                        else
+                        { <div class="col-lg-12">
+                                <img class="profile-pic-seller img-circle" width="150" height="150" src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                                <div class="file-loading">
+                                    <input id="fileSellerProfilePhoto" type="file" style="margin-left:3%;" />
+                                </div>
+                            </div>
+                        }
+
+
+
+                    </div>
+                    <div class="form-group col-lg-12"><small> maximum allowed upload size is 100 kb.</small></div>
+                    <div class="col-lg-12 ">
+                        <label>Upload Cover Image</label>
+                        <div class="col-lg-12">
+                            <div id="image-preview" class="image-preview">
+                                @Html.HiddenFor(model => model.bannarPhoto)
+                                <input type="file" name="image" id="fileUploadBanner" class="images-uploads" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-10"><small> maximum allowed upload size is 250 kb.</small></div>
+
+                    <div class="col-lg-4">
+                        <label>Is Featured</label>
+                        <div class="radio radio-success radio-inline">
+                            @Html.CheckBoxFor(model => model.isFeatured, new { name = "isFeatured" })
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <label>Is Top Seller</label>
+                        <div class="radio radio-success radio-inline">
+                            @Html.CheckBoxFor(model => model.isTopSeller, new { name = "isTopSeller" })
+                        </div>
+
+                    </div>
+                    <div class="col-lg-12 m-t">
+                        <input class="btn btn-success" type="submit" id="btnSubmit" value="Save Changes" />
+                        <button class="btn btn-default" id="btnCancel" type="button">Cancel</button>
+                    </div>
+                    @*</form>*@
+                </div>
+			</div>
+		</div>
+	</div>
+
+}
+
+<script type="text/javascript">
+
+    $('#mnuUM a').trigger('click');
+    $('#mnuUMSeller a').trigger('click');
+     ListCities = @Html.Raw(Json.Encode(ViewBag.ListCities));
+
+
+    @if (!String.IsNullOrEmpty(Model.bannarPhoto))
+	{
+				<text>
+			     ChangeBackgroungImage('@Url.Content("~/Uploads/Banners/" + Model.bannarPhoto)');
+			    </text>
+	}
+
+    function ChangeBackgroungImage(url2) {
+        _("image-preview").style.backgroundImage = "url(" + url2 + ")";
+        _("image-preview").style.backgroundRepeat = "no-repeat";
+        _("image-preview").style.backgroundSize = "100%";
+
+    }
+
+
+    $(document).ready(function () {
+
+
+        $('#profile_DOB').datepicker();
+        //$("#profile_DOB").on("changeDate", function (event) {
+        //    $("#my_hidden_input").val(
+        //        $("#datepicker").datepicker('getFormattedDate')
+        //    );
+        //});
+
+        });
+        function populateCities(value, ListCity, eleCityID) {
+            if (ListCity) {
+                $('#' + eleCityID).html('');
+                $('#' + eleCityID)
+                    .append($("<option></option>")
+                        .attr("value", "")
+                        .text('Select City'));
+
+                for (var i = 0; i < ListCity.length; i++) {
+                    var val = ListCity[i].cityID;
+                    var id = ListCity[i].countryID;
+                    var name = ListCity[i].city;
+                    if (id == value) {
+                        $('#' + eleCityID)
+                            .append($("<option></option>")
+                                .attr("value", val)
+                                .text(name));
+                    }
+                }
+            }
+            return;
+        }
+
+          @if (id != 0 && Model.address.countryID!=0) {
+         <text>
+
+            populateCities(@Model.address.countryID, ListCities, 'ddlCity');
+
+        </text>
+
+    }
+</script>
+
+<script>
+
+    $('#btnCancel').click(function () {
+        var url = '@Url.Action("Index", "AdminSeller")';
+        location.href = url;
+    });
+
+    $('#ddlCity').on('change', function () {
+        $("#address_cityID").val(this.value);
+        var txt = $("#ddlCity option:selected").text();
+        $("#address_city").val(txt);
+        return false;
+    });
+
+    $('#ddlCountry').on('change', function () {
+        $("#address_countryID").val(this.value);
+        var txt = $("#ddlCountry option:selected").text();
+        $("#address_country").val(txt);
+        populateCities(this.value, ListCities, 'ddlCity');
+        return false;
+    });
+
+
+      @if (id != 0 && Model.address.countryID!=0) {
+        <text>
+
+    _setSelect('ddlCountry', @Model.address.countryID);
+
+        _setSelect('ddlCity',@Model.address.cityID)
+
+    </text>
+
+    }
+    function validatePassword() {
+        txtConfirmPassword.className = txtConfirmPassword.className.replace(" input-validation-error", "");
+        if (profile_password.value != txtConfirmPassword.value) {
+            txtConfirmPassword.className += " input-validation-error";
+            txtConfirmPassword.setCustomValidity("Passwords Don't Match");
+
+        } else {
+            txtConfirmPassword.setCustomValidity('');
+        }
+    }
+</script>
+<script>
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+    var loadedBanURL = "";
+    var customBanValidationFailed = false;
+    $("form").submit(function (event) {
+			var valid = true;
+			if (@id==0) {
+				valid = ValidateSellerFeilds();
+				if (!valid) return false;
+			}
+			else return true;
+		});
+
+		var profile_password = _("profile_password"), txtConfirmPassword = _("txtConfirmPassword");
+		profile_password.onchange = validatePassword;
+		txtConfirmPassword.onkeyup = validatePassword;
+
+	  var readURL = function (input) {
+
+		if (input.files && input.files[0]) {
+			var reader = new FileReader();
+
+            reader.onload = function (e) {
+                loadedPhotoURL = e.target.result;
+           // $('.profile-pic-seller').attr('src', e.target.result);
+		}
+
+		reader.readAsDataURL(input.files[0]);
+		}
+	  }
+
+
+    $("#fileUploadBanner").on('change', function () {
+        readURLbanner(this);
+	});
+
+    var readURLbanner = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                loadedBanURL = e.target.result;
+                //ChangeBackgroungImage(e.target.result);
+               // $('.profile-photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileSellerProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+
+	$.uploadPreview({
+		input_field: ".image-upload",
+		preview_box: ".image-preview",
+		label_field: ".image-label"
+	});
+
+
+    $("#fileSellerProfilePhoto").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'AdminSeller/UploadProfilePic',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+        overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Picture",
+        maxFileSize: 100,
+        msgSizeTooLarge: 'Profile photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        //minFileCount: 1,
+        uploadAsync: true,
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: String("1")
+            };
+        }
+        });
+
+    $('#fileSellerProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-pic-seller').attr('src', loadedPhotoURL);
+        _set("profile_profilePhoto", data.response);
+        customPhotoValidationFailed = false;
+    });
+    $('#fileSellerProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileSellerProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#fileSellerProfilePhoto").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+
+    $("#fileUploadBanner").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'Seller/UploadBanner',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+        overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Banner",
+        maxFileSize: 250,
+        msgSizeTooLarge: 'Banner photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        //minFileCount: 1,
+        uploadAsync: true,
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: String("1")
+            };
+        }
+        });
+
+    $('#fileUploadBanner').on('fileuploaded', function (event, data, previewId, index) {
+        ChangeBackgroungImage(loadedBanURL);
+        _set("bannarPhoto", data.response);
+        customBanValidationFailed = false;
+    });
+    $('#fileUploadBanner').on('fileuploaderror', function (event, data, msg) {
+        customBanValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileUploadBanner').on('fileselect', function (event, numFiles, label) {
+
+        if (!customBanValidationFailed) {
+            $("#fileUploadBanner").fileinput("upload");
+        }
+        customBanValidationFailed = false;
+    });
+
+
+
+</script>

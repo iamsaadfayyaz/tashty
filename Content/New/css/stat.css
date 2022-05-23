@@ -1,0 +1,249 @@
+.margin-0{margin-top:-3%;}
+.mobile-statistics{
+    display: none;
+}
+
+.desktop-statistics{
+    display: inline;
+}
+.mobile-stat{display: none;}
+
+.rating-text {
+    font-size: 10px;
+    padding-top: 32px !important;
+    margin-bottom: 0px !important;
+}
+p.ct-text-black{font-size:12px;
+		font-weight: 500;
+        color:darkgray;
+    margin-bottom:0px!important;
+    padding-top:3px;
+    }
+.icon-txt {
+    font-size: 12px;
+    /* font-weight: 700; */
+    padding-left: 3px;
+    margin-bottom: 0px !important;
+    color: grey;
+    text-align: center;
+}
+        label {
+            color:black;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: .5rem;
+            margin-top: .3rem;
+        
+        }
+.border-red {
+    border: 1px solid #FB755D;
+    border-radius: 7px;
+    margin-top: 5px;
+    padding-left: 3px;
+    margin-left: 1px;
+    margin-right: 1px;
+}
+        .text-border{color: #FB755D;
+            font-size: 10px;
+            margin-bottom: 0px!important;
+            font-weight: 700;
+            padding-top: 8px;
+            }
+            .border-red.starrating > label{color:#EF412E;
+                margin-bottom: 0px!important;
+                margin-top: 0px!important;
+                padding-right: 5px;
+    padding-left: 5px;
+            }
+            .mycard-body{padding-left:8px !important;
+                padding-right:8px !important;
+                padding-top:8px !important;
+                padding-bottom:0px !important;
+                
+                margin-left: 2px;
+                margin-right: 2px;
+            }
+            .card-body-2{
+                padding-left:8px !important;
+                padding-right:8px !important;
+                margin-left: 2px;
+                margin-right: 2px;
+                }
+.card-body-3 {
+    /*padding-left:4px !important;
+                    padding-right:4px !important;
+                    margin-left: 2px;
+                    margin-right: 2px;*/
+}
+.extra-space{padding-top:3%;
+             padding-bottom:3%;
+}
+.ex-space {
+    padding-top: 8%;
+}
+.mycard-title {
+    font-size: 13PX;
+    color: black;
+    padding-bottom:5%;
+    font-weight: 700;
+    margin-bottom: 0px !important;
+}
+                        span.s-card-text{
+                            font-weight: 700;
+                            color:#FB755D;
+                            font-size: 13px;}
+                            .card-text{text-align: right;
+    color: black;
+    font-weight: 700;
+                                font-size: 13px;}
+                                .ct-text-red{font-size:11px;
+                                    font-weight: 700;
+                                    color:#FB755D;}
+                                    .card-pd{
+                                        padding: 1.5% 2%;
+                                    }
+                                    .resize-img {
+                                        width: 100%;
+                                        height: 140px;
+                                        border-top-left-radius: calc(.35rem - 1px);
+                                        border-top-right-radius: calc(.35rem - 1px);
+                                    }
+                                    .notify-badge{
+                                        position: absolute;
+                                        right: 8px;
+                                        top: 8px;
+                                        background:#0855E2;
+                                        text-align: center;
+                                        border-radius: 7px;
+                                        color:white;
+                                        padding:1px 10px;
+                                        font-size: 11px;
+                                        font-weight: 700;
+                                    }
+                                    .maindashboard-stat2{
+                                        padding: 2% 2%;
+                                        border: 30px solid #F2F6F9;
+                                        background-color: white;
+                                    }
+                                    .xtra-spc{padding-top:20px;}
+                                    .top-space{padding-top:20px;}
+                                    .how-pos1-parent{
+                                        position: relative;
+                                        text-align: center;
+                                    }
+                                    .how-pos1{
+                                    position: absolute;
+                                    top: 40%;
+                                    left: 50%;
+                                    transform: translate(-50%, -50%);}
+                                    .h17p {
+                                        height: 50px;
+                                    }
+                                    .m-b-14{text-align: center;
+                                    color:#81b03f;
+                                font-size: 17px;
+                            font-style:italic;}
+                                    .txt-l-101{text-align: center;
+                                        font-family: Lato-Black;
+                                        font-size: 27px;
+                                        line-height: 1.2;
+                                        text-transform: uppercase;
+                                        letter-spacing: 2px;
+                                        color:black;
+                                        font-weight:900;
+                                        padding-top: 13px;
+                                    }
+                                    @media only screen and (min-width:768px) and (orientation : portrait)  {
+                                        .desktop-statistics{display: none;
+                                        
+                                        }
+                                        .mobile-desk-stat{display: none;}
+                                        .mobile-stat{display: inline-block;
+                                        width: 100%;}
+                                        .mobile-statistics{display: inline;}
+                                        .seller-blue{font-size:16px;}
+                                        .seller-pink-m {
+                                            font-size:16px;
+                                            text-align: center;
+                                        }
+                                        .seller-yellow{font-size:16px;
+                                        text-align: right;}
+                                        .seller-ppp {
+                                            
+                                            font-size: 10px;
+                                        }
+                                        .seller-ppp-m {
+                                            font-size: 10px;
+                                            text-align: center;
+                                           
+                                        }
+                                        .seller-ppp3 {
+                                            font-size: 10px;
+                                            text-align: right;
+                                        }
+                                        .seller-img {
+                                            width: 65px;
+                                            height: 65px;
+                                            
+                                        }
+                                        .seller-img2 {
+                                            width: 65px;
+                                            height: 65px;
+                                            
+                                        }
+                                        .seller-img3 {
+                                            width: 65px;
+                                            height: 65px;
+                                            float:right;
+                                        }
+
+                                    }
+
+                                    /* .h17p{position: absolute;} */
+                                    /* .how-pos1.how-pos2{position: relative;
+                                        z-index: 1;} */
+
+/* 
+                                    .f-s-17 {
+                                        font-size: 17px !important;
+                                    }
+                                    .h17p {
+                                        height: 50px;
+                                    }
+                                    .f-s-30p {
+                                        font-size: 30px;
+                                    }
+                                    .txt-l-101 {
+                                        font-family: Lato-Black;
+                                        font-size: 42px;
+                                        line-height: 1.2;
+                                        text-transform: uppercase;
+                                        letter-spacing: 2px;
+                                    }
+                                    .how-pos4-parent, .how-pos3-parent, .how-pos2-parent, .how-pos1-parent {
+                                        position: relative;
+                                        z-index: 1;
+                                    }
+                                    .txt-m-201 {
+                                        font-family: PlayfairDisplay-Italic;
+                                        font-size: 20px;
+                                        line-height: 1.3;
+                                        letter-spacing: 1px;
+                                    }
+                                    .cl10 {
+                                        color: #81b03f;
+                                    }
+                                    .m-b-14, .m-tb-14, .m-all-14 {
+                                        margin-bottom: 14px;
+                                    }
+                                    .how-pos1 {
+                                        position: absolute;
+                                        z-index: -1;
+                                        top: 50%;
+                                        left: 50%;
+                                        -webkit-transform: translate(-50%, -58%);
+                                        -moz-transform: translate(-50%, -58%);
+                                        -ms-transform: translate(-50%, -58%);
+                                        -o-transform: translate(-50%, -58%);
+                                        transform: translate(-50%, -58%);
+                                    } */

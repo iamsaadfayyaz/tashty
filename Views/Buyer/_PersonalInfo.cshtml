@@ -1,0 +1,182 @@
+﻿   <h3>Personal Info</h3>
+<hr>
+<div class="content">
+    <p>
+        Tell us a bit about yourself.
+    </p>
+
+    <div class="border-bottom text-right m-b-lg" style="padding-bottom:5px;"><small><span class="text-danger">*</span>Mandatory fields</small></div>
+
+    <div class="wizardform">
+        <form id="frmbuyProfile" role="form" action="" method="post">
+            <div class="row">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="f-name">Full Name</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="First Name" name="txtFirstName" id="txtFirstName" required>
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="Last Name" name="txtLastName" id="txtLastName" required>
+                    </div>
+                </div>
+
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Title</label>
+                    <div class="col-sm-5">
+                        <select id="ddlTitle" class="form-control input-lg" required>
+                            <option value=""> select Title</option>
+                            @if (ViewBag.ListTitles != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListTitles.Count; i++)
+                                {
+                                    string val = ViewBag.ListTitles[i].titleID.ToString();
+                                    string title = ViewBag.ListTitles[i].titleName.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <select id="ddlGender" class="form-control input-lg" required>
+                            <option value=""> select Gender</option>
+                            @if (ViewBag.ListGenders != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListGenders.Count; i++)
+                                {
+                                    string val = ViewBag.ListGenders[i].genderID.ToString();
+                                    string title = ViewBag.ListGenders[i].name.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label" for="m-number">Phone Number</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" maxlength="12" pattern="\d*" required placeholder="Mobile Number" name="txtMobile" id="txtMobile">
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" maxlength="12" pattern="\d*" placeholder="Phone Number" name="txtPhone" id="txtPhone">
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Profile Picture</label>
+                    <div class="col-lg-10">
+                        <input type="hidden" id="hdnPFFilename" />
+                        <img class="profile-photo img-circle" width="150" height="150"  src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                        <div class="file-loading">
+                            <input id="fileProfilePhoto" type="file" style="margin-left:3%;" />
+
+                        </div>
+                        <div class="form-group col-lg-10"><small> maximum allowed upload size is 100 kb.</small></div>
+                    </div>
+                </div>
+                <input type="submit" style="display:none;" id="btnSubmitAllInfo" />
+             </div>
+        </form>
+        <form id="frmbuyAdd" role="form" action="">
+            <div class="row">
+                <div class="wizardform">
+                    <div class="form-group m-b">
+
+                        <label class="col-sm-2 control-label">Address Detail</label>
+                        <div class="col-sm-5">
+                            <input id="hdnAddressTypeID" type="hidden" />
+                            <select id="ddlAddressType" class="form-control input-lg" required>
+                                <option value=""> select Address Type</option>
+                                @if (ViewBag.ListAddressType != null)
+                                {
+                                    for (int i = 0; i < ViewBag.ListAddressType.Count; i++)
+                                    {
+                                        string val = ViewBag.ListAddressType[i].addressTypeID.ToString();
+                                        string title = ViewBag.ListAddressType[i].addressType.ToString();
+
+                                        <text>
+                                            <option value="@val">@title</option>  </text>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+
+                        <div class="col-sm-5">
+                            <input type="text" class="form-control input-lg" id="txtAddress" placeholder="Enter Address" required>
+                        </div>
+
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-5 m-t-sm">
+                            <input id="hdnCountryID" type="hidden" />
+                            <select id="ddlCountry" disabled class="form-control input-lg" required>
+                                <option value=""> select Country</option>
+                                @if (ViewBag.ListCountries != null)
+                                {
+                                    for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                                    {
+                                        string val = ViewBag.ListCountries[i].countryID.ToString();
+                                        string title = ViewBag.ListCountries[i].country.ToString();
+
+                                        <text>
+                                            <option value="@val">@title</option>  </text>
+                                    }
+
+                                }
+                            </select>
+                        </div>
+                        <div class="col-sm-5 m-t-sm">
+                            <input id="hdnCityID" type="hidden" />
+                            <select id="ddlCity" class="form-control input-lg" required>
+                                <option value=""> select city</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-5 m-t-sm">
+                            <input type="text" class="form-control input-lg" id="txtPostalCode" placeholder="Add Postal Code" pattern="[a-zA-Z0-9]{1,20}" required>
+                        </div>
+
+                        <div class="col-sm-5 m-t-sm">
+                            <div class="form-group col-lg-4 m-t-md">
+                                <button type="submit" id="btnAddAddress" class="btn btn-success">Add</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">&nbsp;</div>
+                        <div class="col-sm-10 m-t-sm">
+                            <div class="col-lg-12 m-t hbuilt">
+                                <h5>Address History</h5>
+                                <hr />
+                                <div class="Address-History">
+                                    <div class="table-responsive">
+                                        <table class="table" cellspacing="1" cellpadding="1">
+                                            <thead>
+                                                <tr>
+                                                    <th>Address Type</th>
+                                                    <th>Street Address</th>
+                                                    <th>City</th>
+                                                    <th>Country</th>
+                                                    <th>PostCode</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="tblBuyerAddress"><tr><td colspan='5'><center> No record found </center></td></tr></tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+</div>
+                </div>
+        </form>
+        <div class="f1-buttons">
+            <button type="button" id="btnSaveInfo" class="btn btn-success btn-lg">Save & Continue</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,623 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    bool isSeller = ViewBag.isSeller;
+    string FbAppID = ViewBag.fbAppID;
+    string FbAppKey = ViewBag.fbAppKey;
+    string gglAppID = ViewBag.gglAppID;
+    string gglAppKey = ViewBag.gglAppKey;
+    int countryID = ViewBag.CountryID;
+
+}
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="#myModal1" data-toggle="modal">Join tashty</a>
+        </div>
+        <div class="modal fade" id="myModal1">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-md-6 p-t-b-50">
+                                <div class="padding-50px">
+
+                                    <div class="row d-flex justify-content-center">
+                                        <h1 class="p-t-b-20">Join Tashty</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button class="newbtn-fb"><i class="fa fa-facebook"></i>&nbsp; &nbsp;Sign in with Facebook</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button class="newbtn-gmail"><i class="fa fa-google"></i>&nbsp; &nbsp;Sign in with Gmail</button>
+                                        </div>
+
+                                        <div class="separator">or</div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <p class="p-bold">Email address</p>
+                                            <input type="text" class="form-control" id="usr">
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-continue">Continue</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row d-flex justify-content-center">
+                                            <p class="p-font">Already Have an Account?<a href="">Sign in</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 bg-img-model1">
+                                <div class="row d-flex justify-content-end txtalign-btm">
+
+                                    <h1 class="h1-custom">JOIN NOW</h1>
+                                    <P class="p-custom">Order your favourite food from best sellers</P>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+Model 2 start
+<div class="container-fluid">
+    <div class="row">
+
+
+
+
+        <div class="col-md-12">
+            <a href="#myModal2" data-toggle="modal">Modal</a>
+        </div>
+        <div class="modal fade" id="myModal2">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                                            
+                            <div class="col-md-6 p-t-b-50">
+                                <div class="padding-50px">
+
+                                    <div class="row d-flex justify-content-center">
+                                        <h1 class="p-t-b-20">JOIN TASHTY</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <p class="p-bold">Chose a Username</p>
+                                            <input type="text" class="form-control" id="usr">
+                                            <p class="p-light">4 or maximum 20 characters</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <p class="p-bold">Enter a Password</p>
+                                            <input type="password" class="form-control" id="pwd">
+                                            <p class="p-light">4 or maximum 20 characters</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <p class="p-bold">Confirm Password</p>
+                                            <input type="password" class="form-control" id="pwd">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-continue">Continue</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row d-flex justify-content-center">
+                                            <p class="p-font">Already Have an Account?<a href="">Sign in</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 bg-img-model2">
+                                <div class="row d-flex justify-content-end txtalign-btm">
+
+                                    <h1 class="h1-custom">JOIN NOW</h1>
+                                    <P class="p-custom">Order your favourite food from best sellers</P>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+Model 2nd End
+Model 3 start
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="#myModal3" data-toggle="modal">enter a new password</a>
+        </div>
+        <div class="modal fade" id="myModal3">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 p-t-b-50">
+                                <div class="modle3-p-l-r">
+                                    <div class="row d-flex justify-content-center">
+                                        <h1 class="p-t-b-20 font-size">Enter a New Password</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <p class="p-bold">Set a New Password</p>
+                                            <input type="text" class="form-control" id="usr">
+                                            <p class="p-light">4 or maximum 20 characters</p>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <p class="p-bold">Confirm New Password</p>
+                                            <input type="password" class="form-control" id="pwd">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-continue">Reset Password</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+Model End
+Model 4 start
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <a href="#myModal4" data-toggle="modal">Forgot Password</a>
+        </div>
+        <div class="modal fade" id="myModal4">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-12 p-t-b-50">
+                                <div class="modle3-p-l-r">
+                                    <div class="row d-flex justify-content-center">
+                                        <h1 class="p-t-b-20 font-size">Forgot Password</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <p class="p-bold">Email Address</p>
+                                            <input type="text" class="form-control" id="usr">
+                                            <p class="p-light">4 or maximum 20 characters</p>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-continue">Continue</button>
+                                            <p><a href="">i remember  now</a> <a href="">I need an account</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+model login to tasty
+<div class="container-fluid">
+    <div class="row">
+
+
+
+
+        <div class="col-md-12">
+            <a href="#myModal5" data-toggle="modal">Login to tashty</a>
+        </div>
+        <div class="modal fade" id="myModal5">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            <div class="col-md-6 p-t-b-50">
+                                <div class="padding-50px">
+
+                                    <div class="row d-flex justify-content-center">
+                                        <h1 class="p-t-b-20">Login to Tashty</h1>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button class="newbtn-fb"><i class="fa fa-facebook"></i>&nbsp; &nbsp;Sign in with Facebook</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button class="newbtn-gmail"><i class="fa fa-google"></i>&nbsp; &nbsp;Sign in with Gmail</button>
+                                        </div>
+                                        <div class="separator">or</div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row ">
+                                            <p class="p-bold">Mobile Number</p>
+                                            <input type="text" class="form-control" id="usr">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <p class="p-bold">Password <a href="">Forgot?</a></p>
+                                            <input type="password" class="form-control" id="pwd">
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <div class="row">
+                                            <button type="button" class="btn btn-continue">Login</button>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="row d-flex justify-content-center">
+                                            <p class="p-font">Don't Have an Account?<a href="">Join</a></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-6 bg-img-model5">
+                                <div class="row d-flex justify-content-end txtalign-btm">
+
+                                    <h1 class="h1-custom">JOIN NOW</h1>
+                                    <P class="p-custom">Order your favourite food from best sellers</P>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+
+@if (profileID == 0)
+{
+    @section headerSection {
+        @Html.Partial("_LayoutHeader")
+    }
+}
+else
+{
+    @section headerSection {
+        @Html.Partial("_LayoutInUserHeader")
+    }
+}
+
+<style>
+
+    .overlay {
+        background: rgba(0,0,0,0.62);
+        width: 100%;
+        height: 10%;
+        z-index: 9999;
+        top: 50%;
+        left: 0;
+        position: fixed;
+    }
+
+    .vert-offset-top {
+        margin: 10em auto;
+        float: none !important;
+    }
+
+    .county-box {
+        background: #fff;
+        border-radius: 10px;
+        padding: 5% 3%;
+    }
+
+    .food-img {
+        position: absolute;
+        bottom: 0%;
+        right: 0;
+        z-index: 10;
+    }
+
+    .cntnt {
+        position: relative;
+        top: 0%;
+        left: 0;
+        z-index: 999;
+    }
+
+    .landing-page .navbar-nav > li > a {
+        color: #fff
+    }
+</style>
+
+<div class="overlay" style="display:none" id="Overlay-container">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-sm-5 text-center vert-offset-top marginauto county-box">
+                <div class="cntnt">
+                    <img src="@Url.Content("~/Content/images/Logo-small.png")">
+                    <h3 style="color: #852a60">Welcome To Tashty !</h3>
+                    <p>Select your country and order online from your <br />favourite seller</p>
+                    <input id="hdnCountryID" type="hidden" />
+                    <select id="ddlOverlayCountry" class="form-control m-b" name="account">
+                        <option value="0" selected> select Country</option>
+                        @if (ViewBag.ListCountries != null)
+                        {
+                            for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                            {
+                                string val = ViewBag.ListCountries[i].countryID.ToString();
+                                string title = ViewBag.ListCountries[i].country.ToString();
+
+                                <text>
+                                    <option value="@val">@title</option>  </text>
+                            }
+
+                        }
+                    </select>
+                    <div class="m-t-md">
+                        <button type="button" class="btn btn-success btn-lg btn-block" id="btnSelectOverlay"> Enter </button>
+                    </div>
+                </div>
+                <div class="food-img">  <img src="@Url.Content("~/Content/images/food-img.png")" /> </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@Html.Partial("_Search")
+@Html.Partial("_FeaturedSeller")
+@Html.Partial("_OrderSteps")
+@Html.Partial("_PopularSeller")
+@Html.Partial("_NearSellers")
+
+
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v3.2&appId=406321973250614&autoLogAppEvents=1"></script>
+
+<script>
+    $(document).ready(function () {
+
+        //  $('.owl-carousel').owlCarousel({
+        //
+        //            loop: true,
+        //            margin: 10, autoplay: true,
+        //            responsiveClass: true,
+        //           responsive: {
+        //                500: {
+        //                  items: 1,
+        //                   nav: true
+        //                },
+        //               600: {
+        //                    items: 2,
+        //                    nav: true
+        //                },
+        //              1000: {
+        //                  items: 3,
+        //                   nav: true,
+        //                   loop: true,
+        //                   margin: 20
+        //               }
+        //            }
+        //        });
+    });
+</script>
+
+<script>
+    // Ladda.bind('.button-demo button');
+    $(document).ready(function () {
+
+        // Page scrolling feature
+        $('a.page-scroll').bind('click', function (event) {
+            var link = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $(link.attr('href')).offset().top - 50
+            }, 500);
+            event.preventDefault();
+        });
+
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+        $('.carousel').carousel({
+            interval: 5000,
+            pause: false
+        })
+
+
+
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $(window).scroll(function () { // check if scroll event happened
+            if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+
+                $(".navbar-fixed-top").css("background-color", "#fbfbfb"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+                $('.logo').addClass('small-logo2');
+                $('.landing-page .navbar-nav > li > a').css("color", "#2e2e2e")
+                $('.navbar.navbar-static-top a, .nav.navbar-nav li a').css("color", "#2e2e2e")
+            } else {
+                $(".navbar-fixed-top").css("background-color", "transparent"); // if not, change it back to transparent
+                $('.logo').removeClass('small-logo2');
+                $('.landing-page .navbar-nav > li > a').css("color", "#fff")
+                $('.navbar.navbar-static-top a, .nav.navbar-nav li a').css("color", "#fff")
+            }
+        });
+    });
+</script>
+
+<script type="text/javascript">
+    var ListSubCat = [];
+    ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListCategories));
+    if (ListSubCat) { home.populateMenuCategories(ListSubCat); }
+
+
+
+    $(document).ready(function () {
+        selectCountry(2);
+                        @if(countryID != 0)
+                        {
+
+                            <text>
+                              //document.getElementById('Overlay-container').style.display = 'none';
+                                @if (!String.IsNullOrEmpty(username))
+                                {<text> @*console.log('username =>' + @username);*@ _setIn('txtUsername', '@username'); </text>}
+                                   @if (!String.IsNullOrEmpty(photo))
+                                   { <text> @*console.log('photo =>' + @photo);*@ $("#imgLogo").attr("src", baseURL + '/Uploads/ProfilePictures/thumb-70/@photo'); </text> }
+                                      @if (profileID != 0)
+                                      { <text> console.log('profileID =>' + '@profileID');</text> }
+                                        @if(isSeller==true) {
+                                          <text>
+                                                $("#lnkMyAcc").attr("href", '@Url.Action("Dashboard", "Seller")');
+                                                $("#lnkSetting").show();
+                                                                  </text>
+                                         }
+                                        else
+                                        {
+                                            <text>
+                                                $("#lnkMyAcc").attr("href", '@Url.Action("Dashboard", "Buyer")');
+                                                $("#lnkSetting").hide();
+                                            </text>
+                                        }
+
+
+
+                                @*home.GetFeaturedSellers(@profileID);
+                                home.GetPopularSellers(@profileID);
+                                home.GetLatestSellers(@profileID);*@
+
+                                 </text>
+                        }
+                        else
+                        {
+                            <text>
+                                //document.getElementById('Overlay-container').style.display = 'block';
+                                //$('.overlay').animate({ height: '100%', width: '100%', top: '0' }, 1000, 'linear');
+                            </text>
+
+                        }
+    });
+
+    //$(function () {
+    //    $('.overlay').animate({ height: '100%', width: '100%', top: '0' }, 1000, 'linear');
+    //});
+
+
+    $(document).on('click', '[name="btnAddFav"]', function () {
+        var seller = $(this).attr("data-value");
+        cord.AddFavourites(seller,@profileID);
+
+    });
+
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#ddlOverlayCountry').on('change', function () {
+            $("#hdnCountryID").val(this.value);
+        });
+
+        $('#btnSelectOverlay').click(function () {
+            var id = $('#hdnCountryID').val();
+            if (id != 0) {
+                selectCountry(id);
+            }
+            else { toastr.warning("Please select your country !", { extendedTimeOut: 1000}) }
+
+        });
+    });
+
+    function selectCountry(id) {
+        updateSubmitButtonText("Preparing", "btnSelectOverlay", "Enter");
+            var parameters = { 'id': String(id) };
+            $.ajax({
+                url: '@Url.Content("~/Home/SetCountryData")', //baseURL + 'home/SetCountryData',
+                type: 'POST',
+                data: JSON.stringify(parameters),
+                cache: false,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: function (data, textStatus, jqXHR) {
+
+                    var response = null;
+                    if (data)
+                        if (data.obj) {
+
+                            home.GetFeaturedSellers(@profileID);
+                            home.GetPopularSellers(@profileID);
+                            home.GetLatestSellers(@profileID);
+
+
+                            @*var url = '@Url.Content("~/Home/Index")';
+                            window.location = url;*@
+                        }
+                },//end success
+                error: function (jqXHR, textStatus, errorThrown) {
+                    errorCLog("GetFeaturedSellers :" + errorThrown + textStatus);
+                }//end error
+            });
+        }
+
+</script>

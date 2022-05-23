@@ -1,0 +1,352 @@
+﻿@model Entity.Meal
+@{
+    int id = (int)ViewData["mealID"];
+    int sellerId = (int)ViewData["sellerID"];
+    string FolderID = (string)ViewData["FolderID"];
+    if (string.IsNullOrEmpty(Model.TimeFromString))
+    {
+        Model.TimeFromString = "12 PM";
+    }
+     if (string.IsNullOrEmpty(Model.TimeToString))
+    {
+        Model.TimeToString = "10 PM";
+    }
+}
+    
+<style>
+    .badge{
+       color: darkgray;
+    }
+</style>
+<div class="containter-fluid maindashboard-pr-settings">
+    @using (Html.BeginForm("CreateFoodItem", "Seller", FormMethod.Post, new { enctype = "multipart/form-data", @id = "FoodItem-form" }))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        @Html.HiddenFor(c => c.profileID)
+        @Html.HiddenFor(c => c.mealID)
+        @Html.HiddenFor(c => c.gallery)
+        @Html.HiddenFor(c => c.FolderID, FolderID)
+
+    <div class="container">
+        @if (Model.mealID > 0)
+        {
+            <h2 style="color:black; font-size:1.2rem;font-weight: bold;">Edit Food Item</h2>
+        }
+        else
+        {
+            <h2 style="color:black; font-size:1.2rem;font-weight: bold;">Create a New Food Item to Sell</h2>
+        }
+        <div class="formSel">
+            <div class="row sellform">
+                <div>
+
+                </div>
+                &nbsp;&nbsp; Create item here provide data and Information
+
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="">Upload Photo of your Food Item<span class="mand-red">*</span></label>
+                    <div id="mealfiles" class="fallback dropzone">
+                    </div>
+                    @Html.HiddenFor(m => m.galleryItemList)
+                </div>
+
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="email">Name of Item <span class="mand-red">*</span></label>
+                    @Html.TextBoxFor(c => c.title, new { @class = "form-control", @placeholder = "Biryani", @required = "required" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.title)</h6>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="text">Set a Price <span class="mand-red">*</span></label>
+                    @Html.TextBoxFor(c => c.price, new { @class = "form-control", @placeholder = "PKR 258", @required = "required", @type = "number" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.price)</h6>
+                </div>
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="email">Select Category <span class="mand-red">*</span></label>
+                    <select name="category" id="category" class="form-control" multiple="multiple" style="display: none;" required>
+                        @foreach (var item in Model.Categories)
+                        {
+                            <option value="@item.categoryID">@item.name</option>
+                        }
+                    </select>
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.category)</h6>
+                </div>
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="">Type of Food ? <span class="mand-red">*</span></label>
+                    <select class="custom-select" id="FoodTypeID" name="FoodTypeID" required>
+                        @if (ViewBag.ListMealType != null)
+                        {
+                            for (int i = 0; i < ViewBag.ListMealType.Count; i++)
+                            {
+                                string val = ViewBag.ListMealType[i].mealTypeID.ToString();
+                                string title = ViewBag.ListMealType[i].name.ToString();
+
+                                <text>
+                                    <option value="@val">@title</option>  </text>
+                            }
+
+                        }
+                    </select>
+                </div>
+
+                <div class="col-sm-12 pd-mr-0 ">
+                    <label for="comment">Describe your Food Item</label>
+                    @Html.TextAreaFor(c => c.description, new { @placeholder = "Describe your Food Item", @class = "form-control", @rows = "5" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.description)</h6>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="email">Weight of Items(g)</label>
+                    @Html.TextBoxFor(c => c.Weight, new { @class = "form-control", @placeholder = "e.g 500", @type = "Number" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.Weight)</h6>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="email">Serves-How many Persons?</label>
+                    @Html.TextBoxFor(c => c.serving, new { @class = "form-control", @placeholder = "e.g 2", @type = "Number" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.serving)</h6>
+                </div>
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="">Add Ingredients of your Food Item</label>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    @Html.TextBoxFor(c => c.IngredientOne, new { @class = "form-control", @placeholder = "Ingredient One" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.IngredientOne)</h6>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    @Html.TextBoxFor(c => c.IngredientTwo, new { @class = "form-control", @placeholder = "Ingredient Two" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.IngredientTwo)</h6>
+                </div>
+
+                <div class=" newingredient col-sm-6 ">
+                    @Html.TextBoxFor(c => c.IngredientThree, new { @class = "form-control", @placeholder = "Ingredient Three" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.IngredientThree)</h6>
+                </div>
+                <div class=" newingredient col-sm-6 ">
+                    @Html.TextBoxFor(c => c.IngredientFour, new { @class = "form-control", @placeholder = "Ingredient Four" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.IngredientFour)</h6>
+                </div>
+
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="email">Order Preparation Time (MINUTES)</label>
+                    @Html.TextBoxFor(c => c.CookingTime, new { @class = "form-control", @placeholder = "e.g 25", @type = "number" })
+                    <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.CookingTime)</h6>
+                </div>
+                @*<div class="col-sm-6 pd-mr-0">
+            <label for="email">Delivery Time (min) <span class="mand-red">*</span></label>
+            @Html.TextBoxFor(c => c.DeliveryTime, new { @class = "form-control", @placeholder = "e.g 25", @required = "required", @type = "number" })
+            <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.DeliveryTime)</h6>
+        </div>*@
+                <div class="col-sm-12 pd-mr-0">
+                    <label for="">Below are the active Days, the Food Item will be available. Choose as you like. <span class="mand-red">*</span></label>
+                </div>
+                <div class="col-sm-12 weekDays-selector">
+                    <input name="monday1" type="checkbox" id="monday1" class="weekday" checked />
+                    <label for="monday1">MON</label>
+                    <input name="tuesday1" type="checkbox" id="tuesday1" class="weekday" checked />
+                    <label for="tuesday1">TUE</label>
+                    <input name="wednesday1" type="checkbox" id="wednesday1" class="weekday" checked />
+                    <label for="wednesday1">WED</label>
+                    <input name="thursday1" type="checkbox" id="thursday1" class="weekday" checked />
+                    <label for="thursday1">THU</label>
+                    <input name="friday1" type="checkbox" id="friday1" class="weekday" checked />
+                    <label for="friday1">FRI</label>
+                    <input name="saturday1" type="checkbox" id="saturday1" class="weekday" checked />
+                    <label for="saturday1">SAT</label>
+                    <input name="sunday1" type="checkbox" id="sunday1" class="weekday" checked />
+                    <label for="sunday1">SUN</label>
+                </div>
+
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="email"> Order Start Time: <span class="mand-red">*</span></label>
+                    <div class="input-group time" id="timepicker">
+                        @Html.TextBoxFor(c => c.TimeFromString, new { @class = "input-group-append input-group-addon form-control", data_datepicker = "time", @placeholder = "Select time", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.TimeFromString)</h6>
+                    </div>
+                </div>
+                <div class="col-sm-6 pd-mr-0">
+                    <label for="email">Order End Time: <span class="mand-red">*</span></label>
+                    <div class="input-group time" id="timepicker-2">
+                        @Html.TextBoxFor(c => c.TimeToString, new { @class = "input-group-append input-group-addon form-control", data_datepicker = "time", @placeholder = "Select time", @required = "required" })
+                        <h6 class="input_error_msg">@Html.ValidationMessageFor(c => c.TimeToString)</h6>
+                    </div>
+                    @* <i class="fas fa-plus-circle d-flex justify-content-end add-slot" style="margin-top: 0.75rem; color:#6FA843;"><span style="color:darkgray;">Add more time slots</span></i>*@
+                </div>
+
+                <button type="submit" value="Test Required" id="checkBtn" class="btn btn-primary additem " style="width:100%; margin-top: 1rem;">ADD ITEM</button>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+<script>
+    $(document).ready(function () {
+
+          Dropzone.autoDiscover = false;
+        var myDropzone = new Dropzone("div#mealfiles", {
+            url: "/Seller/UploadMealGallery",
+            addRemoveLinks: true,
+            autoProcessQueue: false,
+            maxFilesize: 2000,
+             maxFiles: 1,
+            uploadMultiple: false,
+            //parallelUploads: 10,
+             acceptedFiles: ".png,.jpg,.jpeg",
+            init: function () {
+                var myDropzone = this;
+               var self = this;
+        //        // config
+                this.on("error", function (file, message) {
+
+                    unblockUI();
+                   this.removeFile(file);
+                });
+                  this.on('sending', function (file, xhr, formData) {
+                    debugger
+                     formData.append('MealID', $('#mealID').val());
+                    formData.append('FolderID', '@FolderID');
+                    formData.append('SellerID', '@Model.profileID');
+                    unblockUI();
+                });
+
+                this.on("successmultiple", function (files, response) {
+                    unblockUI();
+                    //unblockUI();
+                    if (response == "SE") {
+                       return toastr.error('Storage limit');
+                    }
+                    toastr.success("Updated successfully.");
+                    SellerMenu();
+                  //  myDropzone.removeAllFiles();
+                    // getClientDocs();
+                });
+                this.on("errormultiple", function (files, response) {
+                    unblockUI();
+                   this.removeFile(files);
+            toastr.error(response);
+
+                });
+
+                this.on("success", function (files, response) {
+                    unblockUI();
+                    //unblockUI();
+                    if (response == "SE") {
+                       return toastr.error('Storage limit');
+                    }
+                    toastr.success("Updated successfully.");
+                    SellerMenu();
+                  //  myDropzone.removeAllFiles();
+                    // getClientDocs();
+                });
+            }
+
+        });
+
+          $('form').removeData('validator');
+            $('form').removeData('unobtrusiveValidation');
+        $.validator.unobtrusive.parse('form');
+        var Ischecked = false;
+            var options = {
+                beforeSubmit: function (msg) {
+                    if ($('#category').val() == '') {
+                        toastr.error("Please add at least one Category.");
+                        return false;
+                    }
+                    msg.push({ name: 'monday', value: $('#monday1').is(":checked") });
+                    msg.push({ name: 'tuesday', value: $('#tuesday1').is(":checked") });
+                    msg.push({ name: 'wednesday', value: $('#wednesday1').is(":checked") });
+                    msg.push({ name: 'thursday', value: $('#thursday1').is(":checked") });
+                    msg.push({ name: 'friday', value: $('#friday1').is(":checked") });
+                    msg.push({ name: 'saturday', value: $('#saturday1').is(":checked") });
+                    msg.push({ name: 'sunday', value: $('#sunday1').is(":checked") });
+                    debugger
+                    if (!myDropzone.files || !myDropzone.files.length) {
+                        toastr.error("Please add at least one file for food item.");
+                        return false;
+                    }
+                     $('.weekday').each(function (index, obj) {
+                     if (this.checked === true) {
+                     Ischecked = true;
+                      }
+                     });
+                    if (!Ischecked)
+                    {
+                        toastr.error("Please select days of week when you would deliver");
+                        return false;
+                    }
+
+                    var start_time = $("#TimeFromString").val();
+
+                    var end_time = $("#TimeToString").val();
+
+                    //convert both time into timestamp
+                    var stt = new Date("November 13, 2013 " + start_time);
+                    stt = stt.getTime();
+
+                    var endt = new Date("November 13, 2013 " + end_time);
+                    endt = endt.getTime();
+
+                    //by this you can see time stamp value in console via firebug
+                    console.log("Time1: "+ stt + " Time2: " + endt);
+
+                    if(stt > endt) {
+                         toastr.error("Time From must be smaller then To Time.");
+                            return false;
+                    }
+                    blockUI();
+                },
+                success: function (msg) {
+                     unblockUI();
+                    if (msg > 0) {
+
+                        if (myDropzone.getQueuedFiles().length === 0) {
+                        unblockUI();
+                        return showWarningToast('Drop Some Files');
+                        }
+                         $('#mealID').val(msg)
+                    if (myDropzone.getQueuedFiles().length > 10) {
+                        unblockUI();
+                       return showWarningToast('No more files');
+                    }
+                    blockUI();
+                    showWarningToast('Please wait untill upload.');
+                    blockUI();
+                        myDropzone.processQueue();
+                }
+                else {
+                        return toastr.error("Something wrong with data.");
+                }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    toastr.error("failed");
+                    unblockUI();
+                    $(".btn").prop("disabled", false);
+
+                }
+            };
+        $('#FoodItem-form').ajaxForm(options);
+
+          if ('@Model.category' != null && '@Model.category' != '') {
+            var data = '@Model.category';
+            var dataarray = data.split(",");
+            $("select[multiple='multiple']").val(dataarray);
+            for (var i = 0; i < dataarray.length; i++) {
+                $("select[multiple='multiple']").bsMultiSelect("widget").find(":checkbox[value='" + valArr[i] + "']").attr("checked", "checked");
+                $("select[multiple='multiple'] option[value='" + valArr[i] + "']").attr("selected", 1);
+                $("select[multiple='multiple']").bsMultiSelect("refresh");
+            }
+        }
+        else {
+            $("select[multiple='multiple']").bsMultiSelect();
+        }
+    })
+
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+<script>
+    $('input[data-datepicker="time"]').datetimepicker({
+        format: "LT",
+        icons: {
+            up: "fa fa-chevron-up",
+            down: "fa fa-chevron-down"
+        }
+    })
+</script>

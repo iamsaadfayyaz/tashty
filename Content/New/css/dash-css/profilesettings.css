@@ -1,0 +1,107 @@
+
+			.mrgn-0{margin-top:0%!important;}
+			.custom-btn-p{
+				width: 100%;
+			}
+			.btn-primary {
+				/* color: #fff; */
+				/* background-color: #6fa843; */
+				/* border-color: #6fa843; */
+				width: 100%;
+			}
+.row{
+	margin-left: 0px;
+	margin-right: 0px;
+}
+.maindashboard-pr-settings{
+	padding: 4% 15%;
+    border: 30px solid #F2F6F9;
+    background-color: white;
+}
+.pr-info-head{
+	color:black;
+	font-size:1.2rem;
+	font-weight: bold;
+}
+.btn.tab-button {
+	border: 1px solid #F7F7F7;
+    border-radius: 0px;
+    color: #70A742;
+}
+.btn.tab-button:hover {
+	border: 1px solid #F7F7F7;
+    border-radius: 0px;
+    background-color: #70A742;
+    color: white;
+}
+.btn.tab-button:active {
+	border: 1px solid #F7F7F7;
+    border-radius: 0px;
+    background-color: #70A742;
+    color: white;
+}
+.pr-info-tab-btn {
+	width: 90%;
+}
+.mr-t-1r {
+	margin-top: 1rem;
+}
+.mr-b-0r {
+	margin-bottom: 0rem;
+}
+.mr-t-5p {
+	margin-top: 5%;
+} 
+.clr-bl {
+	color: black;
+}
+.clr-gra {
+	color: #6A6A6A;
+}
+.order-options tr{
+	border: 1px solid #EDEDED;
+	color: #6A6A6A;
+	font-weight: bold;
+}
+tr.selected {
+ /* background: #ddd;*/
+}
+/*CHANGE PASSWORD FORM*/
+.str-r {
+	color: red;
+}
+.p-t-10 {
+	padding-top: 10px;
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 420px) {
+	.maindashboard-pr-settings {
+		padding: 4% 0% !important;
+		border: 15px solid #F2F6F9 !important;
+		background-color: white;
+	}
+	.sidebar {
+		width: 5rem!important;
+		min-height: 100vh;
+	}
+}
+
+@media only screen and (min-width:768px) and (orientation : portrait)  {
+	.maindashboard-pr-settings {
+		padding: 4% 0%!important;
+	}
+	.table td, .table th {
+		padding: .45rem;
+	}
+	th,td{
+		font-size: 10px!important;
+	}
+	.btn.tab-button {
+	
+		font-size: 11px;
+	}
+	label{font-size:0.6rem;}
+	.p-t-10 {
+		font-size: 8px;
+	}
+	
+}

@@ -1,0 +1,261 @@
+﻿
+@{
+
+	ViewBag.Title = "Tashty | Seller Details";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	int id = (int)ViewData["id"];
+}
+
+@*<div id="wrapper">*@
+<div class="content animate-panel">
+	<div class="hpanel">
+		<div class="panel-body">
+			<div class="seller-cntr">
+				<div class="seller-profile"> <img id="bannarPhoto" src="@Url.Content("~/Content/images/fresh-food-banner.jpg")"> </div>
+				<div class="profile-picture">
+					<img id="profilePhoto" src="@Url.Content("~/Content/images/profile-default.jpg")" class="img-circle m-b avatar" alt="seller-image">
+					<div class="stats-label text-color">
+						<span class="font-extra-bold font-uppercase h3" id="lblUsername"></span>
+						<div class="m-t">
+							<button class="btn btn-success btn-sm" type="button"><i class="fa fa-check"></i> </button>
+							<span id="txtRegStatus"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-5">
+			<div class="hpanel">
+				<div class="panel-body hgreen ">
+					<h3 class="font-bold">User Detail:</h3>
+					<hr style="border-top: 1px solid #62cb31;" />
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">First Name: </p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtFirstName"></h5>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Middle Name: </p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtMiddleName"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Last Name:  </p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtLastName"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">User Name: </p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtUsername"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">CNIC: </p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtNIC"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Date Of Birth:</p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtDOB"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Title	:</p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtTitleName">Mrs</h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Marital Status:	</p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtMSName"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Gender:</p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtGender"></h5>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-xs-6" style="">
+							<p class="h5">Date Of Birth:</p>
+						</div>
+						<div class="col-xs-6" style="">
+							<h5 id="txtDOB"></h5>
+						</div>
+					</div>
+
+					<div class="m-t">
+						<h3 class="font-bold">Contact Detail:</h3>
+						<hr style="border-top: 1px solid #62cb31;" />
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5"><i class="fa fa-mobile" aria-hidden="true"></i>  Mobile Number:</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtMobile"></h5>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5"><i class="fa fa-phone" aria-hidden="true"></i> Work Phone:</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtPhoneNumber"></h5>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-7">
+			<div class="hpanel">
+				<div class="panel-body">
+					<h3 class="font-bold">Other Detail:</h3>
+					<hr style="border-top: 1px solid #62cb31;" />
+
+					<div class="col-lg-6">
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Religion</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtReligion"></h5>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Nationality </p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtNationality"></h5>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">postalCode </p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtPostalCode"></h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-lg-6">
+
+
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Display Title: </p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtDisplayTitle">	</h5>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Delivery Range	 </p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtDRange"></h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="m-t col-lg-12">
+						<h3 class="font-bold">Address  Detail:</h3>
+						<hr style="border-top: 1px solid #62cb31;" />
+
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Street Address:	</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtAddress">	</h5>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">City:	</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtCity">	</h5>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-xs-6" style="">
+								<p class="h5">Country:	</p>
+							</div>
+							<div class="col-xs-6" style="">
+								<h5 id="txtCountry">	</h5>
+							</div>
+						</div>
+					</div>
+
+					<div class="m-t col-lg-12">
+						<h3 class="font-bold">Description:</h3>
+						<hr style="border-top: 1px solid #62cb31;" />
+
+						<div class="row">
+
+							<p id="txtDescription"></p>
+
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+@*</div>*@
+<script>
+	$(document).ready(function () {
+		
+				@if (id != 0) {
+
+					<text> bu.GetSellerProfile(@id); </Text>
+						}
+	});
+</script>
+

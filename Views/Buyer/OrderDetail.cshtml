@@ -1,0 +1,181 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Buyer Order Details";
+    Layout = "~/Views/Shared/_LayoutBuyer.cshtml";
+    int sellerID = ViewBag.sellerID;
+}
+
+<input class="form-control" id="hdnOrderID" type="hidden">
+<section>
+    <div class="container sectionspc">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="hpanel">
+                    <div class="panel-body hgreen ">
+                        <h3 class="font-bold">Order Detail:</h3>
+                        <hr style="border-top: 1px solid #62cb31;" />
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Seller Name: </p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5 id="txtSeller"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Buyer Name: </p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5 id="txtBuyer"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Order Date:</p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5 id="txtOrderDate"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Order Time:</p>
+                            </div>
+                            <div class="col-xs-6">
+                                <h5 id="txtOrderTime"></h5>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Rating:</p>
+                            </div>
+                            <div class="col-xs-6" id="txtRating"> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Current Order Status: </p>
+                            </div>
+                            <div class="col-xs-6" id="txtOrderStatus"> </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <p class="h5">Buyer Comment:</p>
+                            </div>
+                            <div class="col-xs-6">
+                                <p id="txtComments"></p>
+                            </div>
+                        </div>
+                        <div class="m-t">
+                            <h3 class="font-bold">Contact Detail:</h3>
+                            <hr style="border-top: 1px solid #62cb31;" />
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <p class="h5"><i class="fa fa-mobile" aria-hidden="true"></i> Mobile Number:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h5 id="txtMobile"></h5>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-6">
+                                    <p class="h5"><i class="fa fa-phone" aria-hidden="true"></i> Work Phone:</p>
+                                </div>
+                                <div class="col-xs-6">
+                                    <h5 id="txtPhone"></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="hpanel">
+                    <div class="panel-body">
+                        <h3 class="font-bold">Status History</h3>
+                        <hr style="border-top: 1px solid #62cb31;" />
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table" cellspacing="1" cellpadding="1">
+                                        <thead>
+                                            <tr>
+                                                <th>Date</th>
+                                                <th>time</th>
+                                                <th>Order Status</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order_status_table"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="m-t col-lg-12">
+                            <h3 class="font-bold">Order  Detail:</h3>
+                            <hr style="border-top: 1px solid #62cb31;" />
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed" cellspacing="1" cellpadding="1">
+                                        <thead>
+                                            <tr>
+                                                <th>Product Name</th>
+                                                <th>Is Deal</th>
+                                                <th>Quantity</th>
+                                                @*<th style="width:40%">Buyer Comment</th>*@
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order_item_table"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class=" col-lg-12 text-right m-b">
+                <a href="#" class="btn btn-primary" id="btnCancel"><i class="pe-7s-angle-left-circle"></i> Back to Order List</a>
+            </div>
+        </div>
+
+    </div>
+    </section>
+    <script>
+
+        $(document).ready(function () {
+            ;
+            cord.GetOrderDetail(@ViewBag.id);
+	});
+
+						$('#btnCancel').click(function () {
+							document.location = '@Url.Action("BuyerOrders", "Buyer")';
+						});
+
+    </script>
+    <script type="text/javascript">
+     $(document).ready(function ()
+    {
+        bu.SetDashboard('@ViewBag.username', '@ViewBag.photo','@ViewBag.description');
+
+    });
+
+
+    $('#btnSwitchProfile').on('click', function () {
+        @if (sellerID == 0)
+        {
+         <text>
+         OpenModel("join-seller-model");
+        </text>
+        }
+        else {
+         <text>
+        var url = baseURL + 'Seller/Dashboard';
+        window.location = url;
+        </text>
+        }
+
+    });
+
+
+    </script>

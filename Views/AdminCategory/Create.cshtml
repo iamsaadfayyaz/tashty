@@ -1,0 +1,36 @@
+﻿
+@{
+	Layout = null; 
+ }
+
+<div class="modal fade hmodal-success" id="AddEditCategoryModel" tabindex="-1" role="dialog" aria-hidden="true">
+	<form id="frmAddCategory">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="color-line"></div>
+				<div class="modal-header text-center p-xs">
+					<h4 class="modal-title"><span id="headingCategory"></span></h4>
+				</div>
+				<div class="modal-body ">
+
+					<input id="categoryID" type="hidden" />
+					<input class="form-control m-b" type="text" placeholder="Catagory Title" required id="name" value="" />
+
+					<textarea id="description" class="form-control" rows="3" placeholder="Catagory Description" value=""></textarea>
+
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+					<input type="submit" class="btn btn-success" value="Save changes">
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+    $("#frmAddCategory").submit(function (e) {
+        e.preventDefault();
+        Cat.AddNewCategory();;
+    });
+</script>
+

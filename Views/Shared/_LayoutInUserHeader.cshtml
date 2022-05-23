@@ -1,0 +1,540 @@
+﻿@*<div class="modal fade hmodal-success" id="seller-joinUs-model" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="color-line"></div>
+                <div class="modal-header p-sm">
+                    <h4 class="modal-title">Become a seller </h4><h6 id="lblSellerEmail"></h6>
+                </div>
+                <div class="modal-body">
+                    <form action="#" id="selJoinForm">
+                        <input id="hdnSellerEmail" type="hidden" />
+                        <div class="form-group">
+                            <input id="txtSellerUsername" type="text" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" placeholder="choose a username" title="Please enter your username" required="" class="form-control  input-lg">
+                        </div>
+                        <p>
+                            <small>4  or  maximum 20 characters longer.Space/special characters not allowed.</small>
+                        </p>
+                        <div class="form-group">
+                            <input id="txtSellerPassword" type="password" placeholder="choose a password" pattern="(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" title="Please enter your password" required="" class="form-control  input-lg">
+                        </div>
+                        <p>
+                            <small>8 characters or longer. Combine upper and lowercase letters and numbers.</small>
+                        </p>
+                        <button class="btn btn-success btn-block btn-lg" id="btnSellerJoin">Join</button>
+                    </form>
+                </div>
+                <div class="modal-footer"> Already a member? <a href="#" class="text-success join-as-sel-login">Sign In</a></div>
+            </div>
+        </div>
+    </div>*@
+
+@*<nav class="navbar navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button aria-controls="navbar" aria-expanded="false" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+                <a href="@Url.Action("index","home")"><img src="@Url.Content("~/Content/images/Logo-small.png")" class="logo" /></a>
+            </div>
+            <div id="navbar-client" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <div class="m-t-md" style="margin-top:15px!important;">
+                            <div class="dropdown">
+                                <a class="dropdown-toggle" id="lnkCats" style="padding: 15px 15px;font-size:16px;" href="#" data-toggle="dropdown" aria-expanded="false"><i class="pe-7s-keypad"></i> Catagories </a>
+                                <ul id="catMenu" class="dropdown-menu animated flipInX megamenu"></ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li><a href="#" data-toggle="modal" id="lnkSeller" data-target="#join-seller-model">Become a Seller</a></li>
+                    <li><a href="@Url.Action("AboutUs","home")">About us</a></li>
+                    <li><a href="@Url.Action("ContactUs","home")">Contact us</a></li>
+                    <li><a href="#" data-toggle="modal" id="lnkLogin" data-target="#login-model">Sign In</a></li>
+                    <li><a id="lnkSeller" class="navbar-brand" href="#" style="color: #fff !important;" data-toggle="modal" data-target="#join-seller-model"> &nbsp; join &nbsp;</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>*@
+<!-- Header -->
+<div id="topheader">
+    <header class="fixed-header">
+        <!-- Header desktop -->
+        <div class="container-menu-desktop">
+            <div class="wrap-menu-desktop">
+                <nav class="limiter-menu-desktop">
+                    <div class="left-header">
+                        <!-- Logo desktop -->
+                        <div class="logo">
+                            <a href="@Url.Action("index","home")"><img src="~/Content/images/logo/tashty-logo-1.png" alt=" Tashty Logo"></a>
+                        </div>
+                    </div>
+
+                    <div class="right-header">
+                        <!-- Menu desktop -->
+                        <div class="menu-desktop">
+                            <ul class="main-menu">
+                                <li class="active-menu active">
+                                    <a href="@Url.Action("index","home")">
+                                        Home<span class="sr-only">(current)</span>
+                                    </a>
+
+                                </li>
+                                <li>
+                                    <a href="#featuredchefs">Featured Chefs</a>
+
+                                </li>
+                                <li>
+                                    <a href="/Home/DiscoverChefs">Discover Chefs</a>
+
+                                </li>
+                                <li>
+                                    <a href="/Home/DiscoverFoods">Discover Food</a>
+
+                                </li>
+                                <li>
+                                    <a class="not-active" href="#">Packages</a>
+                                    <ul class="sub-menu">
+
+                                        <li><a href="#">Weekly</a></li>
+                                        <li><a href="#">Monthly</a></li>
+
+                                    </ul>
+
+                                </li>
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#join-us-model">Sign up</a>
+
+                                </li>
+                                <li>
+                                    <a href="#" data-toggle="modal" data-target="#login-model">Sign in</a>
+
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("BecomeASeller","home")" class="sellernav">How to Become a Seller?</a>
+
+                                </li>
+
+                                <li>
+                                    <a href="index.html#about-us">About us</a>
+
+                                </li>
+
+                                <li>
+                                    <a href="/Home/ContactUs">Contact us</a>
+
+                                </li>
+
+
+
+
+
+                                <li>
+                                    <div class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="2">
+                                        <img src="~/Content/images/icons/icon-cart-2.png" alt="CART">
+                                    </div>
+                                </li>
+                                <li class="nav-item dropdown no-arrow nav-item ">
+                                    <a class="nav-link dropdown-toggle nav-link not-active" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                        <img class="img-profile rounded-circle" alt=" menu-profile" src="~/Content/img/user-d.jpg">
+                                    </a>
+                                    <ul class="sub-menu sub-menu-left">
+
+                                        <li><a href="my-order.html"><i class="fab fa-bitbucket fas-pr"></i> My Orders</a></li>
+                                        <li>
+                                            <a href="#"><i class="fas fa-user fas-pr"></i> Notifications</a>
+                                            <ul class="sub-menu sub-menu-left-bottom">
+
+                                                <li><a href="#">Notofication 1</a></li>
+                                                <li><a href="#">Notifications</a></li>
+                                                <li><a href="#">Notification 2</a></li>
+                                                <!-- <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li> -->
+                                                <li><a href="#">Notification 3</a></li>
+                                                <li><a href="#">Notification 4</a></li>
+
+                                            </ul>
+                                        </li>
+                                        <li><a href="order-received.html"><i class="fas fa-cart-plus fas-pr"></i> My Bucket</a></li>
+                                        <!-- <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li> -->
+                                        <li><a href="personal-information.html"><i class="fas fa-user fas-pr"></i> Profile Settings</a></li>
+                                        <li><a class="btnClientLogout" href="#"  data-toggle="modal" data-target="#logoutModal"><i class="fas fa-sign-out-alt fas-pr"></i> Logout</a></li>
+
+                                    </ul>
+                                    <!-- Dropdown - User Information -->
+                                    <!-- <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                      <a class="dropdown-item hover-link" href="#">
+                                        <i class="fab fa-bitbucket fas-pr"></i>
+
+                                        My Orders
+                                      </a>
+                                      <a class="dropdown-item dropdown-submenu pull-left" tabindex="-1" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user fas-pr"></i>
+                                        Notifications
+                                      </a>
+                                      <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                        <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                        <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                        <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                        <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                    </ul>
+
+                                      <a class="dropdown-item hover-link" href="#">
+                                        <i class="fas fa-cart-plus fas-pr"></i>
+                                        My Bucket
+                                      </a>
+                                      <a class="dropdown-item hover-link" href="#">
+                                        <i class="far fa-heart fas-pr"></i>
+                                        Favourites
+                                      </a>
+                                      <a class="dropdown-item hover-link" href="#">
+                                        <i class="fas fa-user fas-pr"></i>
+                                        Profile Settings
+                                      </a>
+                                      <div class="dropdown-divider"></div>
+                                      <a class="dropdown-item hover-link" href="#" data-toggle="modal" data-target="#logoutModal">
+                                        <i class="fas fa-sign-out-alt fas-pr"></i>
+                                        Logout
+                                      </a>
+                                    </div> -->
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+
+                </nav>
+            </div>
+        </div>
+
+        <!-- Header Mobile -->
+        <div class="wrap-header-mobile">
+            <!-- Logo moblie -->
+            <div class="logo-mobile">
+                <a href="featuredchefs.html"><img src="~/Content/images/logo/tashty-logo-1.png" alt=" Tashty Logo"></a>
+
+            </div>
+
+            <!-- Icon header -->
+            <div class="wrap-icon-header flex-w flex-r-m h-full wrap-menu-click m-r-15">
+                <div class="h-full flex-m">
+                    <div class="icon-header-item flex-c-m trans-04 js-show-modal-search">
+                        <img src="~/Content/images/icons/icon-search.png" alt="SEARCH">
+                    </div>
+                </div>
+
+                <div class="wrap-cart-header h-full flex-m m-l-5 menu-click">
+                    <div class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="2">
+                        <img src="~/Content/images/icons/icon-cart-2.png" alt="CART">
+                    </div>
+
+                    <div class="cart-header menu-click-child trans-04">
+                        <div class="bo-b-1 bocl15">
+                            <!-- cart header item -->
+                            <div class="flex-w flex-str m-b-25">
+                                <div class="size-w-15 flex-w flex-t">
+                                    <a href="#" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                        <img src="~/Content/images/item-cart-01.jpg" alt="item-cart">
+                                    </a>
+
+                                    <div class="size-w-17 flex-col-l">
+                                        <a href="#" class="txt-s-108 cl3 hov-cl10 trans-04">
+                                            Cheery
+                                        </a>
+
+                                        <span class="txt-s-101 cl9">
+                                            18$
+                                        </span>
+
+                                        <span class="txt-s-109 cl12">
+                                            x2
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="size-w-14 flex-b">
+                                    <button class="lh-10">
+                                        <img src="~/Content/images/icons/icon-close.png" alt="icon-close">
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- cart header item -->
+                            <div class="flex-w flex-str m-b-25">
+                                <div class="size-w-15 flex-w flex-t">
+                                    <a href="#" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                        <img src="~/Content/images/item-cart-02.jpg" alt="cart-02">
+                                    </a>
+
+                                    <div class="size-w-17 flex-col-l">
+                                        <a href="#" class="txt-s-108 cl3 hov-cl10 trans-04">
+                                            Asparagus
+                                        </a>
+
+                                        <span class="txt-s-101 cl9">
+                                            12$
+                                        </span>
+
+                                        <span class="txt-s-109 cl12">
+                                            x1
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="size-w-14 flex-b">
+                                    <button class="lh-10">
+                                        <img src="~/Content/images/icons/icon-close.png" alt="CLOSE">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex-w flex-sb-m p-t-22 p-b-12">
+                            <span class="txt-m-103 cl3 p-r-20">
+                                Subtotal
+                            </span>
+
+                            <span class="txt-m-111 cl6">
+                                48$
+                            </span>
+                        </div>
+
+                        <div class="flex-w flex-sb-m p-b-31">
+                            <span class="txt-m-103 cl3 p-r-20">
+                                Total
+                            </span>
+
+                            <span class="txt-m-111 cl10">
+                                48$
+                            </span>
+                        </div>
+
+                        <a href="checkout.html" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
+                            check out
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Button show menu -->
+            <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+        </div>
+
+
+        <!-- Menu Mobile -->
+        <div class="menu-mobile">
+            <ul class="main-menu-m">
+                <li>
+                    <a href="/Home/Index">HOME</a>
+
+                </li>
+                <li>
+                    <a href="index.html#featuredchefs">FEATURED CHEFS</a>
+
+                </li>
+                <li>
+                    <a href="/Home/DiscoverChefs">DISCOVER CHEFS</a>
+                </li>
+                <li>
+                    <a href="/Home/DiscoverFoods">DISCOVER FOOD</a>
+                </li>
+                <li>
+                    <a href="#">PACKAGES</a>
+                    <ul class="sub-menu-m">
+                        <li><a href="#">WEEKLY</a></li>
+                        <li><a href="#">MONTHLY</a></li>
+                    </ul>
+
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+
+
+
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#join-us-model">SIGN UP</a>
+
+                </li>
+                <li>
+                    <a href="#">SIGN IN</a>
+
+                </li>
+                <li>
+                    <a href="/Home/BecomeASeller">HOW TO BECOME A SELLER?</a>
+
+                </li>
+                <li>
+                    <a href="#about-us">About us</a>
+
+                </li>
+                <li>
+                    <a href="/Home/ContactUs">Contact us</a>
+
+                </li>
+
+
+                <li>
+                    <a href="#">USERNAME</a>
+                    <ul class="sub-menu-m">
+                        <li><a href="my-order.html"><i class="fab fa-bitbucket fas-pr"></i> My Orders</a></li>
+                        <li>
+                            <a href="#"><i class="fas fa-user fas-pr"></i> Notifications</a>
+                            <ul class="sub-menu-m">
+
+                                <li><a href="#">Notofication 1</a></li>
+                                <li><a href="#">Notifications</a></li>
+                                <li><a href="#">Notification 2</a></li>
+                                <!-- <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li> -->
+                                <li><a href="#">Notification 3</a></li>
+                                <li><a href="#">Notification 4</a></li>
+
+                            </ul>
+                            <span class="arrow-main-menu-m">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </li>
+                        <li><a href="order-received.html"><i class="fas fa-cart-plus fas-pr"></i> My Bucket</a></li>
+                        <!-- <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li> -->
+                        <li><a href="personal-information.html"><i class="fas fa-user fas-pr"></i> Profile Settings</a></li>
+                        <li><a href="/Home/Logoff" onclick="return confirm('Are you sure you want to logout?')"><i class="fas fa-sign-out-alt fas-pr"></i> Logout</a></li>
+                    </ul>
+                    <!-- <ul class="sub-menu-m">
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/order.png" alt="order" class="img-d-board">
+                                            My Orders
+                                          </a></li>
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/notification.png" alt="notification" class="img-d-board">
+                                            Notifications
+                                          </a>
+
+                                        </li>
+
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/my-bucket.png" alt="my-bucket" class="img-d-board">
+                                            My Bucket
+                                          </a></li>
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/favourite.png" alt="favourite-icon" class="img-d-board">
+                                            Favourites
+                                          </a></li>
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/profile.png" alt="profile-icon" class="img-d-board">
+                                            Profile Settings
+                                          </a></li>
+                                          <div class="dropdown-divider"></div>
+                                        <li><a class="dropdown-item hover-link" href="#">
+                                            <img src="~/Content/img/logout.png" alt="logout" class="img-d-board">
+                                            Logout
+                                          </a></li>
+                    </ul> -->
+
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+
+            </ul>
+        </div>
+
+        <!-- Modal Search -->
+        <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+            <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                <span class="lnr lnr-cross"></span>
+            </button>
+
+            <div class="container-search-header">
+                <form class="wrap-search-header flex-w">
+                    <button class="flex-c-m trans-04">
+                        <span class="lnr lnr-magnifier"></span>
+                    </button>
+                    <input class="plh1" type="text" name="search" placeholder="Search...">
+                </form>
+            </div>
+        </div>
+    </header>
+</div>
+<!-- Header desktop -->
+<div class="modal fade" id="join-us-model">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <form action="#" id="BuyerLoginForm">
+                    <div class="row">
+                        <div class="col-md-6 p-t-b-50">
+                            <div class="padding-50px">
+
+                                <div class="row d-flex justify-content-center">
+                                    <h1 class="p-t-b-20">Join Tashty</h1>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <a id="btnFbJoinBuyer" data-size="large" data-button-type="continue_with" class="newbtn-fb"><i class="fa fa-facebook"></i>&nbsp; &nbsp;Continue with Facebook</a>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <a id="signup-button-buyer" class="newbtn-gmail"><i class="fa fa-google"></i>&nbsp; &nbsp;Continue with Gmail</a>
+                                    </div>
+
+                                    <div class="separator">or</div>
+
+                                </div>
+                                <div class="form-group">
+                                    <div class="row ">
+                                        <p class="p-bold">Email address</p>
+                                        <input type="email" id="txtBuyerEmail" placeholder="enter your email" title="enter your email" class="form-control" required />
+
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div style="color:darkred" id="txtBuyerErrorMsg"> </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button type="submit" id="btnUserContinue" class="btn btn-continue">Continue</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row d-flex justify-content-center">
+                                        <p class="p-font">Already Have an Account?<a class="join-us-login" href="#">Sign in</a></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-6 bg-img-model1">
+                            <div class="row d-flex justify-content-end txtalign-btm">
+
+                                <h1 class="h1-custom">JOIN NOW</h1>
+                                <P class="p-custom">Order your favourite food from best sellers</P>
+
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <a class="btn btn-primary btnClientLogout" href="/Home/LogOff">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>

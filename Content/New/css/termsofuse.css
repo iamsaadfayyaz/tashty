@@ -1,0 +1,32 @@
+.main-h-green{color:#6FA843;}
+.p-15 {
+    padding: 20px;
+    
+}
+.p-20 {
+    padding:20px;
+}
+.p20-p{
+    padding: 20px 20px 0px 20px;
+    font-family: CircularStd-Black
+}
+.p-8-15 {
+    padding: 15px;
+}
+.align {
+    text-align: justify;
+}
+ol {
+    padding: 0px 20px;
+    text-align: justify;
+}
+ol li ul {
+    padding: 0px 20px;
+}
+h4 {
+    padding: 20px;
+    font-family: CircularStd-Black
+}
+h1 {
+    font-family: CircularStd-Bold
+}

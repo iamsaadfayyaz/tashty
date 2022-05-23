@@ -1,0 +1,181 @@
+﻿	@{
+
+		ViewBag.Title = "Tashty | About Us";
+		Layout = "~/Views/Shared/_LayoutStaticPages.cshtml";
+
+		string username = ViewBag.username;
+		string photo = ViewBag.photo;
+		int profileID = ViewBag.profileID;
+		bool isSeller = ViewBag.isSeller;
+
+	}
+@if (profileID == 0)
+{
+    @section headerSection {
+        @Html.Partial("_LayoutStaticHeader")
+    }
+}
+else
+{
+    @section headerSection {
+        @Html.Partial("_LayoutInUserHeader")
+    }
+}
+
+	<section>
+	   <div style="background-image:url(/Content/images/top-headerbg.jpg); padding: 11% 0;" class="text-center">
+	   <h2 style="color: #fff">About Us</h2></div>
+
+		<div class="container sectionspc">
+
+		   
+
+				
+					<div class="hpanel stats">
+					 <div class="panel-body h-200">
+					 <div class="page-header">
+					 	<h2>Marketplace for Foodies & Cooks </h2></div>
+					 	<div class="row">
+					 <div class="col-lg-6">
+				
+
+					<h3 class="font-bold">Introduction</h3>
+						<p>
+					   Tashty is a marketplace connecting foodies, professionals and anyone else, looking for affordable hygienic and quality food near their locations, with people who take pride in their homemade creations.</p>
+					   <p>
+					    
+					     <h3 class="font-bold">Our Goal</h3>
+					       Our goal is to facilitate and increase the accessibility of quality food and allow food buyers to have a variety of options without the high costs associated with top restaurants, and food sellers to have access to a large market of buyers, from the comfort of their kitchens.<br><br>
+	  </p>
+
+<h3 class="font-bold">Why Tashty</h3>
+	<p>
+	While there are several online food ordering and delivery portals, most of them cater to restaurants, which may offer popular food items, but are rarely affordable for everyday food delivery, as is required by working professionals and anyone else looking for convenient food options. Tashty makes this possible by promoting the sale and delivery of quality homemade food.<br><br>
+	 </p>
+
+
+					
+				</div>
+				<div class="col-lg-6">
+					<img src="@Url.Content("~/Content/images/img_white_bg1.png")" class="img-responsive">
+
+				</div>
+				
+				</div>
+				<div class="row">
+
+				<div class="col-lg-6">
+					<img src="@Url.Content("~/Content/images/img_white_bg2.png")" class="img-responsive">
+
+				</div>
+				
+
+
+<div class="col-lg-6 p-lg">
+					<h3 class="font-bold">How it works</h3>
+						<p>
+					  As a buyer, you simply have to enter your location and browse Tashty for food available near you. Once you select an item and place your order, you can just sit back and wait for delivery. Meanwhile, sellers can sign up within minutes to upload their menus and start receiving orders for their homemade food.<br><br>
+
+	  </p>
+
+	
+	<p>
+	Currently, Tashty is only available in Islamabad/Pindi, but we have plans to expand and add more locations in the near future. If you want to get the latest deals, coupons and offers directly, join our list to get daily updates.<br><br>
+
+	 </p>
+
+
+
+					</div></div></div></div>
+
+
+			
+
+<div class="row">
+            
+            
+            <div class="col-lg-3">
+                <div class="hpanel">
+                    <div class="panel-body text-center h-200">
+                        <i class="pe-7s-map-marker fa-4x text-success"></i>
+                        <h4 class="m-xs">Enter Location</h4>
+                        <small>Enter your location to search for nearby food sellers who deliver to your address
+</small>
+                    </div>
+                   
+                </div>
+            </div>
+
+
+            <div class="col-lg-3">
+                <div class="hpanel">
+                    <div class="panel-body text-center h-200">
+                        <i class="pe-7s-note2 fa-4x text-success"></i>
+                        <h4 class="m-xs">Browse Menus</h4>
+                        <small>Browse menus offered by nearby food sellers and select a meal or deal
+</small>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            <div class="col-lg-3">
+                <div class="hpanel">
+                    <div class="panel-body text-center h-200">
+                        <i class="pe-7s-cart fa-4x text-success"></i>
+                        <h4 class="m-xs">Place Order</h4>
+                        <small>Complete your order by choosing available payment methods and confirm via phone
+</small>
+                    </div>
+                   
+                </div>
+            </div>
+            
+            
+            <div class="col-lg-3">
+                <div class="hpanel">
+                    <div class="panel-body text-center h-200">
+                        <i class="pe-7s-alarm fa-4x text-success"></i>
+                        <h4 class="m-xs">Wait for Delivery</h4>
+                        <small>Sit back and relax while your ordered food is prepared and dispatched for delivery
+
+</small>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+		</div>
+	</section>
+	<script type="text/javascript">
+
+		@*$(document).ready(function () {
+
+
+			@if (!String.IsNullOrEmpty(username))
+			{<text> @*console.log('username =>' + @username);*@ @*_setIn('txtUsername', '@username'); </text>}*@
+			   @*@if (!String.IsNullOrEmpty(photo))
+			   { <text> @*console.log('photo =>' + @photo);*@ @*$("#imgLogo").attr("src", baseURL + '/Uploads/ProfilePictures/thumb-70/@photo'); </text> }*@
+				  @*@if (profileID != 0)
+				  { <text> console.log('profileID =>' + '@profileID');</text> }*@
+			@*@if(isSeller==true) {*@
+					  @*<text>
+			@*$("#lnkMyAcc").attr("href", '@Url.Action("Dashboard", "Seller")');
+			$("#lnkSetting").show();
+					  </text>
+				  }
+				  else
+				  {
+					  <text>
+			$("#lnkMyAcc").attr("href", '@Url.Action("Dashboard", "Buyer")');
+			$("#lnkSetting").hide();*@
+					  @*</text>
+				  }
+
+
+
+		});*@
+
+
+
+	</script>

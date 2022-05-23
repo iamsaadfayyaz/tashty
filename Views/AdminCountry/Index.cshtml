@@ -1,0 +1,115 @@
+﻿@{
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	ViewBag.Title = "Tashty | Country Management";
+	string name = ViewBag.name;
+	string photo = ViewBag.photo;
+	Entity.User info = ViewBag.userInfo;
+}
+<input type="hidden" id="hdnCountryID"/>
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<h5> Country Managment</h5>
+				</div>
+				<div class="row">
+					<div class="col-sm-7">
+						<div class="hpanel">
+							<div class="panel-heading hbuilt"> Country List </div>
+							<div class="panel-body ui-sortable-handle">
+								<div class="table-responsive project-list">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>Active</th>
+												<th>Country Name</th>
+											</tr>
+										</thead>
+										<tbody id="country-configuration-table"></tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-5">
+						<div class="hpanel">
+							<div class="panel-heading hbuilt"> Country  Configuration : <span id="txtCountry"></span></div>
+							<div class="panel-body ui-sortable-handle">
+								<form method="get" class="form-horizontal">
+									<div class="form-group">
+										<label class="col-sm-5 control-label " style="text-align:left;">Select Currency</label>
+										<div class="input-group m-b" style=" width: 58%;">
+											@Html.DropDownList("Currency", new SelectList(ViewBag.ListCurrency, "currencyID", "description"), "Select Currency", new { @id = "ddlCurrency", @class = "form-control" })
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label " style="text-align:left;">Select Distance Unit</label>
+										<div class="input-group m-b" style=" width: 58%;">
+											@Html.DropDownList("Currency", new SelectList(ViewBag.ListDistanceUnit, "unitID", "description"), "Select Unit", new { @id = "ddlDistanceUnit", @class = "form-control" })
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label " style="text-align:left;">Value Added Tax </label>
+										<div class="input-group m-b">
+											<input id="txtVAT" class="form-control" style="width:100%!important; float:right;" name="vad" type="text">
+											<span class="input-group-addon" @*style="float:right"*@>%</span>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="form-group">
+										<label class="col-sm-5 control-label" style="text-align:left;">Commision Value</label>
+										<div class="input-group m-b">
+											<input style="width:100%!important; float:right; "class="form-control" name="" id="txtCommisionValue" type="text">
+											<span class="input-group-addon" @*style="float:right"*@>%</span>
+										</div>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="checkbox checkbox-success">
+										<input id="chkIsHalal" checked="" type="checkbox">
+										<label for="checkbox5"> Offers Halal Food Only </label>
+									</div>
+									<div class="hr-line-dashed"></div>
+									<div class="text-right">
+										<button class="btn btn-success" id="btnSubmit" type="submit" disabled>Save changes</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+
+	country.GetCountries();
+	$(document).ready(function () {
+		$('#mnuCountry a').trigger('click');
+		 country.GetCountries();
+
+		//$('.actCheckbox').change(function () {
+		$(".actCheckbox").on("change", function () {
+			if (this.checked) {
+				var ele = $(this).attr("data-id");
+				country.MarkActive(ele, true);
+			}
+			else {
+				var ele = $(this).attr("data-id");
+				country.MarkActive(ele, false);
+			}
+		});
+
+	});
+
+    $('#btnSubmit').click(function () {
+		country.SaveConfiguration();
+	});
+
+	
+</script>
+

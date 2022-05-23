@@ -1,0 +1,182 @@
+﻿
+@{
+	ViewBag.Title = "Tashty | Featured User Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<h5> Feature Request Managment</h5>
+				</div>
+				<div class="panel-body dataTables_wrapper ">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="user-table" class="table table-striped table-bordered table-hover dataTable no-footer" style="width:100% !important" role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr role="row">
+										<th width="10%">Service Title </th>
+										<th width="10%">Username</th>
+										<th width="10%">email</th>
+										<th width="8%">Phone Number</th>
+										<th width="6%">Date To</th>
+										<th width="6%">Date From</th>
+										<th width="6%">Status</th>
+										<th width="10%">Action</th>
+
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="buyer-count" role="status" aria-live="polite"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{
+	Html.RenderPartial("FeaturedUserStatus");
+}
+
+<script>
+
+	
+	$(function () {
+		$('#mnuUM a').trigger('click');
+		$('#mnuUMFeatureUser a').trigger('click');
+
+		var userTable = $('#user-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": true,
+			"searching": true,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetAllUsers", "AdminFeatureUser")",
+				"data": function (data) {
+
+					data.searchText = $('input[name="txtBuyerSearch"]').val();
+
+				}
+			},
+			"columns": [
+				{
+					"data": "displayTitle",
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data : data;
+					}
+				},
+				{
+					"data": "username",
+					"orderable": true,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data : data;
+					}
+				},
+				{
+					"data": "email",
+					"orderable": true,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data : data;
+					}
+				},
+				{
+					// transformDate(obj.profile.DOBTicks));
+					"data": "workPhone",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data : data;
+					}
+				},
+				{
+					// transformDate(obj.profile.DOBTicks));
+					"data": "dateTo",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : transformDate(full.dateToTicks) : transformDate(full.dateToTicks);
+					}
+				},
+				{
+					// transformDate(obj.profile.DOBTicks));
+					"data": "dateFrom",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : transformDate(full.dateFromTicks) : transformDate(full.dateFromTicks);
+					}
+				},
+				{
+					// transformDate(obj.profile.DOBTicks));
+					"data": "requestStatus",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data : data;
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<button type="button" class="btn btn-outline btn-success"  data-id="' + full.requestID + '" data-type="ViewStatus" >View Change Request</button>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (userTable == null)
+					userTable.initializaeDataTable();
+				else
+					userTable.ajax.reload();
+			},
+			"drawCallback": function () {
+
+			}
+		});
+
+
+		userTable.on('draw', function () {
+
+			$('button[data-type="ViewStatus"]').click(function () {
+
+				var ele = $(this).attr("data-id");
+				requestSelected = ele;
+				OpenModel("user-feat_status_model");
+				//GetRequestInfo(ele);
+			});
+
+		});
+
+		var requestSelected = 0;
+	});
+		//function GetRequestInfo(ele)
+		//{
+		//	alert(requestID);
+		//	OpenModel("user-feat_status_model");
+		//}
+
+	
+
+
+</script>
+

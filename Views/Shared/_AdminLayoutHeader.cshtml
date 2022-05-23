@@ -1,0 +1,129 @@
+﻿
+<div id="header">
+	<div class="color-line"> </div>
+	<div id="logo" class="light-version"> <span> Welcome Home </span> </div>
+	<nav role="navigation">
+		<div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+		<div class="small-logo"> <span class="text-primary">Welcome Home</span> </div>
+		@*<form role="search" class="navbar-form-custom" method="post" action="#">
+			<div class="form-group">
+				<input type="text" placeholder="Search something special" class="form-control" name="search">
+			</div>
+		</form>*@
+		<div class="mobile-menu">
+			<button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse"> <i class="fa fa-chevron-down"></i> </button>
+			<div class="collapse mobile-navbar" id="mobile-collapse">
+				<ul class="nav navbar-nav">
+					<li> <a class="" href="@Url.Action("ChangePassword", "AdminLogin")">change password</a> </li>
+					<li> <a class="btnLogout"  href="#">Logout</a> </li>
+					<li> <a class="" >Profile</a> </li>
+				</ul>
+			</div>
+		</div>
+		<div class="navbar-right">
+			<ul class="nav navbar-nav no-borders">
+				<li class="dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown"> <i class="pe-7s-speaker"></i> </a>
+					<ul id="notice_item_table" class="dropdown-menu hdropdown notification animated flipInX">
+					
+						
+					</ul>
+				</li>
+				<li class="dropdown">
+					<a class="dropdown-toggle" href="#" data-toggle="dropdown"> <i class="pe-7s-keypad"></i> </a>
+					<div class="dropdown-menu hdropdown bigmenu animated flipInX">
+						<table>
+							<tbody>
+								<tr>
+									<td>
+										<a href="@Url.Action("Index", "AdminTimeline")">
+											<i class="pe pe-7s-portfolio text-info"></i>
+											<h5>Timeline</h5>
+										</a>
+									</td>
+									<td>
+										<a href="@Url.Action("Index", "AdminNotification")">
+											<i class="pe pe-7s-mail text-warning"></i>
+											<h5>Notifications</h5>
+										</a>
+									</td>
+									<td>
+										<a href="@Url.Action("Index", "AdminUsers")">
+											<i class="pe pe-7s-users text-success"></i>
+											<h5>Admin Contacts</h5>
+										</a>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<a href="@Url.Action("Index", "AdminContactUs")">
+											<i class="pe pe-7s-comment text-info"></i>
+											<h5>Contact Us</h5>
+										</a>
+									</td>
+									<td>
+										<a href="@Url.Action("Index", "AdminSeller")">
+											<i class="pe pe-7s-graph1 text-danger"></i>
+											<h5>Sellers</h5>
+										</a>
+									</td>
+									<td>
+										<a href="@Url.Action("Index","AdminBuyer")">
+											<i class="pe pe-7s-box1 text-success"></i>
+											<h5>Buyers</h5>
+										</a>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</li>
+				@*<li class="dropdown">
+					<a class="dropdown-toggle label-menu-corner" href="#" data-toggle="dropdown"> <i class="pe-7s-mail"></i> <span class="label label-success">4</span> </a>
+					<ul class="dropdown-menu hdropdown animated flipInX">
+						<div class="title"> You have <span id="cntNotice"> 0 </span> new notice. </div>
+						<li> <a> It is a long established. </a> </li>
+						<li> <a> There are many variations. </a> </li>
+						<li> <a> Lorem Ipsum is simply dummy. </a> </li>
+						<li> <a> Contrary to popular belief. </a> </li>
+						<li class="summary"><a href="#">See All Messages</a></li>
+					</ul>
+				</li>*@
+				@*<li> <a href="#" id="sidebar" class="right-sidebar-toggle"> <i class="pe-7s-user"></i> </a> </li>*@
+				<li class="dropdown"> <a class="btnLogout" href="#"> <i id="btnLogout" class="pe-7s-upload pe-rotate-90 btnLogout"></i> </a> </li>
+			</ul>
+		</div>
+	</nav>
+</div>
+
+<script>
+
+	$(function () {
+		$(".btnLogout").click(function () {
+			$.ajax({
+				url: baseURL + 'AdminLogin/LogOff',
+				type: 'POST',
+				cache: false,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				success: function (data, textStatus, jqXHR) {
+					var response = null;
+					if (data != null) {
+						response = data;
+						//if (response.error === "") {
+						window.location.href = baseURL + "/" + response.controller;
+						//}
+						//else {
+						//	//add logic here to handle error
+						//	window.location.href = "/" + response.controller;
+						//}
+					}
+				},//end success
+				error: function (jqXHR, textStatus, errorThrown) {
+					window.location.href = "/" + response.controller;
+				}//end error
+			});
+		});
+	});
+
+</script>

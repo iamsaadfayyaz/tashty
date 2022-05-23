@@ -1,0 +1,17 @@
+.oops-red{font-size:12px;
+    font-weight:900;
+    color:#EF4836;}
+.logo-404-h{font-size: 5em;
+    color:#EF4836;
+    font-weight:900;
+}
+.grey-txt{
+    color: #A4A4A4;
+    font-size:12px;
+}
+.p-t-b-404{padding-top:1%;
+padding-bottom:10%;}
+.bg-404{ background-image: url('../images/404.png');
+    background-size: 100% 100%;
+    padding-bottom: 10%;
+    padding-top:10%;}

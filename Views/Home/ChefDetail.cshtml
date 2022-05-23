@@ -1,0 +1,454 @@
+﻿@model TashtyWebProject.ViewModel.SellerMenuViewModel
+@{
+    List<Entity.Meal> meals = Model.getAllMeals();
+    List<Entity.Deal> deals = Model.getAllDeals();
+}
+<div class="containter-fluid maindashboard">
+    <div class="full-bg-img">
+        <img src="~/Content/images/logo/slider.jpg" alt="Snow" style="width:100%">
+    </div>
+    <div class="white-section " style="position:relative;width:100%">
+        <div class="row">
+            <div class="col-md-2">
+                <div class="row">
+                    <div class="container">
+                        <div class="border-img">
+                            @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/uploads/Logo/" + Model.Seller.logo)))
+                            {
+                                <img class="cstm-size" src="~/uploads/Logo/@Model.Seller.logo" alt="...">
+                            }
+                            else
+                            {
+                                <img src="~/Content/New/images/Icon Placeholder.png" class="cstm-size" alt="...">
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex justify-content-center ">
+                    <div class="container">
+                        <h3 class="qz">@Model.Seller.firstName @Model.Seller.lastName</h3>
+                        @*  <P class="qz-txt">SASASASASASASASAS</P>*@
+                    </div>
+                </div>
+
+            </div>
+            <div class="col-md-10 custom-pl">
+                <div class="row d-flex flex-row">
+                    @*<div class="">
+                            <div class="starrating risingstar  ">
+
+                                <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star">
+                                    <span class="rating-txt">4.5 ratings</span>
+                                </label>
+                            </div>
+                        </div>*@
+                </div>
+                <div class="row d-flex flex-row">
+                    <div class="">
+                        <div class="xtra-txt-p">
+                            <p class="qz-txt-2">@Model.Seller.description</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="xtra-spc">
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row d-flex justify-content-center ">
+                <nav>
+                    <div class="nav nav-tabs nav-fill custom-nav-tabs" id="nav-tab" role="tablist">
+                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Dishes (@meals.Count)</a>
+                        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Meal Plans (@deals.Count)</a>
+
+                    </div>
+                </nav>
+
+
+            </div>
+        </div>
+        <hr class="line-width">
+
+        <div class="second-wt-sec">
+
+            <div class="row d-flex justify-content-center">
+                <div class="top-space">
+                    <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="row d-flex justify-content-center">
+                                <nav>
+                                    <div class="nav custom-nav-tabs-2 nav-fill" id="nav-tab" role="tablist">
+                                        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#AllMealProducts" role="tab" aria-controls="nav-home" aria-selected="true">All Products</a>
+                                        @foreach (var item in Model.getAllCategoriesForMeal())
+                                        {
+                                            if (item.TotalRecords > 0)
+                                            {
+                                                <a class="nav-item nav-link" id="nav-@item.name-tab" data-toggle="tab" href="#Meal-@item.categoryID" role="tab" aria-controls="nav-profile" aria-selected="false">@item.name (@item.TotalRecords)</a>
+                                            }
+                                        }
+                                    </div>
+                                </nav>
+                            </div>
+                            <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                <div class="tab-pane fade show active" id="AllMealProducts" role="tabpanel" aria-labelledby="nav-home-tab">
+                                    <div class="row d-flex justify-content-center">
+                                        @foreach (var item in meals)
+                                        {
+                                            <div class="card-pd">
+                                                <div class="mycard" style="width: 17rem;">
+                                                    <div class="item">
+                                                        <a href="#">
+                                                            @if (!string.IsNullOrEmpty(item.CookingTime))
+                                                            {
+                                                                <span class="notify-badge">@item.CookingTime Hours</span>
+                                                            }
+                                                            @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + Model.FolderID + "/thumb-200/" + item.gallery.filename)))
+                                                            {
+                                                                <img class="card-img-top resize-img" src="~/Uploads/Product/@Model.FolderID/thumb-200/@item.gallery.filename" alt="...">
+                                                            }
+                                                            else
+                                                            {
+                                                                <img src="~/Content/New/images/Icon Placeholder.png" class="card-img-top resize-img" alt="...">
+                                                            }
+                                                        </a>
+                                                    </div>
+                                                    <div class="mycard-body">
+                                                        <div class="row d-flex justify-content-center">
+                                                            <div class="col-8">
+                                                                <h5 class="mycard-title">@item.title</h5>
+                                                            </div>
+                                                            <div class="col-4">
+                                                                <p class="card-text">Rs.<span class="s-card-text"> @item.price</span></p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="card-body-2">
+                                                        @*<div class="row">
+                                                                <div class="col-md-12">
+                                                                    <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                                        <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                                        <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                                        <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                                        <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                                        <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                                        <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>*@
+
+                                                    </div>
+                                                    <div class="card-body-3">
+                                                        <div class="row d-flex justify-content-center ">
+                                                            <div class="col">
+                                                                <!-- <img src="images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>   -->
+                                                                <!--<p class="pd-top icon-txt"> <span class="mic-2">@item.serving</span>Serves @item.serving</p>-->
+                                                                <img src="~/Content/images/Tashty- serving.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Serves @item.serving</p>
+                                                            </div>
+                                                            <div class="col">
+                                                                <img src="~/Content/images/Tashty-deliverytime.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">< 1 Hour </p>
+                                                            </div>
+                                                            <div class="col">
+                                                                <img src="~/Content/images/tashty- category.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">@item.DisplayCategory.Replace("Asian (Indian/Pakistani)","Pak Foods")</p>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="ex-space"></div>
+                                                    <div class="card-body-5 lr-mycard-p-20">
+                                                        <div class="row ">
+                                                            <div class="col-sm-12">
+                                                                <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@item.mealID',false)">Add to Cart</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="ex-space-2"></div>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                </div>
+                                @foreach (var Cat in Model.getAllCategoriesForMeal())
+                                {
+                                    <div class="tab-pane fade show" id="Meal-@Cat.categoryID" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="row d-flex justify-content-center">
+                                            @foreach (var item in meals.Where(x => x.category != null && x.category.Split(',').Contains(Cat.categoryID.ToString())))
+                                            {
+                                                <div class="card-pd">
+                                                    <div class="mycard" style="width: 17rem;">
+                                                        <div class="item">
+                                                            <a href="#">
+                                                                @if (!string.IsNullOrEmpty(item.CookingTime))
+                                                                {
+                                                                    <span class="notify-badge">@item.CookingTime Hours</span>
+                                                                }
+                                                                @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + Model.FolderID + "/thumb-200/" + item.gallery.filename)))
+                                                                {
+                                                                    <img class="card-img-top resize-img" src="~/Uploads/Product/@Model.FolderID/thumb-200/@item.gallery.filename" alt="...">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/New/images/Icon Placeholder.png" class="card-img-top resize-img" alt="...">
+                                                                }
+                                                            </a>
+                                                        </div>
+                                                        <div class="mycard-body">
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col-8">
+                                                                    <h5 class="mycard-title">@item.title</h5>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <p class="card-text">Rs.<span class="s-card-text"> @item.price</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body-2">
+                                                            @*<div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                                            <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>*@
+
+                                                        </div>
+                                                        <div class="card-body-3">
+                                                            <div class="row d-flex justify-content-center ">
+                                                                <div class="col">
+                                                                    <!-- <img src="images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>   -->
+                                                                    <!--<p class="pd-top icon-txt"> <span class="mic-2">@item.serving</span>Serves @item.serving</p>-->
+                                                                    <img src="~/Content/images/Tashty- serving.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Serves @item.serving</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <img src="~/Content/images/Tashty-deliverytime.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">< 1 Hour </p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <img src="~/Content/images/tashty- category.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">@item.DisplayCategory.Replace("Asian (Indian/Pakistani)","Pak Foods")</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="ex-space"></div>
+                                                        <div class="card-body-5 lr-mycard-p-20">
+                                                            <div class="row ">
+                                                                <div class="col-sm-12">
+                                                                    <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@item.mealID',false)">Add to Cart</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="ex-space-2"></div>
+                                                    </div>
+                                                </div>
+                                            }
+
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                        <div class="tab-pane fade show" id="nav-profile" role="tabpanel" aria-labelledby="nav-home-tab">
+                            <div class="top-space">
+                                <div class="row d-flex justify-content-center">
+                                    <nav>
+                                        <div class="nav custom-nav-tabs-2 nav-fill" id="nav-tab" role="tablist">
+                                            <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#AllDealProducts" role="tab" aria-controls="nav-home" aria-selected="true">All Products</a>
+                                            @foreach (var item in Model.getAllCategoriesForDeal())
+                                            {
+                                                if (item.TotalRecords > 0)
+                                                {
+                                                    <a class="nav-item nav-link" id="nav-@item.name-tab" data-toggle="tab" href="#Deal-@item.categoryID" role="tab" aria-controls="nav-profile" aria-selected="false">@item.name (@item.TotalRecords)</a>
+                                                }
+                                            }
+                                        </div>
+                                    </nav>
+                                </div>
+                                <div class="tab-content py-3 px-3 px-sm-0" id="nav-tabContent">
+                                    <div class="tab-pane fade show active" id="AllDealProducts" role="tabpanel" aria-labelledby="nav-home-tab">
+                                        <div class="row d-flex justify-content-center">
+                                            @foreach (var item in deals)
+                                            {
+                                                <div class="card-pd">
+                                                    <div class="mycard" style="width: 17rem;">
+                                                        <div class="item">
+                                                            <a href="#">
+                                                                @if (!string.IsNullOrEmpty(item.CookingTime))
+                                                                {
+                                                                    <span class="notify-badge">@item.CookingTime Hours</span>
+                                                                }
+                                                                @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + Model.FolderID + "/thumb-200/" + item.gallery.filename)))
+                                                                {
+                                                                    <img class="card-img-top resize-img" src="~/Uploads/Product/@Model.FolderID/thumb-200/@item.gallery.filename" alt="...">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/New/images/Icon Placeholder.png" class="card-img-top resize-img" alt="...">
+                                                                }
+                                                            </a>
+                                                        </div>
+                                                        <div class="mycard-body">
+                                                            <div class="row d-flex justify-content-center">
+                                                                <div class="col-8">
+                                                                    <h5 class="mycard-title">@item.title</h5>
+                                                                </div>
+                                                                <div class="col-4">
+                                                                    <p class="card-text">Rs.<span class="s-card-text"> @item.Price</span></p>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body-2">
+                                                            @*<div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                                            <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                                            <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                                            <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                                            <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                                            <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                                            <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>*@
+
+                                                        </div>
+                                                        <div class="card-body-3">
+                                                            <div class="row d-flex justify-content-center ">
+                                                                <div class="col">
+                                                                    <!-- <img src="images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>   -->
+                                                                    <!--<p class="pd-top icon-txt"> <span class="mic-2">@item.serving</span>Serves @item.serving</p>-->
+                                                                    <img src="~/Content/images/Tashty- serving.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Serves @item.serving</p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <img src="~/Content/images/Tashty-deliverytime.png" class="card-img-top img-style" alt="..."> <p class="icon-txt"> < 1 Hour </p>
+                                                                </div>
+                                                                <div class="col">
+                                                                    <img src="~/Content/images/tashty- category.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">@item.DisplayCategory.Replace("Asian (Indian/Pakistani)","Pak Foods")</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="ex-space"></div>
+                                                        <div class="card-body-5 lr-mycard-p-20">
+                                                            <div class="row ">
+                                                                <div class="col-sm-12">
+                                                                    <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@item.dealID',true)">Add to Cart</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    @foreach (var Cat in Model.getAllCategoriesForDeal())
+                                    {
+                                        <div class="tab-pane fade show" id="Deal-@Cat.categoryID" role="tabpanel" aria-labelledby="nav-home-tab">
+                                            <div class="row d-flex justify-content-center">
+                                                @foreach (var item in deals.Where(x => x.category != null && x.category.Split(',').Contains(Cat.categoryID.ToString())))
+                                                {
+                                                    <div class="card-pd">
+                                                        <div class="mycard" style="width: 17rem;">
+                                                            <div class="item">
+                                                                <a href="#">
+                                                                    @if (!string.IsNullOrEmpty(item.CookingTime))
+                                                                    {
+                                                                        <span class="notify-badge">@item.CookingTime Hours</span>
+                                                                    }
+                                                                    @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + Model.FolderID + "/thumb-200/" + item.gallery.filename)))
+                                                                    {
+                                                                        <img class="card-img-top resize-img" src="~/Uploads/Product/@Model.FolderID/thumb-200/@item.gallery.filename" alt="...">
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img src="~/Content/New/images/Icon Placeholder.png" class="card-img-top resize-img" alt="...">
+                                                                    }
+                                                                </a>
+                                                            </div>
+                                                            <div class="mycard-body">
+                                                                <div class="row d-flex justify-content-center">
+                                                                    <div class="col-8">
+                                                                        <h5 class="mycard-title">@item.title</h5>
+                                                                    </div>
+                                                                    <div class="col-4">
+                                                                        <p class="card-text">Rs.<span class="s-card-text"> @item.Price</span></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="card-body-2">
+                                                                @*<div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <div class="starrating risingstar d-flex justify-content-left star-p">
+                                                                                <input type="radio" id="star5" name="rating" value="5"><label for="star5" title="5 star"></label>
+                                                                                <input type="radio" id="star4" name="rating" value="4"><label for="star4" title="4 star"></label>
+                                                                                <input type="radio" id="star3" name="rating" value="3"><label for="star3" title="3 star"></label>
+                                                                                <input type="radio" id="star2" name="rating" value="2"><label for="star2" title="2 star"></label>
+                                                                                <input type="radio" id="star1" name="rating" value="1"><label for="star1" title="1 star"></label>
+                                                                                <p class="rating-text">&nbsp; &nbsp; 4.5 - 86 Ratings</p>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>*@
+
+                                                            </div>
+                                                            <div class="card-body-3">
+                                                                <div class="row d-flex justify-content-center ">
+                                                                    <div class="col">
+                                                                        <!-- <img src="images/micro.png" class="card-img-top img-style" alt="..."><p class="icon-txt">Serves 2</p>   -->
+                                                                        <!--<p class="pd-top icon-txt"> <span class="mic-2">@item.serving</span>Serves @item.serving</p>-->
+                                                                        <img src="~/Content/images/Tashty- serving.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">Serves @item.serving</p>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <img src="~/Content/images/Tashty-deliverytime.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">< 1 Hour </p>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <img src="~/Content/images/tashty- category.png" class="card-img-top img-style" alt="..."> <p class="icon-txt">@item.DisplayCategory.Replace("Asian (Indian/Pakistani)","Pak Foods")</p>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                            <div class="ex-space"></div>
+                                                            <div class="card-body-5 lr-mycard-p-20">
+                                                                <div class="row ">
+                                                                    <div class="col-sm-12">
+                                                                        <button type="button" class="btn btn-primary btn-xs" onclick="AddCartItems('@item.dealID',true)">Add to Cart</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="ex-space-2"></div>
+
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    }
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function(){
+    document.body.scrollTop = 0; // For Safari
+  document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+});
+        </script>
+

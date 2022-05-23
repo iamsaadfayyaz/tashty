@@ -1,0 +1,193 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Search";
+    Layout = "~/Views/Shared/_LayoutSearch.cshtml";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    bool isSeller = ViewBag.isSeller;
+
+}
+@if (profileID == 0)
+{
+    @section headerSection {
+        @Html.Partial("_LayoutSearchHeader")
+    }
+}
+else
+{
+    @section headerSection {
+        @Html.Partial("_LayoutInSearchHeader")
+    }
+}
+<section style="min-height:650px;">
+    <div class="container sectionspc">
+        <div class="hpanel forum-box">
+
+            <h3 id="txtSearchtext" class="font-bold"></h3>
+            <div id="container-search-items">
+                
+            </div>
+        </div>
+
+
+
+    </div>
+</section>
+
+<script>
+     $(document).ready(function ()
+     {
+         var ListSubCat = [];
+         var searchtext = "";
+         if (localStorage.getItem('SearchText')) {
+             searchtext = localStorage.getItem('SearchText');
+             home.GetSearchByAddress(searchtext);
+             _setIn("txtSearchtext", "Search by Address:" + searchtext);
+            // localStorage.clear();
+         }
+         else if (localStorage.getItem('categoryID')) {
+             var id = localStorage.getItem('categoryID');
+             var name = localStorage.getItem('categoryName');
+             home.GetSearchByCategory(id,@profileID,name);
+             _setIn("txtSearchtext", "Search by category: " + name);
+            // localStorage.clear();
+         }
+         else if (localStorage.getItem('buyerSearch'))
+         {
+        
+             var objSearch = localStorage.getItem('buyerSearch');
+             home.GetBuyerSearch(JSON.parse(objSearch),@profileID);
+             _setIn("txtSearchtext", "Detail Search Result");
+             //localStorage.clear();
+         }
+         else _setIn("txtSearchtext", "");
+
+
+
+
+         ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListCategories));
+         if (ListSubCat) { home.populateMenuCategories(ListSubCat); }
+
+
+
+         @if (!String.IsNullOrEmpty(username))
+        {<text> @*console.log('username =>' + @username);*@ _setIn('txtUsername','@username'); </text>}
+           @if (!String.IsNullOrEmpty(photo))
+           { <text> @*console.log('photo =>' + @photo);*@ $("#imgLogo").attr("src", baseURL + '/Uploads/ProfilePictures/thumb-70/@photo'); </text> }
+              @if (profileID != 0)
+              { <text> console.log('profileID =>' + '@profileID');</text> }
+               @if(isSeller==true) {
+                  <text>
+                        $("#lnkMyAcc").attr("href",'@Url.Action("Dashboard", "Seller")');
+                        $("#lnkSetting").show();
+                  </text>
+              }
+              else
+              {
+                  <text>
+                        $("#lnkMyAcc").attr("href",'@Url.Action("Dashboard", "Buyer")');
+                        $("#lnkSetting").hide();
+                  </text>
+              }
+
+
+         $('#btnSearchAddress').on('click', function () {
+             
+             var address = $('#txtSearch').val();
+             home.GetSearchByAddress(address,@profileID);
+             _setIn("txtSearchtext", "Search by: " + address);
+             return false;
+         });
+
+
+
+
+    });
+
+  
+</script>
+<script>
+    $(document).ready(function () {
+        // Page scrolling feature
+        $('a.page-scroll').bind('click', function (event) {
+            var link = $(this);
+            $('html, body').stop().animate({
+                scrollTop: $(link.attr('href')).offset().top - 50
+            }, 500);
+            event.preventDefault();
+        });
+
+        $('body').scrollspy({
+            target: '.navbar-fixed-top',
+            offset: 80
+        });
+        $('.carousel').carousel({
+            interval: 5000,
+            pause: false
+        })
+
+
+
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+
+        $(window).scroll(function () { // check if scroll event happened
+            if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+
+                $(".navbar-fixed-top").css("background-color", "#e8edf1"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+                $('.logo').addClass('small-logo2');
+            } else {
+                $(".navbar-fixed-top").css("background-color", "transparent"); // if not, change it back to transparent
+                $('.logo').removeClass('small-logo2');
+            }
+        });
+    });
+
+    function AddMealtoCart()
+    {
+      
+        @if (profileID != 0)
+        { <text> 
+                 console.log('profileID =>' + '@profileID');
+                var mealID = _get("hdnMealID");
+                var title=_get("hdnMealTitle");
+                var price = _get("hdnMealPrice");
+                var qty = _get("txtmQuantity");
+                home.addMealToCart(mealID, title,qty,price,pID);
+          </text>
+        }else
+        {
+        <text > 
+        OpenModel("login-model");
+    
+         </text>
+        }
+    }
+
+    function AddDealtoCart()
+    {
+      
+        @if (profileID != 0)
+        { <text> 
+                 console.log('profileID =>' + '@profileID');
+                var mealID = _get("hdnDealID");
+                var title=_get("hdnDealTitle");
+                var price = _get("hdDealPrice");
+                var qty = _get("txtQuantity");
+                home.addDealToCart(mealID, title,qty,price,pID);
+          </text>
+        }else
+        {
+        <text > 
+        OpenModel("login-model");
+    
+         </text>
+        }
+    }
+
+</script>

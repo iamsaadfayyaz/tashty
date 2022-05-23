@@ -1,0 +1,30 @@
+﻿<div class="modal fade hmodal-success" id="seller_change_status_model" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="color-line"></div>
+			<div class="modal-header text-center p-xs">
+				<h4 class="modal-title">Change Registration Status</h4>
+			</div>
+			<div class="modal-body ">
+				@Html.DropDownList("registration Status",new SelectList((List<Entity.RegisterationStatus>)ViewData["ListRegisterationStatus"], "registrationStatusID", "registrationStatus"), htmlAttributes: new { onchange = "Seller.SetRegistrationStatus(this.value);", @class = "form-control m-b" })
+				<div class="table-responsive">
+					<table class="table table-condensed" cellspacing="1" cellpadding="1">
+						<thead>
+							<tr>
+								<th>Status</th>
+								<th>Date</th>
+								<th>Change By</th>
+							</tr>
+						</thead>
+						<tbody id="Seller_change_status_table"></tbody>
+					</table>
+				</div>
+			</div>
+			<div class="modal-footer">
+				@*seller_change_status_model*@
+				<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-success" onclick="Seller.ChangeRegStatus()">Change Status</button>
+			</div>
+		</div>
+	</div>
+</div>

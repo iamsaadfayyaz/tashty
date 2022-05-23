@@ -1,0 +1,24 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+}
+<script>
+    $(document).ready(function () {
+        if ($('#Page').val() != null && $('#Page').val() != '' && $('#Page').val() != undefined) {
+            
+            if ($('#Page').val() == 'MyOrder') {
+                SellerMyOrder();
+            }
+            if ($('#Page').val() == 'Notifications') {
+                Notifications();
+            }
+        }
+        else {
+            SellerMenu();
+
+        }
+    })
+
+  
+</script>

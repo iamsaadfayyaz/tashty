@@ -1,0 +1,182 @@
+﻿
+<div class="modal fade hmodal-success" id="add-edit-new-admin-profile"  role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="headingAdmin">Add New Admin</h4>
+
+            </div>
+            <form  id="frmEditNewAdminForm">
+                <div class="modal-body ">
+                    <input type="hidden" id="txtAUProfileID" />
+
+                    <div class="form-group col-lg-6">
+                        <label>First Name</label>
+                        <input class="form-control" id="txtAUFirstName" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="First Name" required />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Last Name</label>
+                        <input class="form-control" id="txtAULastName" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="Last Name" required />
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Username</label>
+                        <input class="form-control" id="txtAUUsername" maxlength="32" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" placeholder="Username" required />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Email Address</label>
+                        <input class="form-control" id="txtAUEmail" placeholder="Email Address" type="email" required />
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Password</label>
+                        <input class="form-control" type="password" pattern="(?=^.{6,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" id="txtAUPassword" placeholder="Password" required />
+                        <p>
+                            <small>6 characters or longer. Combine upper and lowercase letters and numbers.</small>
+                        </p>
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Confirm Password</label>
+                        <input class="form-control" type="password" id="txtAUConfirmPassword" pattern="(?=^.{6,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" placeholder="Confirm Password" required />
+
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Mobile</label>
+                        <input class="form-control" id="txtAUMobile" maxlength="12" pattern="\d*" placeholder="Mobile Number" required />
+                    </div>
+                    <div class="form-group col-lg-10">
+                        <input type="hidden" id="txtAUProfilePic" />
+                        <img class="profile-AU-photo img-circle"  width="150" height="150" src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                        <div class="file-loading">
+                            <input id="fileAUProfilePhoto" type="file" />
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-10"><small> maximum allowed upload size is 100 kb.</small></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-success" value="Save changes">
+                </div>
+            </form>
+        </div>
+        
+    </div>
+</div>
+
+
+
+<script>
+    $('#add-edit-new-admin-profile').on('show.bs.modal', function (e) {
+
+        adn.ClearAUFieldData();
+    });
+    $("#frmEditNewAdminForm").submit(function (e) {
+        e.preventDefault();
+        adn.CreateAdmin();
+    });
+   
+</script>
+
+<script>
+
+	var profile_password = _("txtAUPassword"), txtConfirmPassword = _("txtAUConfirmPassword");
+    profile_password.onfocusout = validatePassword;
+    txtConfirmPassword.onfocusout = validatePassword;
+
+	function validatePassword() {
+		txtConfirmPassword.className = txtConfirmPassword.className.replace(" input-validation-error", "");
+        if (profile_password.value != txtConfirmPassword.value) {
+            txtConfirmPassword.className += " input-validation-error";
+            txtConfirmPassword.setCustomValidity("Passwords Don't Match");
+            //var tost= toastr.error("Passwords Don't Match");
+            //tost.show(); 
+
+        }
+        else { txtConfirmPassword.setCustomValidity('');}
+	}
+
+    var loadedAUURL = "";
+
+    var readURL = function (input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                loadedAUURL = e.target.result;
+               // $('.profile-AU-photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileAUProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+    $("#fileAUProfilePhoto").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'AdminUser/UploadProfilePic',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+        overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Picture",
+        maxFileSize: 100,
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        //minFileCount: 1,
+        uploadAsync: true,
+        msgSizeTooLarge: 'File "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: String("1")
+            };
+        }
+    });
+
+    var customValidationAUFailed = false;
+
+    $('#fileAUProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-AU-photo').attr('src', loadedAUURL);
+        _set("txtAUProfilePic", data.response);
+        customValidationAUFailed = false;
+    });
+    $('#fileAUProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customValidationAUFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileAUProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customValidationAUFailed) {
+            $("#fileAUProfilePhoto").fileinput("upload");
+        }
+        customValidationAUFailed = false;
+    });
+
+</script>

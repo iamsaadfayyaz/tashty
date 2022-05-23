@@ -1,0 +1,55 @@
+﻿
+<div class="modal fade" id="view-edit-admin-profile" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="color-line"></div>
+			<div class="modal-header p-sm">
+				<div class="profile-picture">
+					<a href="/Home/Index"> <img class="profile-admin-view-pic-70 img-circle m-b" src="@Url.Content("~/Content/images/profile.jpg")"  alt="logo"> </a>
+					<div class="stats-label text-color">
+						<span class="font-extra-bold font-uppercase" id="lblUsername"></span>
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-xs-6" style="">
+						<p class="font-extra-bold">Name: </p>
+					</div>
+					<div class="col-xs-6" style="">
+						<h5><span id="lblAdminFirstName"></span>  &nbsp; <span id="lblAdminLastName"></span></h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6" style="">
+						<p class="font-extra-bold">Email: </p>
+					</div>
+					<div class="col-xs-6" style="">
+						<h5 id="lblAdminEmail"></h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6" style="">
+						<p class="font-extra-bold">Mobile: </p>
+					</div>
+					<div class="col-xs-6" style="">
+						<h5 id="lblAdminMobile"></h5>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-6" style="">
+						<p class="font-extra-bold">Date: </p>
+					</div>
+					<div class="col-xs-6" style="">
+						<h5 id="lblAdminDate"></h5>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			</div>
+		</div>
+	</div>
+</div>

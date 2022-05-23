@@ -1,0 +1,33 @@
+﻿
+@{
+	Layout = null;
+}
+<div class="modal fade" id="contact-us-model" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="color-line"></div>
+			<div class="modal-header text-center">
+				<h4 class="modal-title">Query</h4>
+				<span class="font-bold" id="txtQuery"></span>
+			</div>
+			<div class="modal-body">
+				@Html.DropDownList("Query Status", new SelectList(ViewBag.ListStatus, "queryStatusID", "title"), "select status", new { @id = "ddlStatus", @class = "form-control" })
+				<br />
+				<textarea id="txtReply" name="" cols="" rows="" class="form-control"></textarea>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="button" onclick="cus.UpdateStatus();" class="btn btn-success">Change Status</button>
+				<button type="button" onclick="if (checkIfReplyValid()) { cus.SaveReply(); }" class="btn btn-success">Send Reply</button>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+	function checkIfReplyValid()
+	{
+		if (_get("txtReply") != "" || _get("txtReply") != " ")
+			return true;
+		else toastr.warning('Please fill a message to send.', { timeOut: 5000 }); return false;
+	}
+</script>

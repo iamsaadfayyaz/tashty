@@ -1,0 +1,381 @@
+﻿@model Entity.User
+@{
+	ViewBag.Title = "Tashty | Deal Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	int dealID = (int)ViewData["dealID"];
+	int sellerID = (int)ViewData["sellerID"];
+	string fullName = (string)ViewData["displayName"];
+	string folderID = (string)ViewData["folderID"];
+	var sellerMealItems = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize((List<Entity.Meal>)ViewData["sellerMealItems"]);
+}
+<style>
+	.uploadText {
+		/*width: 130px;
+		height: 40px;*/
+		position: absolute;
+		padding: 4px;
+		display: block;
+		float: left;
+		margin: 8px 0;
+		color: #FFFFFF;
+		border-radius: 3px;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		touch-action: manipulation;
+		cursor: pointer;
+	}
+
+	.fileUploaderBtn {
+		/*width: 130px;
+		height: 30px;
+		padding: 40px;*/
+		display: block;
+		float: left;
+		margin: 8px 0;
+		/*background-color: #34495e;
+		border-color: #34495e;*/
+		color: #FFFFFF;
+		border-radius: 3px;
+		font-size: 14px;
+		font-weight: normal;
+		line-height: 1.42857143;
+		text-align: center;
+		white-space: nowrap;
+		vertical-align: middle;
+		touch-action: manipulation;
+		cursor: pointer;
+		-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		background-image: none;
+		border: 1px solid transparent;
+	}
+
+	#profilePhotoQueue {
+		display: none;
+	}
+	/* fake button */
+	div.UploadifyButtonWrapper a {
+		position: absolute; /* relative to UploadifyButtonWrapper */
+		top: 0;
+		left: 0;
+		z-index: 0;
+		display: block;
+		float: left;
+		border: 1px solid gray;
+		padding: 10px;
+		background: silver;
+		color: black;
+	}
+
+		/* pass hover effects to button */
+		div.UploadifyButtonWrapper a.Hover {
+			background: orange;
+			color: white;
+		}
+
+	/* position flash button above css button */
+	div.UploadifyObjectWrapper {
+		position: relative;
+		z-index: 10;
+	}
+</style>
+
+<input class="form-control" type="hidden" value="@sellerID" id="hdnProfileID" />
+<input class="form-control" type="hidden" value="@dealID" id="hdnDealID" />
+<input class="form-control" type="hidden" value="@folderID" id="txtFolderID" />
+<input class="form-control" type="hidden" value="" id="txtPhoto" />
+
+
+<div class="content animate-panel">
+
+	<div class="hpanel">
+		<div class="panel-heading m-b-sm">
+			@if (dealID == 0)
+			{
+				<text>	<h4> Create New  Deal</h4> </text>
+			}
+			else
+			{ <text><h4> Edit Deal</h4>  </text>
+
+		}
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<form  id="EditDealForm">
+					<div class="col-lg-12">
+						<div class="well">
+							<h3>Seller Display Name:<span id="txtDisplayName"><small>@fullName</small></span> </h3>
+						</div>
+					</div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label>Title</label>
+                            <input class="form-control" id="txtTitle" placeholder="Title" required />
+                        </div>
+                        <div class="form-group">
+                            <label>Serving</label>
+                            <input class="form-control" id="txtServing" type="number" placeholder="Serving" required />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Description</label>
+                            <textarea rows="5" cols="50" class="form-control" id="txtDescription" placeholder="Description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Add Product Price</label>
+                            @*<div class="input-group m-b">*@<input class="form-control" type="number" placeholder="Product Price" id="txtPrice" required /> @*<span class="input-group-addon">+</span>*@@*</div>*@
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">Photo*</label>
+                            <div class="col-lg-10">
+                                <img id="imgPhoto" class="profile-photo-deal img-circle" src="@Url.Content("~/Content/images/food-default.jpg")" width="225" height="225" /><br />
+
+                                <div class="file-loading">
+                                    <input id="fileDealProfilePhoto" type="file" style="margin-left:3%;" />
+
+                                </div>
+                            </div>
+                            <div class="col-lg-10"><small> maximum allowed upload size is 200 kb.</small></div>
+                        </div>
+                    </div>
+					<div class="col-lg-6">
+						<div class="col-lg-12">
+							<div class="well">
+								<div class="row">
+									<div class="col-sm-6">
+										<div class="panel-heading">
+											<h5 class="font-bold no-margins">Deal Items List</h5>
+										</div>
+									</div>
+									<div class="col-sm-6 text-right">
+										<div id="example2_filter" class="dataTables_filter">
+											<label>
+												Search:
+												<input class="form-control input-sm" placeholder="" id="txtMealItemSearch" aria-controls="example2" type="search">
+											</label>
+										</div>
+									</div>
+								</div>
+								<div class="panel-body selectdays">
+									<div class="table-responsive deal-itmlist">
+										<table class="table table-condensed" cellspacing="1" cellpadding="1">
+											<thead>
+												<tr>
+													<th>Add</th>
+													<th style="width:15%">Title</th>
+													<th style="width:60%;">Description</th>
+													<th>price</th>
+												</tr>
+											</thead>
+											<tbody id="seller_meal_table"></tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-12">
+
+						<div class="col-lg-12 m-t">
+							<div class="col-lg-2">
+								<div class="checkbox checkbox-success checkbox-inline">
+									<input id="chkIsFeatured" value="" type="checkbox">
+									<label for="inlineCheckbox2"> Is Featured </label>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="checkbox checkbox-success checkbox-inline">
+									<input id="chkIsActive" value="" type="checkbox">
+									<label for="inlineCheckbox4"> Is Active </label>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12 m-t">
+							<button class="btn btn-success" type="submit">Save Changes</button>
+							<button class="btn btn-default"  type="button" id="btnCancel">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+</div>
+<script>
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+
+    var readURL = function (input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+              //  $('.profile-photo-deal').attr('src', e.target.result);
+                loadedPhotoURL = e.target.result;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileDealProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+
+    $.uploadPreview({
+        input_field: ".images-uploads",
+        preview_box: ".image-preview",
+        label_field: ".image-label"
+    });
+
+
+	var urlPhoto = "";
+    $(document).ready(function () {
+        $('#btnCancel').click(function () {
+
+		var url = '@Url.Action("Index", "AdminDeal")';
+		location.href = url;
+				//$('#inContant').empty();
+				//$('#inContant').load(url);
+	});
+
+		$('#mnuDeal a').trigger('click');
+		var data = [];
+		@if (sellerMealItems!=null)
+		{
+			<text>
+		
+				data = @Html.Raw(sellerMealItems);
+				sellerMealList = data;
+				Deal.PopulateMealItems(data);
+			</text>
+		}
+
+		@if (dealID != 0)
+		{
+			<text>
+				Deal.GetDeal(@dealID);
+					_set("txtDealID",@dealID);
+			</text>
+		}
+
+		@if (sellerID!=0)
+		{
+			<text>
+					_set("txtSellerID",@sellerID);
+			</text>
+		}
+
+		@if (folderID != null)
+		{
+			<text>
+					_set("txtFolderID", '@folderID');
+					urlPhoto = '@Url.Content("~/AdminDeal/SaveDealPhoto/1")';
+					//"folderID"';
+					//alert(urlPhoto);
+			</text>
+		}
+
+		
+
+					$(".mealItems").on("change", function () {
+						var thisCheck = $(this);
+						var id = $(this).attr("data-id");
+						if (thisCheck.is(':checked')) {
+
+							Deal.AddDealItemList(id);
+
+						}
+						else {
+							Deal.RemoveDealItemList(id);
+						}
+					});
+
+	});
+	//Deal.PopulateMealItems
+	$('#txtMealItemSearch').change(function () {
+		Deal.SearchMealItem();
+	});
+
+	
+    $("#EditDealForm").submit(function (e) {
+        e.preventDefault();
+		Deal.CreateDeal(true);
+			@*var valid = true;
+			if (@dealID==0) {
+				valid = ValidateBuyerFeilds();
+				if (!valid) return false;
+			}
+			else return true;*@
+		});
+
+    $("#fileDealProfilePhoto").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'AdminDeal/UploadPic',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+        overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Picture",
+        maxFileSize: 200,
+        msgSizeTooLarge: 'Deal picture "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        //minFileCount: 1,
+        uploadAsync: true,
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: '@folderID'
+            };
+        }
+    });
+
+
+    $('#fileDealProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-photo-deal').attr('src', loadedPhotoURL);
+        _set("txtPhoto", data.response);
+        customPhotoValidationFailed = false;
+    });
+    $('#fileDealProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileDealProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#fileDealProfilePhoto").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+</script>
+

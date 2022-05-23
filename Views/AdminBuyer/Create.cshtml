@@ -1,0 +1,412 @@
+﻿@*@model Entity.User*@
+@{
+	ViewBag.Title = "Tashty | Buyer Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	int id = (int)ViewData["id"];
+
+}
+
+
+
+
+
+
+<div class="content animate-panel">
+    <input class="form-control" type="hidden" id="txtProfileID" />
+    <input class="form-control" type="hidden" id="txtCountryID" />
+    <input class="form-control" type="hidden" id="txtCityID" />
+    <input class="form-control" type="hidden" id="txtProfilePic" />
+
+    <div class="hpanel">
+        <div class="panel-heading m-b-sm">
+            @if (id == 0)
+            {
+                <text>	<h4> Create New  Buyer Profile</h4> </text>
+            }
+            else
+            { <text><h4> Edit Buyer Profile</h4>  </text>
+
+        }
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <form id="EditForm">
+
+                    <div class="col-lg-12">
+                        <div class="form-group col-lg-4">
+                            <label>Upload Profile Picture</label>
+                        </div>
+                        <div class="col-lg-10">
+                            <input type="hidden" id="txtProfilePic" />
+                            <img class="profile-buyer-pic" width="150" height="150" src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                            <div class="file-loading">
+                                <input id="fileBuyerProfilePhoto" type="file" style="margin-left:3%;" />
+                            </div>
+                        </div>
+                        <div class="form-group col-lg-10"><small> maximum allowed upload size is 100 kb.</small></div>
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>First Name*</label>
+                        <input class="form-control" type="text" id="txtFirstName" placeholder="First Name" maxlength="32" pattern="[A-Za-z]{1,32}" required />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Middle Name</label>
+                        <input class="form-control" type="text" id="txtMiddleName" placeholder="Middel Name" maxlength="32" pattern="[A-Za-z]{1,32}" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Last Name*</label>
+                        <input class="form-control" type="text" id="txtLastName" placeholder="Last Name" required maxlength="32" pattern="[A-Za-z]{1,32}" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Username*</label>
+                        @if (id == 0)
+                        {
+                            <text>
+                                <input class="form-control" type="text" id="txtUsername" placeholder="Username" maxlength="32" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" required />
+                            </text>
+
+                        }
+                        else
+                        {
+                            <input class="form-control" type="text" id="txtUsername" placeholder="Username" readonly />
+
+                        }
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Email Address</label>
+                        @if (id == 0)
+                        {
+                            <input class="form-control" type="email" id="txtEmail" placeholder="Email Address*" required />
+
+                        }
+                        else
+                        {
+                            <input class="form-control" type="text" id="txtEmail" placeholder="Email Address" readonly />
+                        }
+                    </div>
+
+                    <div class="form-group col-lg-4 validatedForm">
+                        <label>Password*</label>
+                        @if (id == 0)
+                        {
+                            <text>
+                                <input class="form-control" type="password" id="txtPassword" pattern="(?=^.{6,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$" placeholder="********" required /> </text>
+                            <p>
+                                <small>6 characters or longer. Combine upper and lowercase letters and numbers.</small>
+                            </p>
+                        }
+                        else
+                        {
+                            <text>
+                                <input class="form-control" type="password" id="txtPassword" placeholder="********" readonly /> </text>
+
+                        }
+
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Confirm Password*</label>
+                        @if (id == 0)
+                        {
+                            <text> <input class="form-control validatedForm" type="password" id="txtConfirmPassword" placeholder="Confirm Password" required /> </text>
+                        }
+                        else
+                        {
+                            <text><input class="form-control" type="password" id="txtConfirmPassword" placeholder="Confirm Password" readonly /></text>
+                        }
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label>Date Of Birth</label>
+                        <input class="form-control" type="text" id="txtDOB" placeholder="Date Of Birth" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Title*</label>
+                        @Html.DropDownList("CultureCode", new SelectList(ViewBag.ListTitles, "titleID", "titleName"), "Select Title", new { @id = "ddlTitle", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Marital Status*</label>
+                        @Html.DropDownList("CultureCode", new SelectList(ViewBag.ListMaritalStatus, "maritalStatusID", "maritalStatusName"), "Select Marital Status", new { @id = "ddlMaritalStatus", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Gender*</label>
+                        @Html.DropDownList("CultureCode", new SelectList(ViewBag.ListGenders, "genderID", "name"), "Select Gender", new { @id = "ddlGender", @class = "form-control", @required = true })
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Mobile Number</label>
+                        <input class="form-control" value="" id="txtMobile" type="number" placeholder="mobile number" maxlength="12" pattern="\d*" />
+                    </div>
+                    <div class="form-group col-lg-4">
+                        <label> Work Phone</label>
+                        <input class="form-control" value="" id="txtPhoneNumber" type="number" placeholder="phone number" maxlength="12" pattern="\d*" />
+                    </div>
+                </form>
+                <form id="AddAddressForm">
+                    <div class="col-lg-12 ">
+                        <div class="gry-bx">
+                            <h5>Address Detail</h5>
+                            <hr />
+                            <div class="m-b">
+
+                                <div class="form-group col-lg-4">
+                                    <label>Address Type*</label>
+                                    @Html.DropDownList("CultureCode", new SelectList(ViewBag.ListAddressType, "addressTypeID", "addressType"), "Select Address Type", new { @id = "ddlAddressType", @class = "form-control", @required = true })
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>postalCode*</label>
+                                    <input class="form-control" value="" id="txtPostCode" type="text" placeholder="postal code" pattern="[a-zA-Z0-9]{1,20}" />
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>Street Address</label>
+                                    <input class="form-control" value="" id="txtStreetAddress" type="text" placeholder="street Address" required />
+                                </div>
+
+                                <div class="form-group col-lg-4">
+                                    <label>Country*</label>
+                                    <input class="form-control" value="" id="address_country" type="hidden" placeholder="Country" />
+                                    <select id="ddlCountry" class="form-control" required>
+                                        <option value=""> Select Country</option>
+                                        @if (ViewBag.ListCountries != null)
+                                        {
+                                            for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                                            {
+                                                string val = ViewBag.ListCountries[i].countryID.ToString();
+                                                string title = ViewBag.ListCountries[i].country.ToString();
+
+                                                <text>
+                                                    <option value="@val">@title</option>  </text>
+                                            }
+
+                                        }
+                                    </select>
+
+                                </div>
+                                <div class="form-group col-lg-4">
+                                    <label>City</label>
+                                    <input class="form-control" value="" id="address_city" type="hidden" placeholder="City" />
+                                    <select id="ddlCity" class="form-control" required>
+                                        <option value=""> Select City</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-lg-4 m-t-md">
+                                    <input type="submit" id="btnAddAddress" class="btn btn-success" value="Add" form="AddAddressForm" />
+                                </div>
+
+                                <div class="col-lg-12 m-t hbuilt">
+                                    <h5>Address History</h5>
+                                    <hr />
+                                    <div class="Address-History">
+                                        <div class="table-responsive">
+                                            <table class="table" cellspacing="1" cellpadding="1">
+                                                <thead>
+                                                    <tr>
+                                                        <th>Address Type</th>
+                                                        <th>Street Address</th>
+                                                        <th>City</th>
+                                                        <th>Country</th>
+                                                        <th>PostCode</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="tblBuyerAddress"><tr><td colspan='5'> No record found </td></tr></tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                    <div class="col-lg-12 m-t">
+                        <input class="btn btn-success" type="submit" id="btnEditForm" form="EditForm" value="Save Changes" />
+                        <button class="btn btn-default" id="btnCancel" type="button">Cancel</button>
+                    </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+          var  ListCities = @Html.Raw(Json.Encode(ViewBag.ListCities));
+    $(document).ready(function () {
+
+        var isClosed = false;
+        $('#mnuUM a').trigger('click');
+        $('#mnuUMBuyer a').trigger('click');
+
+        $('#txtDOB').datepicker();
+        $("#txtDOB").on("changeDate", function (event) {
+            $("#my_hidden_input").val(
+                $("#datepicker").datepicker('getFormattedDate')
+            )
+        });
+            $('#btnCancel').on("click",function () {
+            window.location = '@Url.Action("Index", "AdminBuyer")';
+            isClosed = true;
+        });
+
+             if (isClosed == false) {
+				@if (id != 0) {
+					<text> bu.GetBuyerProfile(@id); </Text>
+				}
+             }           
+
+
+        var profile_password = _("txtPassword"), txtConfirmPassword = _("txtConfirmPassword");
+        profile_password.onchange = validatePassword;
+        txtConfirmPassword.onkeyup = validatePassword;
+
+        function validatePassword() {
+            txtConfirmPassword.className = txtConfirmPassword.className.replace(" input-validation-error", "");
+            if (profile_password.value != txtConfirmPassword.value) {
+                txtConfirmPassword.className += " input-validation-error";
+                txtConfirmPassword.setCustomValidity("Passwords Don't Match");
+
+            } else {
+                txtConfirmPassword.setCustomValidity('');
+            }
+        }
+
+
+
+    });
+    </script>
+
+<script>
+
+    $('#ddlCity').on('change', function () {
+        $("#txtCityID").val(this.value);
+        var txt = $("#ddlCity option:selected").text();
+        $("#address_city").val(txt);
+        return false;
+    });
+
+    $('#ddlCountry').on('change', function () {
+        $("#txtCountryID").val(this.value);
+        var txt = $("#ddlCountry option:selected").text();
+        $("#address_country").val(txt);
+        populateCities(this.value, ListCities, 'ddlCity');
+        return false;
+    });
+
+    $("#AddAddressForm").on("submit", function (e) {
+        e.preventDefault();
+
+        bu.AddAddressToList();
+        return false;
+    });
+
+    $("#EditForm").submit(function (e) {
+               //valid = ValidateBuyerFeilds();
+        //if (!valid) return false;
+        e.preventDefault();
+        bu.CreateBuyer();
+       // return false;
+    });
+
+
+
+</script>
+<script>
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+    var readURL = function (input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+               // $('.profile-pic').attr('src', e.target.result);
+                loadedPhotoURL = e.target.result;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileBuyerProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+    $("#fileBuyerProfilePhoto").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'AdminBuyer/UploadProfilePic',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+        overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Picture",
+        //maxFileSize: 2000,
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        maxFileSize: 100,
+        msgSizeTooLarge: 'Profile photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+        uploadAsync: true,
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: String("1")
+            };
+        }
+    });
+
+    $('#fileBuyerProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-Buyer-photo').attr('src', loadedPhotoURL);
+        _set("txtProfilePic", data.response);
+        customPhotoValidationFailed = false;
+    });
+    $('#fileBuyerProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileBuyerProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#fileBuyerProfilePhoto").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+  function populateCities(value, ListCity, eleCityID) {
+                if (ListCity) {
+                    $('#' + eleCityID).html('');
+                    $('#' + eleCityID)
+                        .append($("<option></option>")
+                            .attr("value", "")
+                            .text('Select City'));
+
+                    for (var i = 0; i < ListCity.length; i++) {
+                        var val = ListCity[i].cityID;
+                        var id = ListCity[i].countryID;
+                        var name = ListCity[i].city;
+                        if (id == value) {
+                            $('#' + eleCityID)
+                                .append($("<option></option>")
+                                    .attr("value", val)
+                                    .text(name));
+                        }
+                    }
+                }
+                return;
+    }
+
+
+</script>

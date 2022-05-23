@@ -1,0 +1,282 @@
+/*Glider.css*/
+
+
+.glider-contain {
+    width: 90%;
+    max-width: 997px;
+    margin: 0 auto;
+}
+
+.glider-slide {
+    min-height: 150px;
+}
+
+    .glider-slide img {
+        width: 100%;
+    }
+
+/*glider.css end*/
+.mbsc-material .mbsc-progress-bar {
+    background-color: #81b03f !important;
+}
+        .mbsc-material .mbsc-slider-handle {
+            border: 2px solid #81b03f!important;
+            background: #81b03f!important;
+        }
+.mbsc-mobiscroll .mbsc-slider-handle {
+    top: 56%;
+    width: 12px;
+	height: 12px;
+}
+.mbsc-mobiscroll .mbsc-slider-handle {
+    background: #81b03f!important;
+}
+.mbsc-mobiscroll .mbsc-progress-track {
+    border-radius: 1em;
+	/* height: .125em; */
+	height: .27em;
+}
+.mbsc-mobiscroll .mbsc-progress-bar {
+    background: #81b03f!important;
+}
+.mbsc-mobiscroll.mbsc-progress {
+    padding: 5px 0px;
+}
+.f.p-t-20, .p-tb-20, .p-all-20 {
+    padding-top: 20px;
+}
+.txt-mm-101 {
+    font-family: Lato-Bold;
+    font-size: 1rem;
+    line-height: 1;
+    text-transform: uppercase;
+}
+.txt-ss-115 {
+    font-family: Lato-regular;
+    font-size: 0.83rem;
+    line-height: 1;
+}
+.txt-sss-115 {
+    font-family: Lato-regular;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    text-transform: uppercase;
+    color: black;
+}
+.hov-cl10:hover {
+    color: #81b03f;
+}
+.p-b-12 {
+    padding-bottom: 12px;
+}
+.txt-mm-104 {
+    font-family: Lato-Regular;
+    font-size: 0.9rem;
+    line-height: 1;
+}
+.size-ww-100 {
+    width: 100px;
+}
+.size-www-51 {
+    width: calc(100% - 120px);
+}
+/* .size-a-21 {
+    display: none !important;
+} */
+/*added css 7-1 scrollb*/
+.sel-h-s{
+     padding: 2% 3%; 
+   /* padding: 35px 0px;*/
+    font-size: 30px;
+    font-weight: 700;
+    font-family: CircularStd-Bold
+    letter-spacing: 2px;
+        color: #333;
+}
+.panel-thumbnail {
+    /*background-image: url(../images/burger-bg.jpg);*/
+    background-size: 100%;
+    height:180px;
+}
+.th-1 {
+	background-image: url(/Content/images/cr1.jpg);
+}
+.th-2 {
+    background-image: url(/Content/images/cr2.jpg);
+}
+.th-3 {
+    background-image: url(/Content/images/cr3.jpg);
+}
+.th-4 {
+    background-image: url(/Content/images/cr4.jpg);
+}
+.th-5 {
+    background-image: url(/Content/images/cr5.jpg);
+}
+.th-6 {
+    background-image: url(/Content/images/cr6.jpg);
+}
+.th-7 {
+    background-image: url(/Content/images/cr7.jpg);
+}
+.th-8 {
+    background-image: url(/Content/images/cr8.jpg);
+}
+
+.scroll-card-img {
+    padding-top: 30%;
+    /* height: 185px; */
+}
+.card-body {
+    text-align: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+   
+}
+.card-title {
+    text-align: center;
+    color: #6FA843;
+    font-family: Euphoria Script;
+    font-size: 3rem;
+    padding-top: 32px;
+    margin-bottom: 0 !important;
+}
+.h-img {
+    height: 3rem;
+    width: 3rem!important;
+}
+.text-mutedd {
+    color: white !important;
+    padding-top: 8px;
+}
+.mb-2 {
+    margin-bottom: 0px!important;
+}
+.card-subtitle {
+    margin-top: -.375rem;
+    margin-bottom: 0;
+}
+.carousel-control-next-icon, .carousel-control-prev-icon {
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: #80AF42;
+    background-size: 100% 100%;
+    border: 9px solid #81B03F !important;
+    border-radius: 50%;
+}
+.carousel-control-prev-icon {
+    background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' f…3E%3Cpath d='M4 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E);
+}
+.carousel-control-next-icon {
+    background-image: url(data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' f…%3Cpath d='M1.5 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E);
+}
+.carousel-control-next:focus, .carousel-control-next:hover, .carousel-control-prev:focus, .carousel-control-prev:hover {
+    color: #fff;
+    text-decoration: none;
+    outline: 0;
+    opacity: .9;
+}
+.bd-none {
+border-left: none !important;
+}
+.iconsrow-x {
+    border-left: 1px solid white;
+    border-left-style: dotted;
+    padding: 2% 10.5% !important;
+}
+
+/*Saad*/
+
+
+.scroll-card-img {
+	padding-top: 30%;
+	/* height: 185px;	 */
+}
+.card-scrl {
+    background-image: url(/Content/images/logo/burger-bg.jpg);
+    border: 0px !important;
+    background-size: cover;
+}
+.text-mutedd {
+	color:white !important;
+	padding-top:8px;
+}
+/* card scroll */
+
+
+	
+	/* Bootstrap Lightbox using Modal */
+	
+	#profile-grid { overflow: auto; white-space: normal; } 
+	#profile-grid .profile { padding-bottom: 40px; }
+	#profile-grid .panel { padding: 0 }
+	#profile-grid .panel-body { padding: 15px }
+	#profile-grid .profile-name { font-weight: bold; }
+	#profile-grid .thumbnail {margin-bottom:6px;}
+	#profile-grid .panel-thumbnail { overflow: hidden; }
+	#profile-grid .img-rounded { border-radius: 4px 4px 0 0;}
+	 @media only screen and (max-width: 768px){
+	.scroll-card-img {
+		padding-top: 0%!important;
+		/* height: 185px;	 */
+	}
+	.panel-thumbnail {
+	 
+		
+		background-repeat: no-repeat;
+	}
+	.text-mutedd {
+		color:white !important;
+		padding-top:6px;
+		font-size:10px;
+	}
+	.card-title{
+		
+		font-size: 3rem;
+		padding-top:22px;
+		
+	}
+  }
+  @media only screen 
+	and (min-device-width : 768px) 
+	and (max-device-width : 1024px) 
+	and (orientation : landscape)
+	and (-webkit-min-device-pixel-ratio: 2) { /* STYLES GO HERE */
+		.logo img {
+			max-height: 60%;
+			
+		}
+		.main-menu a {
+			font-size: 7px !important;
+			font-weight: bold;
+		}
+	
+	}
+	/* ipadpro  potrait */
+	@media only screen 
+	and (min-device-width : 768px) 
+	and (max-device-width : 1024px) 
+	and (orientation : portrait)
+	and (-webkit-min-device-pixel-ratio: 2) { /* STYLES GO HERE */
+        
+        
+		.logo img {
+			max-height: 60%;
+			
+		}
+		.main-menu a {
+			font-size: 7px !important;
+			font-weight: bold;
+		}
+	
+    }
+    @media only screen and (max-width: 420px) and (min-width: 320px) {
+        
+        .input-group-append{margin-left: 0%!important;}
+        .mbsc-material .mbsc-progress-bar{background-color: #6FA843!important;}
+        .mbsc-material .mbsc-slider-handle {
+            border: 2px solid #6FA843!important;
+            background: #6FA843!important;
+        }
+    }
