@@ -1,0 +1,360 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+
+    @Scripts.Render("~/bundles/modernizr")
+
+    @Styles.Render("~/Content/ClientVendorStyle")
+    @Styles.Render("~/Content/ClientFontStyle")
+    @Styles.Render("~/Content/ClientStyle")
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ClientScript")
+    @Scripts.Render("~/bundles/ClientVendorScript")
+    @Scripts.Render("~/bundles/ScriptUser")
+   <script src="https://apis.google.com/js/api:client.js"></script>
+</head>
+<body class="landing-page">
+
+
+    <!-- Header -->
+    @RenderSection("headerSection", true)
+    <div>
+        @RenderBody()
+    </div>
+    @Html.Partial("_ClientLogin")
+    @Html.Partial("_JoinAsSeller")
+    @Html.Partial("_JoinUs")
+    <!-- Footer -->
+    @Html.Partial("_LayoutFooter")
+
+    @RenderSection("scripts", required: false)
+
+    <script>
+        setBaseURL(window.location.protocol);
+        var url2 = window.location;
+        var txt = String(url2);
+        $(document).ready(function () {
+
+
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            if (txt.indexOf("#") > -1) {
+                return;
+            } else {
+                $('ul.nav a[href="' + url2 + '"]').parent().addClass('active');
+                $('ul.nav a').filter(function () {
+                    return this.href == url2;
+                }).parent().addClass('active');
+            }
+
+        });
+
+        $("ul.nav li a").click(function (e) {
+            e.preventDefault(); // prevent default link button redirect behaviour
+            var url = $(this).attr("href");
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            $(this).parent().addClass('active');
+            if (url.indexOf("#") > -1) {
+                return;
+            }
+            else { window.location = url; }
+        });
+
+
+        $(function () {
+            $(".btnClientLogout").click(function () {
+                $.ajax({
+                    url: baseURL + 'Home/LogOff',
+                    type: 'POST',
+                    cache: false,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data, textStatus, jqXHR) {
+
+                        var response = null;
+                        if (data != null) {
+                            response = data;
+                            //if (response.error === "") {
+                            localStorage.setItem("LoggedOut", "1");
+
+                            window.location.href = baseURL + "/" + response.controller + "/" + response.action;
+
+                            //}
+                            //else {
+                            //	//add logic here to handle error
+                            //	window.location.href = "/" + response.controller;
+                            //}
+                        }
+                    },//end success
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        window.location.href = "/" + response.controller;
+                    }//end error
+                });
+            });
+        });
+
+        function foundItem(item) {
+            //alert("Item");
+            var catID = $(item).attr("data-id");
+            var cat = $(item).attr("data-value");
+            localStorage.setItem("categoryID", catID);
+            localStorage.setItem("categoryName", cat);
+            var url = baseURL + 'Home/SearchResult';
+            window.location = url;
+        }
+        
+        $("#btnCartItems").click(function () {
+            var countItem = _get("hdnItemCount");
+            if (countItem == 0) {
+                toastr.info("Your cart is empty!");
+            }
+            else {
+                var url = baseURL + 'Home/CheckOut';
+                window.location = url;
+            }
+        });
+        $("#lnkCartItems").click(function () {
+            toastr.info("Your cart is empty.Login to add items to cart.");
+        });
+    </script>
+
+
+    <script>
+       window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@ViewBag.fbAppID',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+
+            FB.AppEvents.logPageView();
+
+
+        };
+
+    function loggedFBOut() {
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '@ViewBag.fbAppID',
+                cookie: true,
+                xfbml: true,
+                version: 'v3.2'
+            });
+
+            FB.AppEvents.logPageView();
+
+
+            FB.getLoginStatus(function (response) {
+                if (response.status === 'connected') {
+                    FB.logout(function (response) {
+                        // this part just clears the $_SESSION var
+                        // replace with your own code
+                        FB.setAuthResponse(null, 'unknown');
+                        FB.Auth.setAuthResponse(null, 'unknown');
+                       // alert("logged out successfully");
+                       // localStorage.clear();
+                    });
+                }
+            });
+        }
+    }
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    function statusChangeCallback(response, isSeller)
+    {
+        var resp = JSON.stringify(response);
+        console.log(resp);
+        if (response.status === 'connected') {
+            //Logged into your app and Facebook.
+            testAPI(isSeller);
+        } else {
+            FB.login(function (response) {
+                testAPI(isSeller);
+            }, { scope: 'email'});
+        }
+    }
+    $(document).ready(function () {
+        $("#btnFbJoinBuyer").click(function () {
+            ;
+            console.log("IN btnFbJoinBuyer");
+            checkLoginState(false);
+
+        });
+
+        $("#btnFbJoinSeller").click(function () {
+            ;
+            console.log("IN btnFbJoinSeller");
+            checkLoginState(true);
+        });
+
+        function checkLoginState(isSeller) {
+            FB.getLoginStatus(function (response) {
+                statusChangeCallback(response, isSeller);
+            });
+        }
+
+
+    });
+    function testAPI(isSeller) {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me/', { fields: 'email,name,picture'}, function (response) {
+
+            //var resp = JSON.stringify(response);
+            //console.log(resp);
+            //console.log('Successful login for: ' + response.name);
+            //console.log('Successful login for: ' + response.email);
+            if(isSeller)
+                reg.CheckEmail(response.email, 'join-seller-model', '', 'txtSellerErrorMsg', true, response.name, isSeller, response.id,false,true);
+            else reg.CheckEmail(response.email, 'join-us-model', '', 'txtBuyerErrorMsg', true, response.name, isSeller, response.id,false,true);
+
+        });
+    }
+
+
+    </script>
+
+
+
+    <script>
+    var auth2; // The Sign-In object.
+    var googleUser; // The current user.
+
+    var appStart = function () {
+        gapi.load('auth2', initSigninV2);
+
+    }
+
+
+    var initSigninV2 = function () {
+        auth2 = gapi.auth2.init({
+            client_id: '@ViewBag.gglAppID',
+            scope: 'profile email'
+        }).then(function () {
+            auth2 = gapi.auth2.getAuthInstance();
+            if (localStorage.getItem('LoggedOut')) {
+                var id = localStorage.getItem('LoggedOut');
+                if (id ==="1") {
+                    auth2.signOut().then(function () {
+                        //alert("DONE OUT");
+                        auth2.disconnect();
+                    });
+                        localStorage.clear();
+                    }
+                }
+            auth2.attachClickHandler('signup-button-seller', {}, onSuccessSeller, onFailure);
+            auth2.attachClickHandler('signup-button-buyer', {}, onSuccessBuyer, onFailure);
+            auth2.attachClickHandler('btnGoogleLogin', {}, onSuccessggl, onFailure);
+        });
+
+
+
+        //auth2.isSignedIn.listen(signinChanged);
+        //auth2.currentUser.listen(userChanged);
+
+
+
+        //if (auth2.isSignedIn.get() == true) {
+        //    auth2.signIn();
+        //}
+        //refreshValues();
+    };
+
+    var signinChanged = function (val) {
+        console.log('Signin state changed to ', val);
+       // document.getElementById('signed-in-cell').innerText = val;
+    };
+
+    var userChanged = function (user) {
+        //console.log('User now: ', user);
+        googleUser = user;
+        updateGoogleUser();
+      //  document.getElementById('curr-user-cell').innerText =JSON.stringify(user, undefined, 2);
+
+        //console.log('curr-user-cell : ', JSON.stringify(user, undefined, 2));
+    };
+
+    var updateGoogleUser = function () {
+        if (googleUser) {
+            //console.log('user-id : ', googleUser.getId());
+            //console.log('user-scopes : ', googleUser.getGrantedScopes());
+            //console.log('auth-response : ', JSON.stringify(googleUser.getAuthResponse(), undefined, 2));
+
+            //document.getElementById('user-id').innerText = googleUser.getId();
+            //document.getElementById('user-scopes').innerText =
+            //    googleUser.getGrantedScopes();
+            //document.getElementById('auth-response').innerText =
+            //    JSON.stringify(googleUser.getAuthResponse(), undefined, 2);
+        } else {
+            //document.getElementById('user-id').innerText = '--';
+            //document.getElementById('user-scopes').innerText = '--';
+            //document.getElementById('auth-response').innerText = '--';
+        }
+    };
+
+    var refreshValues = function () {
+        if (auth2) {
+           // console.log('Refreshing values...');
+
+            googleUser = auth2.currentUser.get();
+
+           // console.log('curr-user-cell : ', JSON.stringify(user, undefined, 2));
+          //  console.log('signed-in-cell : ', auth2.isSignedIn.get());
+            //document.getElementById('curr-user-cell').innerText =
+            //    JSON.stringify(googleUser, undefined, 2);
+            //document.getElementById('signed-in-cell').innerText =
+            //    auth2.isSignedIn.get();
+
+            updateGoogleUser();
+        }
+    }
+
+    var onSuccess = function (user) {
+        console.log('Signed in as name: ' + user.getBasicProfile().getName());
+        console.log('Signed in as ID: ' + user.getBasicProfile().getId());
+        console.log('Signed in as Email: ' + user.getBasicProfile().getEmail());
+        //var id_token = user.getAuthResponse().id_token;
+        //console.log("ID Token: " + id_token);
+    };
+
+    var onFailure = function (error) {
+        console.log(error);
+    };
+
+
+    appStart();
+
+    $(document).ready(function () {
+
+         if (localStorage.getItem('LoggedOut')) {
+            var id = localStorage.getItem('LoggedOut');
+            if (id == "1") {
+                loggedFBOut();
+            }
+           // localStorage.clear();
+        }
+
+
+    });
+
+
+
+
+    </script>
+
+</body>
+</html>

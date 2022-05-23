@@ -1,0 +1,838 @@
+﻿@{
+    string profilePhoto = "";
+    if (ViewData.ContainsKey("profilePhoto"))
+    {
+        if (ViewData["profilePhoto"] != null)
+        {
+            profilePhoto = ViewData["profilePhoto"].ToString();
+        }
+    }
+    string mealIDs = "";
+    if (ViewData.ContainsKey("CartmealID"))
+    {
+        mealIDs = (string)ViewData["CartmealID"];
+    }
+    string dealIDs = "";
+    if (ViewData.ContainsKey("CartdealID"))
+    {
+        dealIDs = (string)ViewData["CartdealID"];
+    }
+    int CartItemsCount = 0;
+    if (ViewData.ContainsKey("CartItemsCount"))
+    {
+        CartItemsCount = (int)ViewData["CartItemsCount"];
+    }
+    bool isSeller = false;
+    if (ViewData.ContainsKey("isSeller"))
+    {
+        isSeller = (bool)ViewData["isSeller"];
+    }
+    string Page = "";
+    if (ViewData.ContainsKey("RedirectPage"))
+    {
+        Page = (string)ViewData["RedirectPage"];
+    }
+    bool IsAccountActive = true;
+    if (ViewData.ContainsKey("IsAccountActive"))
+    {
+        IsAccountActive = (bool)ViewData["IsAccountActive"];
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+
+
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    @Styles.Render("~/Content/dropzonecss")
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/animate/animate.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/css-hamburgers/hamburgers.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/animsition/css/animsition.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/select2/select2.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/daterangepicker/daterangepicker.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/slick/slick.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/lightbox2/css/lightbox.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link href="~/Content/New/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+    <!-- Custom styles for this template-->
+    <link href="~/Content/styles/fileinput.css" rel="stylesheet" />
+    <link href="~/Content/vendor/sweetalert/lib/sweet-alert.css" rel="stylesheet" />
+    <link rel="icon" type="image/png" href="~/Content/img/fevicon.png" />
+    <link href="~/Content/New/css/dashboard-style.css" rel="stylesheet" />
+    <link href="~/Content/New/css/profilesettings.css" rel="stylesheet" />
+    <link href="~/Content/vendor/select2-3.5.2/select2.css" rel="stylesheet" />
+    <link href="~/Content/vendor/select2-bootstrap/select2-bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/vendor/ladda/dist/ladda.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/bootstrap-star-rating/css/star-rating.css" rel="stylesheet" />
+    <link href="~/Content/New/css/profilesettings.css" rel="stylesheet">
+    <link href="~/Content/New/css/sb-admin-2.css" rel="stylesheet" />
+    <link href="~/Content/New/css/dashboard-style.css" rel="stylesheet" />
+    <link href="~/Content/New/css/orderhistory.css" rel="stylesheet" />
+    <link href="~/Content/New/css/myorderhistory.css" rel="stylesheet" />
+    <link href="~/Content/New/css/home.css" rel="stylesheet">
+    <link href="~/Content/New/css/stat.css" rel="stylesheet" />
+    <link href="~/Content/vendor/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/blockUI/block.css" rel="stylesheet" />
+    <link href="~/Content/New/css/package.css" rel="stylesheet" />
+    <link href="~/Content/New/css/glider.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css">
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    <link href="~/Content/New/css/model.css" rel="stylesheet" />
+    <link href="~/Content/New/css/Package/package.css" rel="stylesheet" />
+    <link href="~/Content/New/css/Package/deal.css" rel="stylesheet" />
+</head>
+<body id="page-top">
+    <style>
+        .animsition, .animsition-overlay {
+            z-index: 100 !important;
+        }
+      
+ 
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            -khtml-opacity: 0.5;
+            opacity: 0.5;
+            z-index: 10000;
+            display: none;
+            background: url('/Content/Images/loading_blue_n.gif') no-repeat center center black;
+        }
+    </style>
+    <div id="wrapper">
+        <div class="overlay">
+        </div>
+        <!-- Sidebar -->
+        <input type="hidden" id="cartItems" value="@mealIDs" />
+        <input type="hidden" id="cartItemsDeal" value="@dealIDs" />
+        <input type="hidden" id="Page" value="@Page" />
+        <input type="hidden" id="NotificationsIDs" value="true" />
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon ">
+                    <img src="~/Content/img/1.png" width="55px" height="55px">
+                </div>
+                <div class="sidebar-brand-text mx-3 ml-auto"></div>
+            </a>
+
+
+
+            <!-- Heading -->
+            <div class="extra-tp"></div>
+            <li class="nav-item hover-border-btm">
+                <a class="nav-link" href="home.html">
+                    <!-- <i class="fas fa-user-alt"></i> -->
+                    <i class="fas fa-home"></i>
+                    <span>My Dashboard</span>
+                </a>
+            </li>
+
+            <li class="nav-item item-has-children">
+
+
+                <a class="nav-link dropdown-toggle " data-toggle="sub-menu " data-target="#" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-list"></i>
+                    <span>My Menu &nbsp;&nbsp; </span>
+                </a>
+
+
+                <ul class="dropdown-menu  sub-menu">
+                    <li class="nav-item hover-border-btm">
+                        <a class="nav-link" href="dashboard.html">
+
+                            <i class="fas fa-bars"></i>
+                            <span>Menu</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover-border-btm">
+                        <a class="nav-link" href="create-food-item.html">
+
+                            <i class="fas fa-concierge-bell"></i>
+                            <span>Create Food Item</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover-border-btm">
+                        <a class="nav-link" href="create-deal.html">
+
+                            <i class="fas fa-hamburger"></i>
+                            <span>Create a Deal</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li> <!-- item-has-children -->
+            <li class="nav-item hover-border-btm">
+                <a class="nav-link" href="my-order.html">
+                    <!-- <i class="fas fa-user-alt"></i> -->
+                    <i class="fas fa-cart-plus"></i>
+                    <span>My Order</span>
+                </a>
+            </li>
+            <li class="nav-item hover-border-btm">
+                <a class="nav-link" href="order-received.html">
+
+                    <i class="far fa-clipboard"></i>
+                    <span>Order Received</span>
+                </a>
+            </li>
+
+            <li class="nav-item item-has-children">
+
+
+                <a class="nav-link dropdown-toggle " data-toggle="sub-menu" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-user"></i>
+                    <span>Profile Settings &nbsp;&nbsp; </span>
+                </a>
+
+
+                <ul class="dropdown-menu  sub-menu">
+                    <li class="nav-item hover-border-btm">
+                        <a class="nav-link" href="personal-information.html">
+
+                            <i class="fas fa-info"></i>
+                            <span>Personal Information</span>
+                        </a>
+                    </li>
+                    <li class="nav-item hover-border-btm">
+                        <a class="nav-link" href="change-password.html">
+
+                            <i class="fas fa-lock"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <li class="nav-item hover-border-btm">
+                <a class="nav-link btnClientLogout" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+        </ul>
+
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon ">
+                    <img src="~/Content/img/1.png" width="55px" height="55px">
+                </div>
+                <div class="sidebar-brand-text ml-auto"></div>
+            </a>
+
+
+
+            <!-- Heading -->
+            <div class="extra-tp"></div>
+            @if (isSeller)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" onclick="showSellerDashboard()" href="#">
+
+                        <i class="fas fa-home"></i>
+                        <span>My Dashboard</span>
+                    </a>
+                </li>
+
+
+
+                <li class="nav-item item-has-children">
+
+
+                    <a class="nav-link dropdown-toggle" data-toggle="sub-menu" data-target="#" aria-haspopup="true" aria-expanded="true">
+                        <i class="fas fa-list"></i>
+                        <span>My Menu &nbsp;&nbsp; </span>
+                    </a>
+
+
+                    <ul class="dropdown-menu  sub-menu">
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="SellerMenu(@ViewBag.profileID)">
+
+                                <i class="fas fa-bars"></i>
+                                <span>Menu</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="CreateFoodItem(@ViewBag.profileID)">
+
+                                <i class="fas fa-concierge-bell"></i>
+                                <span>Create Food Item</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" onclick="AddEditDeal(@ViewBag.profileID)">
+
+                                <i class="fas fa-hamburger"></i>
+                                <span>Create a Deal</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="SellerPackages()">
+
+                                <i class="far fa-clipboard"></i>
+                                <span>Packages</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="AddEditWeeklyPackage()">
+
+                                <i class="far fa-clipboard"></i>
+                                <span>Add Weekly Package</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#" onclick="AddEditMonthlyPackage()">
+
+                                <i class="far fa-clipboard"></i>
+                                <span>Add Monthly Package</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <!-- item-has-children -->
+            }
+            <li class="nav-item">
+                <a class="nav-link" onclick="SellerMyOrder(@ViewBag.profileID)">
+                    <!-- <i class="fas fa-user-alt"></i> -->
+                    <i class="fas fa-cart-plus"></i>
+                    <span>My Order</span>
+                </a>
+            </li>
+            @if (isSeller)
+            {
+                <li class="nav-item">
+                    <a class="nav-link" href="#" onclick="SellerOrderReceived(@ViewBag.profileID)">
+
+                        <i class="far fa-clipboard"></i>
+                        <span>Order Received</span>
+                    </a>
+                </li>
+           
+            }
+
+            <li class="nav-item item-has-children">
+                <a class="nav-link dropdown-toggle " data-toggle="sub-menu" aria-haspopup="true" aria-expanded="true">
+                    <i class="fas fa-user"></i>
+                    <span>Profile Settings &nbsp;&nbsp; </span>
+                </a>
+
+
+                <ul class="dropdown-menu  sub-menu">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="showPersonalnfo(@ViewBag.profileID)">
+
+                            <i class="fas fa-info"></i>
+                            <span>Personal Information</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="changePassword()">
+
+                            <i class="fas fa-lock"></i>
+                            <span>Change Password</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#" onclick="Notifications(1)">
+
+                    <i class="far fa-bell"></i>
+                    <span>Notifications</span>
+                </a>
+            </li>
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <!-- Nav Item - Charts -->
+            <li class="nav-item">
+                <a class="nav-link btnClientLogout" href="#" data-toggle="modal" data-target="#logoutModal">
+                    <!-- <i class="fas fa-power-off"></i> -->
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </a>
+            </li>
+
+
+            <!-- Sidebar Toggler (Sidebar) -->
+
+
+        </ul>
+        <!-- End of Sidebar -->
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+            <div class="btn-show-menu-mobile-admin hamburger hamburger--squeeze">
+                <span class="hamburger-box">
+                    <span class="hamburger-inner"></span>
+                </span>
+            </div>
+            <div class="menu-mobile">
+
+                <ul class="main-menu-m">
+                    <li>
+                        <a href="@Url.Action("index","home")">HOME</a>
+
+                    </li>
+
+
+                    @*<li>
+                    <a href="index.html#featuredchefs">FEATURED CHEFS</a>
+
+                </li>*@
+                    <li>
+                        <a href="#" onclick="DiscoveredChef()">Discover Chefs</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="DiscoverFoods()">Discover Food</a>
+                    </li>
+                    @*<li>
+                        <a href="#">PACKAGES</a>
+                        <ul class="sub-menu-m">
+                            <li><a href="#">WEEKLY (Coming soon)</a></li>
+                            <li><a href="#">MONTHLY (Coming soon)</a></li>
+                        </ul>
+
+                        <span class="arrow-main-menu-m">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                    </li>*@
+                    <li>
+                        <a class="nav-link" href="#" onclick="CreateFoodItem(@ViewBag.profileID)">
+
+                            <!--<i class="fas fa-concierge-bell"></i>-->
+                            <span>Create Food Item</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="" onclick="AddEditDeal(@ViewBag.profileID)">
+
+                            <!-- <i class="fas fa-hamburger"></i>-->
+                            <span>Create a Deal</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link dropdown-toggle " data-toggle="sub-menu" aria-haspopup="true" aria-expanded="true">
+                            <!--<i class="fas fa-user"></i>-->
+                            <span>Profile Settings &nbsp;&nbsp; </span>
+                        </a>
+
+
+                        <ul class="sub-menu-m">
+                            <li>
+                                <a class="" href="#" onclick="showPersonalnfo(@ViewBag.profileID)">
+
+                                    <i class="fas fa-info"></i>
+                                    <span>Personal Information</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="" href="#" onclick="changePassword()">
+
+                                    <i class="fas fa-lock"></i>
+                                    <span>Change Password</span>
+                                </a>
+                            </li>
+
+                        </ul>
+                    </li>
+
+
+
+
+                    @* <li>
+                    <a href="/Home/BecomeASeller">HOW TO BECOME A SELLER?</a>
+
+                </li>*@
+                    <li>
+                        <a href="#" onclick="BecomeASeller()">How to Become a Seller?</a>
+
+                    </li>
+                    <li>
+                        <a href="/Home/Index#about-us">About us</a>
+
+                    </li>
+                    <li>
+                        <a href="#" onclick="ContactUs()">Contact us</a>
+
+                    </li>
+                    <li>
+                        <a href="#" onclick="AddToCartPage()">
+                            <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Cart
+                        </a>
+                    </li>
+                    <li>
+                        <a href="/Seller/Index/?Page=Notifications" onclick=""><i class="fa fa-bell"></i>&nbsp; Notifications </a>
+
+                    </li>
+
+                    <li class="">
+                        <a class="seller-fullclick nav-link dropdown-toggle nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/uploads/ProfilePictures/" + profilePhoto)))
+                            {
+                                <img class="img-profile rounded-circle" src="~/uploads/ProfilePictures/@profilePhoto" alt="...">
+                            }
+                            else
+                            {
+                                <img src="~/Content/New/images/Icon Placeholder.png" class="img-profile rounded-circle" alt="...">
+                            }
+                            Dashboard
+                        </a>
+                        <ul class="sub-menu-m seller-sub-menu-m">
+                            <li><a href="/Seller/Index/?Page=MyOrder"><i class="fab fa-bitbucket fas-pr"></i> My Orders</a></li>
+
+                            <li><a href="/Seller/Index"><i class="fas fa-user fas-pr"></i> Chef Dashboard</a></li>
+                            <li><a href="/Home/LogOff"><i class="fas fa-sign-out-alt fas-pr"></i> Logout</a></li>
+                        </ul>
+
+
+                        <span class="arrow-main-menu-m">
+                            <i class="fa fa-angle-right" aria-hidden="true"></i>
+                        </span>
+                    </li>
+                    <hr class="sidebar-divider">
+
+                    <!-- Heading -->
+                    <!-- Nav Item - Charts -->
+                    <li>
+                        <a class="nav-link btnClientLogout" href="#" data-toggle="modal" data-target="#logoutModal">
+                            <!-- <i class="fas fa-power-off"></i> -->
+                            <!--<i class="fas fa-sign-out-alt"></i>-->
+                            <span>Logout</span>
+                        </a>
+                    </li>
+
+                </ul>
+
+            </div>
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+
+                <nav class="navbar navbar-expand navbar-light bg-white topbar static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar)
+        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+            <i class="fa fa-bars"></i>
+        </button> -->
+                    <!-- Topbar Search -->
+                    <!-- <form class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+          <div class="input-group">
+
+
+            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+
+          </div>
+        </form> -->
+                    <!-- Topbar Navbar -->
+
+                    <div class="right-header">
+                        <!-- Menu desktop -->
+                        <div class="menu-desktop">
+                            <ul class="main-menu ml-auto">
+                                <li class="active-menu">
+                                    <a href="/Home/Index">
+                                        Home
+                                    </a>
+
+                                </li>
+                                @*<li>
+                            <a href="index.html#featuredchefs">Featured Chefs</a>
+
+                        </li>*@
+                                <li>
+                                    <a href="/Home/Index/?page=chef">Discover Chefs</a>
+
+                                </li>
+                                <li>
+                                    <a href="/Home/Index/?page=food">Discover Food</a>
+
+                                </li>
+                                @*<li>
+                            <a href="#">Packages</a>
+                            <ul class="sub-menu-2">
+
+                                <li><a href="#">Weekly (Coming soon)</a></li>
+                                <li><a href="#">Monthly (Coming soon)</a></li>
+
+                            </ul>
+
+                        </li>*@
+                                <li>
+                                    <a href="/Home/Index/?page=seller" class="sellernav">How to Become a Seller?</a>
+
+                                </li>
+
+                                <li>
+                                    <a href="/Home/Index#about-us">About us</a>
+
+                                </li>
+
+                                <li>
+                                    <a href="/Home/Index/?page=ContactUs">Contact us</a>
+
+                                </li>
+                                <li>
+                                    <a href="#" onclick="AddToCartPage(true)">
+                                        <div id="CartItemsCount" class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="@CartItemsCount">
+                                            <img src="~/Content/New/images/icons/icon-cart-2.png" alt="CART">
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link text-light icon-header-item flex-c-m trans-04 icon-header-noti NotificationItemsCount" href="#" id="navbarDropdown" role="button" data-notify="0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black !important" onclick="UpdateNotificationsStatus()">
+                                        <i class="fa fa-bell-o"></i>
+                                    </a>
+                                    <ul class="dropdown-menu notify admin-notify" id="NotificationsList">
+                                        <!-- <li class="footer bg-dark text-center">
+                              <a href="" class="text-light">View All</a>
+                            </li> -->
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown no-arrow nav-item ">
+                                    <a class="nav-link dropdown-toggle nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/uploads/ProfilePictures/" + profilePhoto)))
+                                        {
+                                            <img class="img-profile rounded-circle" src="~/uploads/ProfilePictures/@profilePhoto" alt="...">
+                                        }
+                                        else
+                                        {
+                                            <img src="~/Content/New/images/Icon Placeholder.png" class="img-profile rounded-circle" alt="...">
+                                        }
+                                    </a>
+                                    <!-- Dropdown - User Information -->
+                                    <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
+                                        @*<a class="dropdown-item hover-link" href="#">
+                                    <i class="fab fa-bitbucket fas-pr"></i>
+
+                                    My Orders
+                                </a>
+                                <a class="dropdown-item dropdown-submenu pull-left" tabindex="-1" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-user fas-pr"></i>
+                                    Notifications
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                    <li><a class="dropdown-item hover-link" tabindex="-1" href="#">Second level link</a></li>
+                                </ul>
+
+                                <a class="dropdown-item hover-link" href="#">
+                                    <i class="fas fa-cart-plus fas-pr"></i>
+                                    My Bucket
+                                </a>
+                                <a class="dropdown-item hover-link" href="#">
+                                    <i class="far fa-heart fas-pr"></i>
+                                    Favourites
+                                </a>*@
+                                        <a class="dropdown-item hover-link" href="#" onclick="showPersonalnfo(@ViewBag.profileID)">
+                                            <i class="fas fa-user fas-pr"></i>
+                                            Profile Settings
+                                        </a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item hover-link btnClientLogout" href="#" data-toggle="modal" data-target="#logoutModal">
+                                            <i class="fas fa-sign-out-alt fas-pr"></i>
+                                            Logout
+                                        </a>
+                                    </div>
+                                </li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+
+                </nav>
+                @if (!IsAccountActive)
+                {
+                    <div class="alert alert-warning" role="alert">
+                        <b>Your account is under approval. You will soon be updated.</b>
+                    </div>
+
+                }
+                <!-- End of Topbar -->
+                <!-- Begin Page Content -->
+                <div id="Pr-settings">
+                    @RenderBody()
+                </div>
+                <!-- Footer -->
+                <footer class="sticky-footer bg-white">
+
+                    <div class="container my-auto">
+                        <div class="copyright text-center my-auto">
+                            <span>2020 Copyrights &copy; Tashty Food Inc.</span>
+                        </div>
+                    </div>
+
+                </footer>
+                <div class="footer-menu-side">
+
+                    <div class="navbar  " id="myNavbar">
+                        <a onclick="showSellerDashboard()" href="#"><i class="fas fa-home"></i></a>
+                        <a onclick="SellerMenu(@ViewBag.profileID)" href="#"><i class="fas fa-list"></i></a>
+                        <a onclick="SellerMyOrder(@ViewBag.profileID)" class="sellernav"><i class="fas fa-cart-plus"></i></a>
+                        <a href="#" onclick="SellerOrderReceived(@ViewBag.profileID)"><i class="far fa-clipboard"></i></a>
+                        <a href="/Seller/Index/?Page=Notifications" onclick=""><i class="far fa-bell green"></i></a>
+
+                    </div>
+
+                </div>
+                <!-- End of Footer -->
+
+            </div>
+            <!-- End of Content Wrapper -->
+
+        </div>
+        <!-- End of Page Wrapper -->
+        <!-- Scroll to Top Button-->
+        <a class="scroll-to-top rounded" href="#page-top">
+            <i class="fas fa-angle-up"></i>
+        </a>
+
+        <!-- Logout Modal-->
+        <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body m-body-p"><p class="modal-body m-body-p">Select "Logout" below if you are ready to end your current session.</p></div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                        <a class="btn btn-primary btnClientLogout" href="/Home/LogOff">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Bootstrap core JavaScript-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+        <script src="~/Content/New/js/address-history.js"></script>
+        <script src="~/Content/New/vendor/animsition/js/animsition.min.js"></script>
+        <!-- Custom scripts for all pages-->
+        <script type="text/javascript" src="~/Scripts/summernote.js"></script>
+        <script type="text/javascript" src="~/Scripts/summernote-image-attributes.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.carousel.min.js"></script>
+        <script src="~/Scripts/jquery.toastmessage.js"></script>
+        <script src=" ~/Content/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+        <script src="~/Content/vendor/toastr/toastr.min.js"></script>
+        <script src="~/Scripts/jquery.form.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+        <script src="~/Scripts/morris.js"></script>
+        <script src="~/Scripts/mask.js"></script>
+        <script src="~/Scripts/jquery.simplePagination.js"></script>
+        <script src="~/Scripts/clipboard.js"></script>
+        <script src="~/Scripts/fileinput.js"></script>
+        <script type="text/javascript" src="~/Scripts/selectpicker.js"></script>
+        <script type="text/javascript" src="~/Scripts/selectize.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/DataTables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/DataTables/dataTables.bootstrap.min.js"></script>
+        <script type="text/javascript" src="~/Scripts/Tashty/main.js"></script>
+        @*<script type="text/javascript" src="~/Scripts/jquery.tablesorter.min.js"></script>*@
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.1/js/jquery.tablesorter.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/3.8.4/dropzone.js" type=""></script>
+        <script type="text/javascript" src="~/Scripts/Tashty/main.js"></script>
+        <script src="~/Scripts/ApplicationScript/Client/common.js"></script>
+        <script src="~/Content/New/js/main.js"></script>
+        <script src="~/Content/New/js/sb-admin-2.min.js"></script>
+        <script src="~/Content/New/js/main-2.js"></script>
+        <script src="~/Content/New/js/backtotop.js"></script>
+        <script src="~/Scripts/dropzone/dropzone.js"></script>
+        <script src="~/Content/New/js/slider.js"></script>
+
+        @RenderSection("scripts", required: false)
+
+        <script>
+            //$(document).ready(function () {
+            //    $(window).scroll(function () { // check if scroll event happened
+            //        if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+            $("#timepicker").datetimepicker({
+                format: "LT",
+                icons: {
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down"
+                }
+            });
+            $(document).ready(function () {
+                //            $(".navbar-fixed-top").css("background-color", "#e8edf1"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+            })
+            //            $('.logo').addClass('small-logo2');
+            //        } else {
+            //            $(".navbar-fixed-top").css("background-color", "transparent"); // if not, change it back to transparent
+            //            $('.logo').removeClass('small-logo2');
+            //        }
+            //    });
+            //});
+
+
+
+        </script>
+        <script src="~/Content/New/multiselect/js/BsMultiSelect.js"></script>
+        <script src="~/Content/New/multiselect/js/bsmultisearch.js"></script>
+        <script src="~/Content/New/js/glider.js"></script>
+        
+</body>
+</html>
+
+

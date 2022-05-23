@@ -1,0 +1,549 @@
+.padding-50px{
+	padding-left:65px;
+padding-right: 65px;}
+
+div.modle3-p-l-r{
+	padding:50px;
+}
+.extra-bt-p{padding-bottom:36px;}
+.green-space{padding-bottom:7px;}
+.separator {
+    display: flex;
+    align-items: center;
+	text-align: center;
+	padding-top:5px;
+	padding-bottom:0px;
+	font-size: 12px;
+	color:darkgray;
+}
+.separator::before, .separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid lightgray;
+}
+.separator::before {
+    margin-right: .25em;
+}
+.separator::after {
+    margin-left: .25em;
+}
+.modal-header{display: none;}
+
+.bg-img-model1{
+background-image: url("../images/modal1.jpg");
+background-size:cover;
+background-position:right-bottom;
+padding-right:20px;
+padding-bottom: 20px;
+}
+.bg-img-model2{
+	background-image: url("../images/modal2.jpg");
+	background-size:cover;
+background-position:top;
+	
+	}
+	.bg-img-model5{
+		background-image: url("../images/modal5.jpg");
+		background-size: contain;
+    background-position: right;
+		
+		
+		}
+		.form-group{margin-bottom:0.6rem;}
+.txtalign-btm{
+	position: absolute;
+    bottom:20px;
+	margin: 0;
+	color:white;
+padding-right:20px;
+}
+button.btn.btn-continue{
+	
+	width:100%;
+	background-color: #6FA843;
+	color:#fff;
+	font-weight: 600;
+	box-shadow: 0px 8px 15px rgba(111, 168, 67, 0.3);
+	border: 1px solid transparent; 
+    border-radius: .20rem;
+}
+.newbtn-fb {
+	background-color: #3B5998;
+	border: none;
+	color: white;
+	padding: 12px 16px;
+	font-size: 14px;
+	cursor: pointer;
+	width: 100%;
+	box-shadow: 0px 8px 15px rgba(59, 89, 152, 0.3);
+	border: 1px solid transparent; 
+    border-radius: .20rem;
+  }
+  .newbtn-gmail{background-color: #dd4b39;
+	border: none;
+	color: white;
+	padding: 12px 16px;
+	font-size: 14px;
+	cursor: pointer;
+	width: 100%;
+	box-shadow: 0px 8px 15px rgba(221, 75, 57, 0.4) ;
+	border: 1px solid transparent;
+    border-radius: .20rem;
+	
+}
+.font-size{font-size: 18px !important;
+
+font-weight: 700;}
+.p-t-b-50{
+	padding-top:38px;
+	padding-bottom:38px;
+}
+.p-t-b-20{
+	padding-bottom:20px;
+	font-size:25px;
+	color:#000000;
+	font-weight:700;
+}
+.p-bold{
+	font-size:11px;
+	font-weight:700;
+	color:#434248;
+	padding-bottom:2px;
+}
+.p-bold a{color:darkgray;
+text-decoration:underline;}
+.p-font{
+	font-size:11px;
+	font-weight:700;
+	padding-top:15px;
+	
+	color:#434248;
+
+
+}
+.btn-p{padding-bottom:5px;}
+.p-t-b-50.two-texts{padding-bottom:0px;}
+.two-texts{
+	font-weight:600;
+	padding-left:23px;
+/* padding-right:30px; */
+padding-top: 15px;
+
+}
+.two-texts a{font-size:11px;
+	text-decoration: underline;
+color:darkgray;}
+.p-font.p-p-custom{padding-bottom:0%;}
+.p-font a{color:darkgray;
+text-decoration: underline;
+}
+.p-light{
+	font-size:10px;
+	font-weight:lighter;
+	color:darkgray;
+	/* padding-top: 8px; */
+    padding-bottom: 8px;
+}
+.extra-space{padding-bottom:17px;}
+
+.h1-custom{
+	font-size: 34px;
+	font-weight: 700;
+	padding-right:20px;
+}
+.p-custom{
+	font-size: 11px;
+	padding-right:20px;
+}
+div.modal-body{
+	padding:0px !important;
+	
+		/* width: 792px; */
+	
+}
+.modal-content {
+    
+     border: 0px!important; 
+     border-radius: 0%; 
+  
+    
+}
+#myModal .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+	margin: 0 auto;
+	
+}
+#myModal1 .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 50%;
+    margin: 50px auto;
+}
+#myModal2 .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 53%;
+    margin: 50px auto;
+}
+#myModal3 .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 43%;
+    margin: 50px auto;
+}
+#myModal4 .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 43%;
+    margin: 50px auto;
+}
+#myModal5 .modal-dialog {
+    -webkit-transform: translate(0,-50%);
+    -o-transform: translate(0,-50%);
+    transform: translate(0,-50%);
+    top: 55%;
+    margin: 50px auto;
+}
+    .modal-content{
+        margin-top: 250px;
+    }
+
+
+    .row.d-flex {
+        padding: 2px;
+    }
+.p-50{padding-left: 60px;
+	padding-right: 60px;
+padding-top:10px;}
+.p-t-b{
+	padding-top:15px;
+	padding-bottom:50px;
+}
+.custom-p{
+	font-weight: 700;
+	padding-top:5px;
+	padding-bottom:5px;
+}
+
+  
+  
+  
+  /* .fa-facebook {
+	    padding:3px;
+		background-color: white;
+		font-size: 15px;
+		border-radius: 3px;
+		text-align: center;
+		text-decoration: none;
+	    color: #3B5998;
+  }
+  .btn-fb{
+	  background-color: #3B5998;
+	color:#fff;
+	width: 100%;
+	}
+	.btn-gmail{
+		background-color: #dd4b39;
+	  color:#fff;
+	  width: 100%;
+	  }
+  .fa-google {
+	padding:3px;
+	font-size: 15px;
+		border-radius: 3px;
+		font-size: 15px;
+		text-align: center;
+		text-decoration: none;
+	    color: #fff;
+  }
+  .btn-success{background-color: #6FA843;
+color:#fff;
+width: 100%;
+} */
+/*input#usr.form-control{
+	width: 100%;
+}*/
+.form-control{background-color:#F3F3F3;
+                border-radius: 0%;
+}
+/* .form-group{margin-bottom:0px!important;} */
+.bold-font{
+	font-weight: 500;
+}
+  .full-bg {
+    background-repeat: no-repeat;
+    background-size: cover; 
+}
+.right-col{
+	height: 100%;
+	background: url("../images/full-right-col.jpg");
+}
+
+.bottom-text{ position: absolute;
+    bottom:20px;
+    margin: 0;
+    color: #fff;
+	text-align:right;}
+.bottom-txt{ position: absolute;
+		bottom:2px;;
+		margin: 0;
+		color: #fff;
+		text-align:right;}
+
+
+
+
+		.card-title{font-size: 16PX;
+		font-weight: 700;}
+		.card-body{padding:8px !important;}
+		.card-text{text-align: right;
+		
+	font-size: 14px;}
+
+	span.s-card-text{
+		font-weight: 700;
+		color:red;
+		font-size: 14px;}
+		
+		p.ct-text-black{font-size:12px;
+			font-weight: 500;
+			color:black;}
+			.ct-text-red{font-size:12px;
+				font-weight: 500;
+				color:red;}
+		@import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
+
+/* Styling h1 and links
+––––––––––––––––––––––––––––––––– */
+
+
+
+
+
+.starrating > input {display: none;}  /* Remove radio buttons */
+
+.starrating > label:before { 
+  content: "\f005"; /* Star */
+  margin: 1px;
+  font-size: 0.8em;
+  font-family: FontAwesome;
+  display: inline-block; 
+}
+
+.starrating > label
+{
+  color: #222222; /* Start color when not clicked */
+}
+
+.starrating > input:checked ~ label
+{ color: #ffca08 ; } /* Set yellow color when star checked */
+
+.starrating > input:hover ~ label
+{ color: #ffca08 ;  } /* Set yellow color when star hover */
+.card-body-2{
+	padding-left:8px !important;
+	padding-right:8px !important;
+}
+.rating-text{ font-size: 12px;
+	padding-top: 3px;}
+
+.circle-icon {
+    background: #ffc0c0;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 2px;
+    vertical-align: middle;
+    padding: 30px;
+}
+.icon-txt{
+	font-size: 12px;
+	padding-left:5px;
+	text-align: center;;
+	
+}
+.img-style{width:64px;
+height: 64px;}
+.text-border{color: red;
+font-size: 12px;
+padding-top:4px;}
+.border-red{border: 1px solid red;
+border-radius: 5px;
+padding: 1px;
+padding-left:3px;
+margin-left:10px;
+margin-right:10px;
+margin-top:5px;}
+.border-red.starrating > label{color:red;}
+.btn-primary {
+    color: #fff;
+    background-color: #6fa843;
+    border-color: #6fa843;
+    width: 100%;
+}
+.card-body-5{padding-bottom:15px;}
+.card-p-20{padding-left: 21px;
+padding-right:21px;}
+.btn-primary:hover{color: #fff;
+    background-color: #6fa843 !important;
+	border-color: #6fa843 !important;}
+	.item {
+		position:relative;
+		
+		display:inline-block;
+	}
+	.notify-badge{
+		position: absolute;
+		right: 17px;
+		top: 20px;
+		background:blue;
+		text-align: center;
+		border-radius: 7px;
+		color:white;
+		padding:5px 10px;
+		font-size:10px;
+	}	
+	/* Mobile Responsiveness 5s TO IPHONE X*/
+@media only screen and (min-width: 320px) and (max-width: 420px) {
+    .modal-header{display:inline;}
+	.bg-img-model1{display: none;}
+	.bg-img-model2{display: none;}
+	.bg-img-model5{display: none;}
+	.form-group {
+		margin-bottom: 0.6rem!important;
+	}
+	.mobile{margin-left:2%;
+	margin-right:2%;}
+	.modal-content {
+		margin-right: 3%;
+		border: 0px!important;
+		border-radius: 0%;
+		margin-left: 3%;
+	}
+	.col-md-6{padding-left: 0px!important;
+	padding-right:0px!important;}
+	.custom-moal-w{
+		}
+}
+/*IPAD*/
+@media only screen and (min-width: 768px) and (max-width:1024px) {
+	
+	.modal-content {
+		margin-right: 3%;
+		border: 0px!important;
+		border-radius: 0%;
+		margin-left: 3%;
+	}
+	#myModal1 .modal-dialog {
+		
+		top: 50%;
+		
+	}
+	#myModal2 .modal-dialog {
+		
+		top: 53%;
+		
+	}
+	#myModal3 .modal-dialog {
+		
+		top: 43%;
+		
+	}
+	#myModal4 .modal-dialog {
+		
+		top: 43%;
+		
+	}
+	#myModal5 .modal-dialog {
+		
+		top: 55%;
+		
+	}
+	}
+	@media only screen and (min-width: 768px) and (orientation : portrait) {
+.modal-dialog {
+		max-width: 100%!important;
+		margin: 30px auto;
+		padding-left:3%;
+		padding-right:4%;
+	}
+
+	.custom-moal-w{max-width: fit-content!important;
+	left:24%!important;}
+	.bg-img-model5 {right:2%!important;}
+	.bg-img-model1{right:2%!important;}
+
+	.bg-img-model2{
+		right: 2%;
+		bottom: 1px;
+	
+	}
+	}
+	@media only screen and (min-width:1024px) and (orientation : portrait) {
+		/* .modal-dialog {
+				max-width: 100%!important;
+				margin: 30px auto;
+				padding-left:3%;
+				padding-right:4%;
+			} */
+			#myModal1 .modal-dialog {
+		
+				top: 50%;
+				
+			}
+			#myModal2 .modal-dialog {
+				
+				top: 53%;
+				
+			}
+			#myModal3 .modal-dialog {
+				
+				top: 43%;
+				
+			}
+			#myModal4 .modal-dialog {
+				
+				top: 43%;
+				
+			}
+			#myModal5 .modal-dialog {
+				
+				top: 55%;
+				
+			}
+			.bg-img-model5 {right:2%!important;}
+			.bg-img-model1{right:2%!important;}
+		
+			.bg-img-model2{
+			right: 2%;
+			bottom:1px;
+			
+			}
+			.custom-moal-w{max-width: fit-content!important;
+			left:5%;}
+			}
+			@media only screen and (max-width:1366px) and (orientation : landscape) {
+				/* .modal-dialog {
+						max-width: 100%!important;
+						margin: 30px auto;
+						padding-left:3%;
+						padding-right:4%;
+					} */
+					.bg-img-model5 {    right: 15px!important;}
+					.bg-img-model1{right: 15px!important;}
+				
+					.bg-img-model2{
+					    right: 14px;
+						bottom: 0px;
+					}
+					.custom-moal-w{max-width: fit-content!important;
+					left:5%;}
+					}

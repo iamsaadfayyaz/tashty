@@ -1,0 +1,162 @@
+﻿@{
+    List<Entity.Category> Categories = ViewBag.Categories;
+    double price = Convert.ToInt32(ViewBag.MaxPrice);
+    if (price <= 0)
+    {
+        price = 1000;
+    }
+    int PackageType = (int)ViewData["PackageType"];
+}
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/main.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/index.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/discoverfood.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/food-crousel.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/items-carousel.css">
+<link href="~/Content/New/css/Package/package.css" rel="stylesheet" />
+<link href="~/Content/New/css/Package/deal.css" rel="stylesheet" />
+<input type="hidden" id="PackageType" value="@PackageType" />
+<!-- box shadow row -->
+<!-- Product -->
+<div id="MainDiv" >
+
+    <div class="container">
+        <div class="row" style="padding-top:100px;">
+            <div class=" col-md-3 col-lg-3">
+
+                <div class="leftbar p-t-15 leftbar-pd-top">
+                    <!--  -->
+                    <div class="p-t-20">
+                        <div class="size-a-21 pos-relative">
+                            <input class="s-full bo-all-1 bocl15 p-rl-20 FoodSearch" type="text" id="SearchFood" name="search" placeholder="Search products...">
+                            <button class="flex-c-m fs-18 size-a-22 ab-t-r hov11" onclick="PackageResults(1)">
+                                <img class="hov11-child trans-04" src="~/Content/images/icons/icon-search.png" alt="ICON">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--  -->
+                    <div class="p-t-20">
+                        <h4 class="txt-mm-101 cl3">
+                            FILTER BY PRICE
+                        </h4>
+
+                        <div class="filter-price p-t-20">
+                            <div class="wra-filter-bar">
+                                <div id="filter-bar"></div>
+                            </div>
+
+                            <div class="flex-sb-m flex-w p-t-16">
+                                <div class="txt-ss-115 cl9 p-t-10 p-b-10 m-r-20">
+                                    Price: (PKR) <span id="value-lower">8</span> - <span id="value-upper">20</span>
+                                </div>
+
+                                <div>
+                                    <a href="#" class="txt-sss-115 cl6 hov-cl10 trans-04">
+                                        Filter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--  -->
+                    <!--  -->
+                    <div class="p-t-25" style="display: none;">
+                        <h4 class="txt-m-101 cl3 p-b-37">
+                        </h4>
+
+                        <div class="flex-w m-r--10">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class=" col-md-9 col-lg-9" id="FilteredResult">
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Content/New/js/mobiscroll.javascript.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $('.FoodSearch').on('keyup', function (e) {
+                if (e.which === 13) {
+                    PackageResults(1);
+                }
+            });
+            PackageResults(1);
+        var current = location.pathname;
+        $('.main-menu li a').each(function () {
+            var $this = $(this);
+            // if the current path is like this link, make it active
+            if ($this.attr('href').indexOf(current) !== -1) {
+                $this.addClass('active');
+            }
+        })
+
+
+
+    })
+
+    var filterBar = document.getElementById('filter-bar');
+    /*==================================================================
+      [ Noui ]*/
+    try {
+        var fromValue = Number($('#value-lower').html());
+        var toValue = Number($('#value-upper').html());
+
+        var skipValues = [
+            document.getElementById('value-lower'),
+            document.getElementById('value-upper')
+        ];
+        noUiSlider.create(filterBar, {
+            start: [0, @price],
+            margin: 50,
+            range: {
+                'min': 0,
+                'max': @price
+            }
+        });
+        filterBar.noUiSlider.on('update', function (values, handle) {
+            skipValues[handle].innerHTML = Math.round(values[handle]);
+        });
+        filterBar.noUiSlider.on('change.one', function () {
+            PackageResults(1);
+        });
+    } catch (er) { console.log(er); }
+
+    function  PackageResults(Page) {
+        
+        var start = filterBar.noUiSlider.get()[0];
+        blockUI();
+        $.ajax({
+            type: "GET",
+            contentType: "html",
+            url: '/Home/PackageResult',
+            async: true,
+            data: { term: $('#SearchFood').val(), PageIndex: Page, StartPrice: filterBar.noUiSlider.get()[0], EndPrice: filterBar.noUiSlider.get()[1], PackageType: $('#PackageType').val() },
+            success: function (data) {
+                $("#FilteredResult").html("");
+                $("#FilteredResult").html(data);
+                unblockUI();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                
+                handleErrors(textStatus, jqXHR.responseText);
+            }
+        });
+
+    }
+
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#myBtn').trigger('click');
+    })
+</script>
+

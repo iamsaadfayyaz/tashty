@@ -1,0 +1,26 @@
+.input-validation-error {
+	border: 1px solid red !important;
+}
+
+#signInBtn {
+	/*cursor: not-allowed;*/
+}
+
+
+.recaptcha-container {
+	text-align: center;
+}
+
+.g-recaptcha > div {
+	width: auto !important;
+}
+
+.ui-autocomplete {
+z-index:99999 !important;
+}
+
+
+.selectClientdays .checkbox-inline {
+    padding-left: 12px !important;
+    padding-right: 15px;
+}

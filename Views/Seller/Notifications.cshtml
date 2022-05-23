@@ -1,0 +1,79 @@
+﻿@model TashtyWebProject.ViewModel.NotificationsViewModel
+@{
+    int count = 0;
+    int itemcount = 0;
+    List<Entity.Notification> Notifications = Model.Notifications;
+}
+<div class="containter-fluid maindashboard-pr-settings">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12">
+                <h2 class="pr-info-head">Notifications</h2>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    @foreach (var notification in Notifications)
+    {
+        <div class="row mrgn-top pd-lr-not">
+            <div class="col-sm-2">
+                <p class="sm-txt">@notification.NoticeDateString</p>
+            </div>
+            <div class="col-sm-2">
+                <img src="~/uploads/ProfilePictures/@notification.ProfilePhoto" class="img-circle" alt="No pic">
+            </div>
+            <div class="col-sm-8 ml-50">
+                <p class="p-sm-txt"><span class="sp-bold">@notification.Sender</span> @notification.notice</p>
+            </div>
+        </div>
+    }
+</div>
+@if (Model.NotificationsCount > 15)
+{
+    <!-- pager -->
+    if (Model.Pager.EndPage > 1)
+    {
+        <div class="pagination-div">
+            <ul class="pagination justify-content-center">
+                @if (Model.Pager.CurrentPage > 1)
+                {
+                    <li class="page-item">
+                        <button class="page-link" onclick="Notifications(1)">First</button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link" onclick="Notifications(@(Model.Pager.CurrentPage - 1))">Previous</button>
+                    </li>
+                }
+
+                @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                {
+                    <li class="@(page == Model.Pager.CurrentPage ? "active" : "") page-item">
+                        <button class="page-link" onclick="Notifications(@page)">@page</button>
+                    </li>
+                }
+
+                @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                {
+                    <li class="page-item">
+                        <button class="page-link" onclick="Notifications(@(Model.Pager.CurrentPage + 1))">Next</button>
+                    </li>
+                    <li class="page-item">
+                        <button class="page-link" onclick="Notifications(@(Model.Pager.TotalPages))">Last</button>
+                    </li>
+                }
+            </ul>
+        </div>
+    }
+}
+<!-- Table For Order History Ends -->
+<!-- Page number row -->
+<script>
+    $(document).ready(function () {
+
+    })
+
+
+</script>
+

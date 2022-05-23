@@ -1,0 +1,199 @@
+﻿
+<div class="modal fade" id="login-model">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header close-mobile-display">
+                <h4 class="modal-title"></h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 p-t-b-50">
+                        <div class="padding-50px">
+                            <form action="#" id="loginForm">
+                                <div class="row d-flex justify-content-center">
+                                    <h1 class="p-t-b-20">Login to Tashty</h1>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button type="button" id="btnFbLogin" class="newbtn-fb"><i class="fa fa-facebook"></i>&nbsp; &nbsp;Sign in with Facebook</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button type="button" id="btnGoogleLogin" class="newbtn-gmail"><i class="fa fa-google"></i>&nbsp; &nbsp;Sign in with Gmail</button>
+                                        <button type="button" id="signout_button" class="newbtn-gmail" style="display: none;"><i class="fa fa-google"></i>&nbsp; &nbsp;Signed in with Gmail</button>
+                                    </div>
+                                    <div class="separator">&nbsp; or &nbsp; </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row ">
+                                        <p class="p-bold">Email</p>
+                                        <input type="text" class="form-control" placeholder="Email" title="Please enter you email ID" required value="" name="txtEmail" id="txtEmail">
+
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+
+                                        <p class="p-bold">Password <a href="#" id="ForgotPasslink">Forgot ?</a></p>
+                                        <input type="password" class="form-control" title="Please enter your password" placeholder="Password" required="" value="" name="password" id="txtPassword">
+
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <button id="btnLogin" type="submit" class="btn btn-continue">Login</button>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="row d-flex justify-content-center">
+                                        <p class="p-font">Don't Have an Account?<a id="lnkJoin" href="#"> Join</a></p>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                    <div class="col-md-6 bg-img-model5" style="background-image:linear-gradient(to bottom, rgba(255,255,255,0.1), rgba(0,0,0,0.5)),url(/Content/New/images/modal5.jpg)">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <div class="row d-flex justify-content-end txtalign-btm">
+
+                            <h1 class="h1-custom">JOIN NOW</h1>
+                            <P class="p-custom" style="color:#6fa742">Order your favourite food from best sellers</P>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+
+
+
+    $(document).ready(function () {
+
+        $('#join-us-model').on('hidden.bs.modal', function () {
+            $('#txtBuyerEmail').val('');
+            $('#txtBuyerErrorMsg').html('');
+        });
+
+        $('#buyer-join-model').on('hidden.bs.modal', function () {
+            $('#txtBJUsername').val('');
+            $('#txtBJPassword').html('');
+        });
+
+    });
+
+
+
+
+    var dashSeller = true;
+    var MealItemAddedInCart = false;
+    var DealItemAddedInCart = false;
+    $("#loginForm").submit(function (e) {
+        e.preventDefault();
+        var emailID = $('#txtEmail').val();
+        var pass = $('#txtPassword').val();
+        var pattern = /^\b[A-Z0-9._%-]+@@[A-Z0-9.-]+\.[A-Z]{2,4}\b$/i
+
+        if (!pattern.test(emailID)) {
+            toastr.error('this is not valid email'); e.preventDefault(); return false;
+        }
+        LoginClient(emailID, pass, false, false, '', dashSeller, MealItemAddedInCart, DealItemAddedInCart);
+    });
+
+
+
+    $('#ForgotPasslink').click(function () {
+
+        CloseModel("login-model");
+        OpenModel("ForgotPassword");
+    });
+    $('#lnkJoin').click(function () {
+
+        CloseModel("login-model");
+        OpenModel("join-seller-model");
+    });
+    $(document).ready(function () {
+        var url2 = window.location;
+        var txt = String(url2);
+
+        if (txt.indexOf("CheckOut") > -1) {
+            dashSeller = false;
+        } else if (txt.indexOf("SellerProfile") > -1) { dashSeller = false; }
+
+        $('#btnFacebookLogin').click(function () {
+            //window.location.href = baseURL + "Home/Facebook";
+            //window.location.href = baseURL + "Home/ExternalLogin?provider=Facebook&responce_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%2FTashtyWebProject%2FDashboard%0D%0A";
+        });
+        $('#btnGoogleLogin').click(function () {
+            //window.location.href = baseURL + "Home/SignIn";
+            //window.location.href = baseURL + "Home/ExternalLogin?provider=Facebook&responce_type=token&client_id=self&redirect_uri=http%3A%2F%2Flocalhost%2FTashtyWebProject%2FDashboard%0D%0A";
+        });
+    });
+
+</script>
+
+
+<script>
+
+    function FBLoginStatusChangeCallback(response) {
+        
+        var resp = JSON.stringify(response);
+        console.log(resp);
+        ;
+        if (response.status === 'connected') {
+            //Logged into your app and Facebook.
+            LoginApi();
+        } else {
+            FB.login(function (response) {
+                LoginApi();
+            }, { scope: 'email' });
+        }
+    }
+
+    $('#btnFbLogin').click(function () {
+        checkFBLoginState();
+    });
+
+    $('#btnFbLogin').click(function () {
+        checkFBLoginState();
+    });
+
+
+
+    function checkFBLoginState() {
+        FB.getLoginStatus(function (response) {
+            FBLoginStatusChangeCallback(response);
+        });
+    }
+
+    function onSuccessggl(user) {
+        var obj = user.getBasicProfile();
+        LoginClient(obj.getEmail(), '', true, false, obj.getId(), dashSeller, MealItemAddedInCart, DealItemAddedInCart);
+    }
+
+    function LoginApi() {
+        console.log('Welcome!  Fetching your information.... ');
+        FB.api('/me/', { fields: 'email,name,picture' }, function (response) {
+            ;
+            if (!response.error) {
+                console.log('Successful login for: ' + response.id);
+                console.log('Successful login for: ' + response.email);
+                LoginClient(response.email, '', false, true, response.id, dashSeller, MealItemAddedInCart, DealItemAddedInCart);
+            }
+        });
+    }
+
+</script>

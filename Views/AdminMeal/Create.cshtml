@@ -1,0 +1,352 @@
+﻿@model Entity.Meal
+@{
+	ViewBag.Title = "Tashty | Meal Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+	int id = (int)ViewData["mealID"];
+	string name = (string)ViewData["displayName"];
+	int sellerId = (int)ViewData["sellerID"];
+	string FolderID = (string)ViewData["FolderID"];
+	int mealId = (int)ViewData["mealID"];
+}
+
+
+<input type="hidden" id="txtMealID" />
+<input type="hidden" id="txtProfileID" />
+<input type="hidden" id="txtCategoryID" />
+<input type="hidden" id="txtSubCategoryID" />
+<input type="hidden" id="txtFolderID" />
+<input type="hidden" id="txtPhoto" />
+
+<div class="content animate-panel">
+	<div class="hpanel">
+		<div class="panel-heading m-b-sm">
+			@if (id == 0)
+			{
+				<text>	<h4> Create New  Meal Item</h4> </text>
+			}
+			else
+			{ <text><h4> Edit Meal Item</h4>  </text>}
+
+		</div>
+		<div class="panel-body">
+			<div class="row">
+				<form action="#" >
+					<div class="col-lg-12">
+						<div class="form-group col-lg-6">
+							<label>Seller</label>
+							<input id="displayTitle" placeholder="Seller Display Name" class="form-control" readonly />
+						</div>
+						<div class="form-group col-lg-6">
+							<label>Title</label>
+							<input id="txtTitle" placeholder="Title" class="form-control" required />
+						</div>
+						<div class="form-group col-lg-6">
+							<label>Category</label>
+							<select id="ddlMealCategory" class="form-control" required>
+								<option selected> select category</option>
+								@if (ViewBag.ListCategories != null)
+			{
+				for (int i = 0; i < ViewBag.ListCategories.Count; i++)
+				{
+					string val = ViewBag.ListCategories[i].categoryID.ToString();
+					string title = ViewBag.ListCategories[i].name.ToString();
+
+					<text>
+						<option value="@val">@title</option>  </text>
+}
+
+}
+							</select>
+						</div>
+						<div class="form-group col-lg-6">
+							<label>Sub Category</label>
+							<select id="ddlMealSubCategory" class="form-control" required>
+								<option selected> select subcategory</option>
+							</select>
+						</div>
+						<div class="form-group col-lg-6">
+							<label>Serving</label>
+							<input id="txtServing" type="number" placeholder="serving per dish" class="form-control" required />
+						</div>
+						<div class="form-group col-lg-6">
+
+							@*<div class="form-group">*@
+							<label>Add Product Price</label>
+							<input id="txtPrice" type="number" placeholder="Price" class="form-control" required />
+							@*<div class="input-group m-b"><input class="form-control" type="text" placeholder="Proudct Price"> <span class="input-group-addon">+</span></div>*@
+							@*</div>*@
+						</div>
+
+						<div class="form-group col-lg-6">
+							<label>Meal Type</label>
+							<select class="js-source-states-2" multiple="multiple" id="ddlMealType" style="width: 100%" placeholder="select meal Type" required>
+								@if (ViewBag.ListMealType != null)
+			{
+				for (int i = 0; i < ViewBag.ListMealType.Count; i++)
+				{
+					string val = ViewBag.ListMealType[i].mealTypeID.ToString();
+					string title = ViewBag.ListMealType[i].name.ToString();
+
+					<text>
+						<option value="@val">@title</option>  </text>
+}
+
+}
+							</select>
+						</div>
+
+						<div class="form-group col-lg-6">
+							<label>Description</label>
+							<textarea id="txtDescription" placeholder="Description" class="form-control"></textarea>
+						</div>
+
+						<div class="col-lg-12">
+							<div class="hpanel plan-box active">
+								<div class="panel-heading hbuilt">
+									<h5 class="font-bold no-margins">Select Serving Days</h5>
+								</div>
+								<div class="panel-body selectdays">
+									<div class="form-group  no-margins">
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkMonday" />
+											<span class="text-info"> Monday</span>
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkTuesday" />
+											<span class="text-primary-2"> Tuesday</span>
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkWednesday" />
+											<span class="text-primary"> Wednesday</span>
+										</label>
+
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkThursday" />
+											<span class="text-success"> Thursday</span>
+										</label>
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkFriday" />
+											<span class=" text-warning">Friday </span>
+										</label>
+
+										<label class="checkbox-inline">
+											<input type="checkbox" id="chkSaturday" />
+											<span class=" text-danger"> Saturday </span>
+										</label>
+
+										<label class="checkbox-success checkbox-inline">
+											<input type="checkbox" id="chkSunday" />
+											<span class=""> Sunday </span>
+										</label>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row m-t">
+                            <div class="col-lg-12 col-sm-12 col-11 main-section">
+                                <label>Upload Meal Gallery</label>
+                                <div class="form-group">
+                                    <div class="file-loading">
+                                        <input id="mealfiles" type="file" name="file" multiple class="file" data-overwrite-initial="false" data-min-file-count="2">
+                                    </div>
+                                </div>
+                                <div class="form-group"><small> maximum allowed upload size is 200 kb.</small></div>
+                            </div>
+						</div>
+						<div class="row">
+							<div class="col-lg-12">
+								<table  class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="example2_info">
+									<thead>
+										<tr role="row">
+											<th width="10%">Image</th>
+											<th width="15%">Name</th>
+											@*<th width="6%">Active</th>*@
+											<th width="10%">Action</th>
+										</tr>
+									</thead>
+									<tbody id="tblMealGallery">
+										<tr role="row" class="odd"> <td colspan="4" style="text-align:center;"> No recored found! </td> </tr>
+									
+									</tbody>
+								</table>
+							</div>
+						</div>
+
+						<div class="col-lg-12 m-t">
+							<div class="col-lg-2">
+								<div class="checkbox-success checkbox-inline">
+									<input type="checkbox" id="chkIsFeature" />
+									<label for="inlineCheckbox2"> Is Featured </label>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="checkbox-success checkbox-inline">
+									<input type="checkbox" id="chkIsSpeciality" />
+									<label for="inlineCheckbox3"> Is Specility </label>
+								</div>
+							</div>
+							<div class="col-lg-2">
+								<div class="checkbox-success checkbox-inline">
+									<input type="checkbox" id="chkIsActive" />
+									<label for="inlineCheckbox4"> Is Active </label>
+								</div>
+							</div>
+						</div>
+
+						<div class="col-lg-12 m-t">
+							<button class="btn btn-success" type="submit" id="btnSubmit">Save Changes</button>
+							<button class="btn btn-default" id="btnCancel" type="button">Cancel</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+}
+
+
+<script>
+	var ListSubCat = [];
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+
+		$(document).ready(function () {
+			$('#mnuMeal a').trigger('click');
+			$(".js-source-states-2").select2();
+
+			$('#ddlMealType').on('change', function () {
+				//alert($("#ddlMealType").val());
+			});
+
+			ListSubCat = @Html.Raw(Json.Encode(ViewBag.ListSubCategories));
+			@if (mealId != 0)
+			{
+				<text>
+					Meal.GetMeal('@mealId');
+				</text>
+			}
+
+			@if (!String.IsNullOrEmpty(name))
+			{
+				<text>
+						$("#displayTitle").val('@name');
+				</text>
+
+			}
+
+			@if (sellerId!=0)
+			{
+				<text>
+					pID = @sellerId;
+					$("#txtProfileID").val('@sellerId');
+				</text>
+			}
+
+			@if (!String.IsNullOrEmpty(FolderID))
+				{
+				<text>
+					FolderID = '@FolderID';
+						$("#txtFolderID").val('@FolderID');
+				</text>
+				}
+
+
+			$('#ddlMealCategory').on('change', function () {
+				$("#txtCategoryID").val(this.value);
+					populateSubCategory(this.value);
+				});
+
+			$('#ddlMealSubCategory').on('change', function () {
+				$("#txtSubCategoryID").val(this.value);
+				});
+			});
+
+
+		$('#btnSubmit').click(function () {
+			//alert('abc');
+			Meal.AddUpdateMeal(true);
+		});
+
+		$('#btnCancel').click(function () {
+				document.location = '@Url.Action("Index", "AdminMeal")';
+		});
+
+
+		function populateSubCategory(value)
+		{
+			if (ListSubCat)
+			{
+				$('#ddlMealSubCategory').html('');
+				$('#ddlMealSubCategory')
+					.append($("<option></option>")
+						.attr("value", 0 )
+						.text('select sub category'));
+
+					for (var i = 0; i < ListSubCat.length; i++) {
+						var val = ListSubCat[i].subCategoryID;
+						var id = ListSubCat[i].categoryID;
+						var name = ListSubCat[i].name;
+						if (id==value){
+							$('#ddlMealSubCategory')
+								.append($("<option></option>")
+									.attr("value", val)
+									.text(name));
+						}
+					}
+			}
+			return;
+		}
+
+		$("#mealfiles").fileinput({
+			theme: 'fa',
+			uploadUrl: baseURL + 'AdminMeal/UploadGallery',
+				allowedFileExtensions: ['jpg', 'png', 'gif'],
+				overwriteInitial: false,
+                maxFileSize: 200,
+                msgSizeTooLarge: 'Meal picture "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+				maxFilesNum: 10,
+				minFileCount: 1,
+				uploadAsync: true,
+				slugCallback: function (filename) {
+
+					return filename.replace('(', '_').replace(']', '_');
+				},
+				uploadExtraData: function () {
+					return {
+						FolderID: String(FolderID)
+					};
+				}
+        });
+
+    
+    $('#mealfiles').on('fileuploaded', function (event, data, previewId, index) {
+       		AddItemInTable(data.response, String(FolderID), @mealId,pID);
+            customPhotoValidationFailed = false;
+    });
+    $('#mealfiles').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#mealfiles').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#mealfiles").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+
+</script>

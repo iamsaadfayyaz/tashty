@@ -1,0 +1,224 @@
+﻿
+
+@{
+	ViewBag.Title = "Tashty | Buyer Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<div class="panel-tools">
+						<div class="panel-tools font-light text-muted">
+							<button type="button" class="btn btn-success m-r-md" id="btnAddBuyer">Add Buyer</button>
+						</div>
+					</div>
+					<h5> Buyer Managment</h5>
+				</div>
+				<div class="panel-body dataTables_wrapper ">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="buyer-table" class="table table-striped table-bordered table-hover dataTable no-footer" style="width:100% !important" role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr role="row">
+										<th width="20%">Buyer ID</th>
+										<th width="15%">First Name</th>
+										<th width="12%">Last Name</th>
+										<th width="6%">Gender</th>
+										<th width="4%">Active</th>
+										<th width="5%">Action</th>
+										<th width="7%">Favourites</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="buyer-count" role="status" aria-live="polite"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{
+	Html.RenderPartial("BuyerFavourites");
+}
+
+
+<script>
+	 $(document).ready(function () {
+		 $('#mnuUM a').trigger('click');
+		 $('#mnuUMBuyer a').trigger('click');
+
+
+	});
+	   $('#btnAddBuyer').click(function (e)
+	  {
+
+		  location.href = '@Url.Content("~/AdminBuyer/Create/")';
+
+      });
+    $(function () {
+
+		var buyerTable = $('#buyer-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": true,
+			"searching": true,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+                "processing":"<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+            },
+            "ajax": {
+                "url": "@Url.Action("GetAllBuyers", "AdminBuyer")",
+				"data": function (data) {
+
+					data.searchText = $('input[name="txtBuyerSearch"]').val();
+
+                }
+            },
+            "columns": [
+                {
+					"data": "email",
+                    "render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data: data;
+                    }
+                },
+                {
+					"data": "firstName",
+					"orderable": true,
+                    "render": function (data, type, full, meta) {
+                        return type === 'display' ?
+							data == null ? "-" : data : data;
+                    }
+				},
+				{
+					"data": "lastName",
+					"orderable": true,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : data.length > 50 ? data.substring(0, 49) + '...' : data : data;
+					}
+				},
+				{
+					"data": "gender",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "-" : data :data;
+					}
+				},
+				{
+					"data": "isActive",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markActive"  data-id=' + full.profileID + 'aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.profileID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.profileID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<a  data-id=' + full.profileID + '  data-type="edit"><li class="fa fa-pencil-square-o" aria-hidden="true" ></li></a >'
+							+ '<a data-type="delete" data-id=' + full.profileID + '> <li class="fa fa-trash-o"  aria-hidden="true"></li></a>';
+						return render;
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<button type="button" class="btn btn-outline btn-success"  data-id="' + full.profileID + '" data-type="Viewfavourites" >View</button>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (buyerTable == null)
+					buyerTable.initializaeDataTable();
+				else
+					buyerTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+
+		buyerTable.on('draw', function () {
+
+			$('button[data-type="Viewfavourites"]').click(function () {
+
+				var ele = $(this).attr("data-id");
+				bu.GetBuyerFavourites(ele);
+			});
+
+			$('a[data-type="delete"]').click(function () {
+				var ele = $(this).attr("data-id");
+				deleteBuyerConfirmation(ele);
+			});
+
+			$('a[data-type="edit"]').click(function () {
+				var ele = $(this).attr("data-id");
+				location.href = '@Url.Content("~/AdminBuyer/Create/?id=")' + ele;
+			});
+
+			$("input[data-type='markActive']").change(function () {
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					bu.MarkActive(ele, true);
+				}
+				else {
+					bu.MarkActive(ele, false);
+				}
+			});
+
+		});
+
+
+		function deleteBuyerConfirmation(id) {
+			//;
+			event.preventDefault(); // prevent form submit
+			swal({
+				title: "Are you sure?",
+				text: "You want to delete buyer profile ?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes",
+				cancelButtonText: "No",
+				closeOnConfirm: true,
+				closeOnCancel: true
+			},
+				function (isConfirm) {
+					//;
+					if (isConfirm) {
+						bu.Delete(id);
+							$('#buyer-table').DataTable().ajax.reload();
+					}
+			});
+		}
+
+
+	});
+
+  
+
+</script>
+
+

@@ -1,0 +1,310 @@
+﻿
+@{
+	ViewBag.Title = "Tashty | Notification Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<div class="panel-tools">
+						<button type="button" class="btn btn-success" data-toggle="modal" data-target="#add-edit-notice-model">Add New Notification</button>
+					</div>
+					<h5>Admin Notification Management</h5>
+				</div>
+				<div class="hpanel forum-box">
+					<div class="panel-heading">
+						<div class="panel-tools"> <a class="showhide"><i class="fa fa-chevron-up"></i></a> <a class="closebox"><i class="fa fa-times"></i></a> </div>
+						Search Filter
+					</div>
+					<div class="panel-body">
+						<div class="row">
+
+							<div class="col-lg-3 no-pdnglft">
+								<div class="form-group">
+									@Html.DropDownList("Order Status", new SelectList(ViewBag.ListCountry, "countryID", "country"), "select country", new { @id = "ddlSrchCountry", @class = "form-control" })
+								</div>
+							</div>
+							<div class="col-lg-3 no-pdnglft">
+								<div class="form-group">
+									<select class="form-control m-b" name="" id="ddlSrchCity">
+										<option value="0">select city</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									<input class="form-control" id="hdnDate" type="hidden">
+									<input id="datepicker2" class="form-control" type="text" placeholder="Notification Date">
+								</div>
+							</div>
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									@Html.DropDownList("Group", new SelectList(ViewBag.ListGroup, "notificationGroupID", "title"), "select group", new { @id = "ddlSrchGroup", @class = "form-control" })
+								</div>
+							</div>
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									@Html.DropDownList("Type", new SelectList(ViewBag.ListNotificationType, "notificationTypeID", "title"), "select type", new { @id = "ddlSrchType", @class = "form-control" })
+								</div>
+							</div>
+							<div class="col-lg-12 text-right">
+								<button class="btn btn-primary " type="button" id="btnSearch"><i class="fa fa-search"></i> Search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body dataTables_wrapper ">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="note-table" class="table table-striped table-bordered table-hover dataTable no-footer" style="width:100% !important" role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr role="row">
+										<th width="40%" class="sorting_asc">Notice Title</th>
+										<th width="10%">Reciever Group</th>
+										<th width="10%">Date</th>
+										<th width="10%">Type</th>
+										<th width="5%">Active</th>
+										<th width="8%">Action</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="note-count" role="status" aria-live="polite"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@{
+
+	Html.RenderPartial("Create", new ViewDataDictionary { { "ddlType", ViewBag.ListNotificationType }, { "ddlGroup", ViewBag.ListGroup }, { "ddlCountry", ViewBag.ListCountry } });
+	Html.RenderPartial("ViewDetail");
+}
+
+<script>
+	var BySearch = false;
+
+
+	$(function () {
+		$('#mnuNotice a').trigger('click');
+		$('#ddlSrchCountry').on('change', function () {
+
+			if (this.value!=0)
+				notice.GetCities(this.value,'ddlSrchCity');
+		})
+		//$.datepicker.setDefaults({ dateFormat: "yy-mm-dd" });
+
+		// Setter
+		$("#datepicker2").datepicker({
+			dateFormat: 'dd/mm/y',//check change
+			changeMonth: true,
+			changeYear: true
+		});
+		$("#datepicker2").on("changeDate", function (event) {
+			$("#hdnDate").val(
+				$("#datepicker2").datepicker('getFormattedDate')
+			)
+		});
+		$('#btnCancel').click(function () {
+			document.location = '@Url.Action("Index", "AdminNotification")';
+		});
+
+		var noteTable = $('#note-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": true,
+			"searching": true,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetAllNotification", "AdminNotification")",
+				"data": function (data) {
+					if (BySearch == true) {
+						data.searchText = "";
+						data.cityID = $('#ddlSrchCity').val() ? $('#ddlSrchCity').val():0 ;
+						data.countryID = $('#ddlSrchCountry').val() ? $('#ddlSrchCountry').val():0;
+						data.groupID = $('#ddlSrchGroup').val() ? $('#ddlSrchGroup').val():0;
+						data.typeID = $('#ddlSrchType').val() ? $('#ddlSrchType').val():0;
+						data.noticeDate = $('#hdnDate').val() ? $('#hdnDate').val():null;
+						BySearch = false;
+					}
+					else {
+						data.cityID = 0;
+						data.countryID =0;
+						data.groupID =0;
+						data.typeID =0;
+						data.noticeDate =null;
+
+
+					}
+				}
+            },
+            "columns": [
+                {
+					"data": "title",
+					"orderable": true,
+                    "render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "No Name Defined" : data : data ;
+                    }
+				},
+				{
+					"data": "groupTitle",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "No Name Defined" : data : data;
+
+					}
+				},
+                {
+					"data": "noticeDateTicks",
+					"orderable": false,
+                    "render": function (data, type, full, meta) {
+                        return type === 'display' ?
+							transformDate(data) == null ? "..." : transformDate(data) : transformDate(data);
+                    }
+				},
+				{
+					"data": "notificationType",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "No Name Defined" : data : data;
+
+					}
+				},
+				{
+					"data": "isActive",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markActive"  data-id=' + full.notificationID +'  aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.notificationID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.notificationID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<a  data-id=' + meta.row + '  data-type="edit"><li class="fa fa-pencil-square-o" aria-hidden="true" >'+
+							'</li ></a > <a data-type="detail" data-id=' + full.notificationID + '> <li class="fa pe-7s-note2 m-r" aria-hidden="true"></li></a>' +
+							'</li ></a > <a data-type="delete" data-id=' + full.notificationID + '> <li class="fa fa-trash-o" aria-hidden="true"></li></a>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (noteTable == null)
+					noteTable.initializaeDataTable();
+				else
+					noteTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+		noteTable.on('draw', function () {
+
+			$('a[data-type="delete"]').click(function () {
+				var ele = $(this).attr("data-id");
+				deleteConfirmation(ele);
+
+			});
+
+			$('a[data-type="edit"]').click(function () {
+				var ele = $(this).attr("data-id");
+				var data = noteTable.row(ele).data();
+				OpenModel("add-edit-notice-model");
+				notice.GetCities(data.countryID, 'ddlCity')
+				notice.GetByID(data.notificationID, false);
+				setHeading("Edit Notification", "headingNote");
+			});
+
+			$("input[data-type='markActive']").change(function () {
+		
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					notice.MarkActive(ele, true);
+				}
+				else {
+					//alert("unchecked");
+					notice.MarkActive(ele, false);
+				}
+			});
+
+			$('a[data-type="detail"]').click(function () {
+				var ele = $(this).attr("data-id");
+				notice.GetByID(ele, true);
+			});
+		});
+
+
+	$('#btnSearch').click(function (e)
+	{
+		BySearch = true;
+
+		noteTable.ajax.url('@Url.Action("GetAllNotification", "AdminNotification")');
+		noteTable.draw();
+		$('#hdnDate').val("");
+		$('#ddlSrchCity').val('0');
+		$('#ddlSrchCountry').val('');
+		$('#ddlSrchType').val('');
+		$('#ddlSrchGroup').val('');
+		$('#datepicker2').val("");
+
+
+		});
+
+
+	function deleteConfirmation(id) {
+		//;
+		event.preventDefault(); // prevent form submit
+		swal({
+			title: "Are you sure?",
+			text: "You want to delete notification ?",
+			type: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#DD6B55",
+			confirmButtonText: "Yes",
+			cancelButtonText: "No",
+			closeOnConfirm: true,
+			closeOnCancel: true
+		},
+			function (isConfirm) {
+				//;
+				if (isConfirm) {
+
+					notice.Delete(id);
+					$('#note-table').DataTable().ajax.reload();
+				}
+			});
+	}
+
+
+	});
+
+
+
+
+</script>
+
+
+

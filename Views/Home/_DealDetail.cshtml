@@ -1,0 +1,89 @@
+﻿<div class="modal fade" id="modal-deal-detail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-right p-sm"> <a class="btn btn-warning btn-circle" data-dismiss="modal"><i class="fa fa-times"></i></a> </div>
+            <div class="modal-body" style="overflow: hidden">
+                <div class="col-md-6 col-sm-6">
+                    <input id="hdnDealID" type="hidden" />
+                    <input id="hdnDealTitle" type="hidden" />
+                    <input id="hdnDealPrice" type="hidden" />
+                    <input id="hdnDealActualPrice" type="hidden" />
+                    <img id="imgDeal" src="~/Content/images/c700x420.jpg" class="img-responsive">
+                </div>
+                <div class="col-md-6 col-sm-6">
+                    <div class="seller-leftbox">
+                        <div class="m-b-md">
+                            <h3 class="font-bold" ><span id="txtName">Sausage Egg McMuffin - Meal</span></h3>
+                            <small ><span id="txtCat">450 - 620 Cal.</span></small>
+                        </div>
+                        <p id="txtDes">
+
+                        </p>
+                        <div class="lsit">
+                            <div class="well well-sm">
+                                <h4 class="font-bold">Deal Items</h4>
+                            </div>
+                            <div class="checkbox-success" id="listItems">
+                               
+                            </div>
+                        </div>
+                        <div class="input-group col-md-5">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"> <span class="glyphicon glyphicon-minus"></span> </button>
+                            </span>
+                            <input type="text" id="txtQuantity" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
+                            <span class="input-group-btn">
+                                <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"> <span class="glyphicon glyphicon-plus"></span> </button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row p-lg">
+                        <div class="col-md-7">
+                            <button type="button" onclick="AddDealtoCarts(true,0)" class="btn btn-success btn-lg btn-block">Add to Cart</button>
+                        </div>
+                        <div class="col-md-5 text-right">
+                            <h3 class="no-margins font-extra-bold text-success" id="txtPrice">$7.90</h3>
+                        </div>
+                    </div>
+                    <div></div>
+                </div>
+            </div>
+            <div class="modal-footer"> </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+       
+
+        $(document).on('change', '#txtQuantity', function () {
+         
+            var oldPrice = _get('hdnDealActualPrice');
+            var newPrice = +this.value * +oldPrice;
+            _set("hdnDealPrice", newPrice);
+            _setIn('txtPrice', '@ViewBag.Currency' + newPrice);
+        });
+    });
+
+    function AddDealtoCarts(loggedIn, logID) {
+        DealItemAddedInCart = false;
+        var mealID = _get("hdnDealID");
+        var title = _get("hdnDealTitle");
+        var qty = _get("txtQuantity");
+        var price = _get("hdnDealActualPrice");
+
+        if (@ViewBag.profileID> 0) {
+            var pID = @ViewBag.profileID;
+            home.addDealToCart(mealID, title, qty, price, pID, '@ViewBag.Currency', loggedIn)
+        } else if (loggedIn == false) {
+            home.addDealToCart(mealID, title, qty, price, logID, '@ViewBag.Currency', loggedIn);
+        }
+        else {
+            DealItemAddedInCart = true;
+            CloseModel('modal-deal-detail');
+            OpenModel('login-model');
+        }
+    }
+</script>

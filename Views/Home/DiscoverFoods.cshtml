@@ -1,0 +1,422 @@
+﻿@{
+    List<Entity.Category> Categories = ViewBag.Categories;
+    double price = Convert.ToInt32(ViewBag.MaxPrice);
+    if (price <= 0)
+    {
+        price = 1000;
+    }
+    string QueryTerm = "";
+    if (ViewData.ContainsKey("QueryTerm"))
+    {
+        QueryTerm = ViewData["QueryTerm"].ToString();
+    }
+}
+<style>
+    .carousel-control-next, .carousel-control-prev {
+        top: 270px !important;
+        width: 35px !important;
+        bottom: 0;
+        height: 20px;
+    }
+
+    .carousel-control-next {
+        padding-left: 0px !important;
+    }
+
+    .carousel-control-prev {
+        padding-right: 0px !important;
+    }
+</style>
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/util.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/main.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/stylesheet.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/index.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/discoverfood.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/food-crousel.css">
+<link rel="stylesheet" type="text/css" href="~/Content/New/css/items-carousel.css">
+<input type="hidden" id="CategoryFilter" value="0" />
+<div class="desktop-header ">
+    <img class="cheff-food" src="~/Content/images/discoverfood-header.jpg" alt="slider-01">
+
+    @*<div id="demo" class="carousel slide" data-ride="carousel">
+
+             Indicators
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+
+             The slideshow
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="~/Content/images/logo/slider-01.jpg" alt="slider-01">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/images/logo/slider-1.jpg" alt="slider-02">
+                </div>
+                <div class="carousel-item">
+                    <img src="~/Content/images/logo/image-6.jpg" alt="slider-06">
+                </div>
+            </div>
+
+             Left and right controls
+            <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#demo" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+
+        </div>*@
+
+    <div class="row d-flex justify-content-center">
+        <h3 class=" discover-cheff-food">What are you feeling like<span class="h3-red"> eating</span> today?</h3>
+        <div class="row main discover-cf">
+
+            <!-- Actual search box -->
+
+
+            <div class="col-sm-4 form-group has-search barlocation ">
+                <div class="p-10">
+                    <span class="fa form-control-feedback"></span>
+                    <input type="text" class="form-control inputbar SearchQuery" placeholder="Try homemade food like biryani or spaghetti...">
+                </div>
+            </div>
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary  clicksearch" type="button" onclick="MainSearch()">
+                    SEARCH
+                </button>
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+</div>
+<!--mobile header start  -->
+<div class="header-row mobile-header">
+
+
+    <div id="demo">
+
+
+        <div class="row d-flex justify-content-center order-position hero-section-content">
+
+            <h3 class="order-h3-header">What are you feeling like <span class="h3-red">eating</span> today?</h3>
+        </div>
+        <div class="row order-position-2 order-cheff-food hero-section-content">
+
+            <!-- Actual search box -->
+
+
+            <div class="col-sm-4 form-group has-search barlocation ">
+                <div class="p-10">
+                    @*<span class="fa fa-map-marker form-control-feedback"></span>*@
+                    <input type="text" class="form-control inputbar SearchQueryMobile" placeholder="Try homemade food like biryani or spaghetti..." value="@QueryTerm">
+                </div>
+            </div>
+            <div class="row">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary order-btn clicksearch" type="button" onclick="MainSearchMobile()">
+                        SEARCH
+                    </button>
+                </div>
+            </div>
+
+
+
+
+
+        </div>
+
+
+        <!-- Indicators -->
+        <!-- The slideshow -->
+
+        <img src="~/Content/images/discoverfood-header.jpg" alt="Los Angeles">
+
+
+    </div>
+
+
+</div>
+
+<!-- box shadow row -->
+<!-- Product -->
+<div id="MainDiv">
+
+    <div class="container">
+        <div class="row">
+            <div class=" col-md-3 col-lg-3">
+
+                <div class="leftbar p-t-15">
+                    <!--  -->
+                    <div class="p-t-20">
+                        <div class="size-a-21 pos-relative">
+                            <input class="s-full bo-all-1 bocl15 p-rl-20 FoodSearch" type="text" id="SearchFood" name="search" placeholder="Search products..." value="@QueryTerm">
+                            <button class="flex-c-m fs-18 size-a-22 ab-t-r hov11" onclick="DiscoverFoodsResults(1)">
+                                <img class="hov11-child trans-04" src="~/Content/images/icons/icon-search.png" alt="ICON">
+                            </button>
+                        </div>
+                    </div>
+
+                    <!--  -->
+                    <div class="p-t-20">
+                        <h4 class="txt-mm-101 cl3">
+                            FILTER BY PRICE
+                        </h4>
+
+                        <div class="filter-price p-t-20">
+                            <div class="wra-filter-bar">
+                                <div id="filter-bar"></div>
+                            </div>
+
+                            <div class="flex-sb-m flex-w p-t-16">
+                                <div class="txt-ss-115 cl9 p-t-10 p-b-10 m-r-20">
+                                    Price: (PKR) <span id="value-lower">8</span> - <span id="value-upper">20</span>
+                                </div>
+
+                                <div>
+                                    <a href="#" class="txt-sss-115 cl6 hov-cl10 trans-04">
+                                        Filter
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-t-20">
+                        <h4 class="txt-mm-101 cl3">
+                            DELIVERY TIME
+                        </h4>
+                        <label>
+
+                            <input mbsc-slider type="range" value="0" min="0" max="60" step="15" data-step-labels="[0, 15,30,45,60]" id="DeliveryTime" onchange="DiscoverFoodsResults(1)">
+                        </label>
+                        <div class="flex-sb-m flex-w p-t-16">
+                            <div class="txt-ss-115 cl9 p-t-10 p-b-10 m-r-20">
+                                Time: Minutes to Hours
+                            </div>
+
+                            <div>
+                                <a href="#" class="txt-sss-115 cl6 hov-cl10 trans-04">
+                                    Filter
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!--  -->
+                    <div class="p-t-20">
+                        <h4 class="txt-mm-101 cl3 p-b-20">
+                            Categories
+                        </h4>
+
+                        <ul>
+                            <li class="p-b-5">
+                                <a href="#" class="flex-sb-m flex-w txt-ss-115 cl3 hov-cl10 trans-04 p-tb-3" onclick="DiscoverFoodsResults(1,'0')">
+                                    <span class="m-r-10">
+                                        All
+                                    </span>
+                                </a>
+                            </li>
+                            @foreach (var item in Categories)
+                            {
+                                <li class="p-b-5 active">
+                                    <a href="#" class="flex-sb-m flex-w txt-ss-115 cl3 hov-cl10 trans-04 p-tb-3" onclick="DiscoverFoodsResults(1,'@item.categoryID')">
+                                        <span class="m-r-10">
+                                            @item.name
+                                        </span>
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+                    <!--  -->
+                    @*<div class="p-t-20">
+                            <h4 class="txt-mm-101 cl3 p-b-20">
+                                Best sellers
+                            </h4>
+
+                            <ul>
+                                <li class="flex-w flex-sb-t p-b-20">
+                                    <a href="#" class="size-ww-100  wrap-pic-w bo-all-1 bocl12 hov8 trans-04">
+                                        <img src="~/Content/images/best-sell-01.jpg" alt="IMG">
+                                    </a>
+
+                                    <div class="size-www-51 flex-col-l p-t-12">
+                                        <a href="#" class="txt-mm-103 cl3 hov-cl10 trans-04 p-b-12">
+                                            Cheery
+                                        </a>
+
+                                        <span class="txt-mm-104 cl9">
+                                            30$
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <li class="flex-w flex-sb-t p-b-20">
+                                    <a href="#" class="size-ww-100  wrap-pic-w bo-all-1 bocl12 hov8 trans-04">
+                                        <img src="~/Content/images/best-sell-02.jpg" alt="IMG">
+                                    </a>
+
+                                    <div class="size-www-51 flex-col-l p-t-12">
+                                        <a href="#" class="txt-mm-103 cl3 hov-cl10 trans-04 p-b-12">
+                                            Asparagus
+                                        </a>
+
+                                        <span class="txt-mm-104 cl9">
+                                            12$
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <li class="flex-w flex-sb-t p-b-20">
+                                    <a href="#" class="size-ww-100  wrap-pic-w bo-all-1 bocl12 hov8 trans-04">
+                                        <img src="~/Content/images/best-sell-03.jpg" alt="IMG">
+                                    </a>
+
+                                    <div class="size-www-51 flex-col-l p-t-12">
+                                        <a href="#" class="txt-mm-103 cl3 hov-cl10 trans-04 p-b-12">
+                                            Eggplant
+                                        </a>
+
+                                        <span class="txt-mm-104 cl9">
+                                            18$
+                                        </span>
+                                    </div>
+                                </li>
+
+                                <li class="flex-w flex-sb-t p-b-20">
+                                    <a href="#" class="size-ww-100  wrap-pic-w bo-all-1 bocl12 hov8 trans-04">
+                                        <img src="~/Content/images/best-sell-04.jpg" alt="IMG">
+                                    </a>
+
+                                    <div class="size-www-51 flex-col-l p-t-12">
+                                        <a href="#" class="txt-mm-103 cl3 hov-cl10 trans-04 p-b-12">
+                                            Carrot
+                                        </a>
+
+                                        <span class="txt-mm-104 cl9">
+                                            17$
+                                        </span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>*@
+
+                    <!--  -->
+                    <div class="p-t-25" style="display: none;">
+                        <h4 class="txt-m-101 cl3 p-b-37">
+                        </h4>
+
+                        <div class="flex-w m-r--10">
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class=" col-md-9 col-lg-9" id="FilteredResult">
+            </div>
+
+        </div>
+    </div>
+</div>
+<script src="~/Content/New/js/mobiscroll.javascript.min.js"></script>
+<script>
+        $(document).ready(function () {
+            $('.SearchQuery').on('keyup', function (e) {
+                if (e.which === 13) {
+                    MainSearch();
+                }
+            });
+            $('.SearchQueryMobile').on('keyup', function (e) {
+                 if (e.which === 13) {
+                     MainSearchMobile();
+                }
+            });
+            $('.FoodSearch').on('keyup', function (e) {
+                if (e.which === 13) {
+                    DiscoverFoodsResults(1);
+                }
+            });
+        DiscoverFoodsResults(1);
+        var current = location.pathname;
+        $('.main-menu li a').each(function () {
+            var $this = $(this);
+            // if the current path is like this link, make it active
+            if ($this.attr('href').indexOf(current) !== -1) {
+                $this.addClass('active');
+            }
+        })
+
+
+
+    })
+
+    var filterBar = document.getElementById('filter-bar');
+    /*==================================================================
+      [ Noui ]*/
+    try {
+        var fromValue = Number($('#value-lower').html());
+        var toValue = Number($('#value-upper').html());
+
+        var skipValues = [
+            document.getElementById('value-lower'),
+            document.getElementById('value-upper')
+        ];
+        noUiSlider.create(filterBar, {
+            start: [0, @price],
+            margin: 50,
+            range: {
+                'min': 0,
+                'max': @price
+            }
+        });
+        filterBar.noUiSlider.on('update', function (values, handle) {
+            skipValues[handle].innerHTML = Math.round(values[handle]);
+        });
+        filterBar.noUiSlider.on('change.one', function () {
+            DiscoverFoodsResults(1, this.get()[0], this.get()[1]);
+        });
+    } catch (er) { console.log(er); }
+
+    function DiscoverFoodsResults(Page, CategoryID) {
+
+        if (CategoryID != null && CategoryID != undefined) {
+            $('#CategoryFilter').val(CategoryID);
+        }
+        var start = filterBar.noUiSlider.get()[0];
+        blockUI();
+        $.ajax({
+            type: "GET",
+            contentType: "html",
+            url: '/Home/DiscoverFoodsResults',
+            async: true,
+            data: { term: $('#SearchFood').val(), PageIndex: Page, DeliveryTime: $('#DeliveryTime').val(), StartPrice: filterBar.noUiSlider.get()[0], EndPrice: filterBar.noUiSlider.get()[1], CategoryID: $('#CategoryFilter').val() },
+            success: function (data) {
+                $("#FilteredResult").html("");
+                $("#FilteredResult").html(data);
+                unblockUI();
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                handleErrors(textStatus, jqXHR.responseText);
+            }
+        });
+
+    }
+
+
+
+</script>
+<script>
+    $(document).ready(function () {
+        $('#myBtn').trigger('click');
+    })
+</script>
+

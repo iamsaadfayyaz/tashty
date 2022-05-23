@@ -1,0 +1,44 @@
+﻿   
+   <nav id="header" class="navbar navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button aria-controls="navbar" aria-expanded="false" data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <a href="@Url.Action("index","home")"><img src="@Url.Content("~/Content/images/Logo-small.png")" class="logo" /></a>
+        </div>
+        <div id="navbar-client" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <div class="m-t-md" style="margin-top:15px!important;">
+                        <div class="dropdown">
+                            <a class="dropdown-toggle"  id="lnkCats" style="padding: 15px 15px;font-size:16px; color:#455463" href="#" data-toggle="dropdown" aria-expanded="false"><i class="pe-7s-keypad"></i> Catagories </a>
+                            <ul id="catMenu" class="dropdown-menu animated flipInX megamenu"></ul>
+                        </div>
+                    </div>
+                </li>
+                <li><a href="#" data-toggle="modal" id="lnkSeller" data-target="#join-seller-model">Become a Seller</a></li>
+                <li><a  href="@Url.Action("AboutUs","home")">About us</a></li>
+                <li><a   href="@Url.Action("ContactUs","home")">Contact us</a></li>
+                <li><a href="#" data-toggle="modal" id="lnkLogin"  data-target="#login-model">Sign In</a></li>
+                <li><a id="lnkJoin" class="navbar-brand" href="#" style="color: #fff !important;" data-toggle="modal" data-target="#join-us-model"> &nbsp; join &nbsp;</a></li>
+            </ul>
+		</div>
+    </div>
+</nav>
+
+<script>
+    $(document).ready(function () {
+      
+        $(window).scroll(function () { // check if scroll event happened
+            if ($(document).scrollTop() > 100) { // check if user scrolled more than 50 from top of the browser window
+
+                $(".navbar-fixed-top").css("background-color", "#fbfbfb"); // if yes, then change the color of class "navbar-fixed-top" to white (#f8f8f8)
+                $('.logo').addClass('small-logo2');
+				
+            } else {
+                $(".navbar-fixed-top").css("background-color", "#fff"); // if not, change it back to transparent
+                $('.logo').removeClass('small-logo2');
+            }
+        });
+    });
+</script>
+

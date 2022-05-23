@@ -1,0 +1,150 @@
+﻿
+<div class="modal fade hmodal-success" id="add-edit-admin-profile"  role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+        <div class="modal-content">
+            <div class="color-line"></div>
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="headingAdmin">Update Profile</h4>
+
+            </div>
+            <form action="#" id="updateUserForm">
+                <div class="modal-body ">
+                    <input type="hidden" id="txtAdminProfileID" />
+
+                    <div class="form-group col-lg-6">
+                        <label>First Name</label>
+                        <input class="form-control" id="txtAdminFirstName" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="First Name" required />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Last Name</label>
+                        <input class="form-control" id="txtAdminLastName" maxlength="32" pattern="[A-Za-z]{1,32}" placeholder="Last Name" required />
+                    </div>
+
+                    <div class="form-group col-lg-6">
+                        <label>Username</label>
+                        <input class="form-control" id="txtAdminUsername" maxlength="32" pattern="^[a-zA-Z][a-zA-Z0-9-_\.]{3,20}$" placeholder="Username" required />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Email Address</label>
+                        <input class="form-control" id="txtAdminEmail" placeholder="Email Address" type="email" required />
+                    </div>
+                    <div class="form-group col-lg-6">
+                        <label>Mobile</label>
+                        <input class="form-control" id="txtAdminMobile" maxlength="12" pattern="\d*" placeholder="Mobile Number" required />
+                    </div>
+                    <div class="form-group col-lg-10">
+                        <input type="hidden" id="txtAdminPassword" />
+                        <input type="hidden" id="txtAdminProfilePic" />
+                        <img class="profile-photo img-circle" width="150" height="150" src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                        <div class="file-loading">
+                            <input id="fileProfilePhoto" type="file" />
+                        </div>
+
+
+                    </div>
+                    <div class="form-group col-lg-10"><small> maximum allowed upload size is 100 kb.</small></div>
+
+
+
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-success">Save changes</button>
+                </div>
+            </form>
+        </div>
+	</div>
+</div>
+<script>
+
+    var loadedURL = "";
+    $("#updateUserForm").submit(function (e) {
+        e.preventDefault();
+        adn.Create(1);
+    });
+    adn.GetProfile(@ViewBag.userInfo.profileID, 0);
+
+    var readURLs = function (input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                loadedURL = e.target.result;
+              //  $('.profile-photo').attr('src', e.target.result);
+                //$('.profile-photo').attr('src', loadedURL);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#fileProfilePhoto").on('change', function () {
+        readURLs(this);
+    });
+   
+  
+    var customValidationFailed = false;
+    $("#fileProfilePhoto").fileinput({
+        theme: 'fa',
+        uploadUrl: baseURL + 'AdminUser/UploadProfilePic',
+        dropZoneEnabled: false,
+        browseClass: "upload-button btn btn-primary",
+        showPreview: false,
+    //    overwriteInitial: false,
+        showCaption: false,
+        showRemove: false,
+        showCancel: false,
+        showUpload: false,
+        browseLabel: "Upload Picture",
+        //maxFileSize: 2000,
+        allowedFileExtensions: ['jpg', 'png', 'gif'],
+        maxFilesNum: 1,
+        layoutTemplates: { progress: '' },
+        //minFileCount: 1,
+        uploadAsync: true,
+        maxFileSize: 100,
+
+        msgSizeTooLarge: 'Image  "{name}" (<b> {customSize} </b>) exceeds maximum allowed upload size of <b> {customMaxSize} </b>. Please retry your upload!',
+        //maxImageWidth: 50,
+        //maxImageHeight: 50,
+        slugCallback: function (filename) {
+
+            return filename.replace('(', '_').replace(']', '_');
+        },
+        uploadExtraData: function () {
+            return {
+                FolderID: String("1")
+            };
+        }
+    });
+    $('#fileProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-photo').attr('src', loadedURL);
+        _set("txtAdminProfilePic", data.response);
+        customValidationFailed = false;
+    });
+    $('#fileProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customValidationFailed = true;
+        //alert("IN fileuploaderror");
+            var size = data.files[0].size,
+                maxFileSize = $(this).data().fileinput.maxFileSize,
+                formatSize = (s) => {
+                    i = Math.floor(Math.log(s) / Math.log(100));
+                    sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                    out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                    return out;
+                };
+
+            msg = msg.replace('{customSize}', formatSize(size));
+            msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+            toastr.error(msg);
+    });
+    $('#fileProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customValidationFailed) {
+            $("#fileProfilePhoto").fileinput("upload");
+        }
+        customValidationFailed = false;
+    });
+</script>

@@ -1,0 +1,213 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+    int id = ViewBag.profileID;
+    string currency = ViewBag.currency;
+    string rate = ViewBag.rate;
+}
+
+<section>
+    <div class="container sectionspc">
+        <div class="row">
+            <div class="col-md-8">
+                <h3 class="font-bold">My Request List </h3>
+                <div class="row">
+                    <table id="order-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" style="width: 100%;" width="100%">
+                        <thead>
+                            <tr role="row">
+                                <th width="20%">from Date</th>
+                                <th width="20%">to Date </th>
+                                <th width="20%">amount</th>
+                                <th width="20%">status</th>
+                                <th width="20%">action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="dataTables_info" id="example2_info" role="status" aria-live="polite"></div>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="dataTables_paginate paging_simple_numbers" id="order-count">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 m-t-lg">
+                    <div class="well well-lg">
+                        <h4 class="font-bold">Send Mark As Featured Request</h4>
+                        <hr />
+                        <div class="form-group">
+                            <label>From Date</label>
+                            <input type="hidden" id="txtStartDate"  />
+                            <input id="clnDateFrom" class="form-control datapicker2" type="text" placeholder="Select From Date">
+                        </div>
+                        <div class="form-group">
+                            <label>To Date</label>
+                            <input type="hidden" id="txtEndDate" />
+                            <input id="clnDateTo" class="form-control datapicker2" type="text" placeholder="Select To Date">
+                        </div>
+                        <div class="form-group">
+                            <label>Amount To Pay</label>
+                            <input readonly id="txtAmount" class="form-control" placeholder="Payment required">
+                        </div>
+
+                        <button type="button" id="btnSaveRequest" class="btn w-xs btn-success">Save</button>
+                        <button type="button" id="btnback" class="btn w-xs btn-success">back to settings</button>
+                    </div>
+                </div>
+            </div>
+    </div>
+</section>
+
+
+<script>
+
+    $(document).ready(function () {
+        Seller.SetHeader('@ViewBag.photo', 'Settings');
+        note.GetSellerDashboardNotice();
+    });
+
+    $('#btnSaveRequest').click(function (e) {
+        feat.AddRequest(@id,'@rate','@currency');
+    });
+
+    $('#btnback').click(function (e) {
+        location.href = '@Url.Content("~/Seller/Settings")';
+    });
+
+    $(function () {
+
+
+        $('#clnDateFrom').datepicker();
+        $("#clnDateFrom").on("changeDate", function (event) {
+            $("#txtStartDate").val(
+                $("#clnDateFrom").datepicker('getFormattedDate')
+            )
+        });
+
+        $('#clnDateTo').datepicker();
+        $("#clnDateTo").on("changeDate", function (event) {
+            $("#txtEndDate").val(
+                $("#clnDateTo").datepicker('getFormattedDate')
+            )
+        });
+        //$('#clnDateTo .input-group.date').datepicker({});
+        //$('#clnDateTo .input-daterange').datepicker({});
+
+
+        //$('#datetimepicker1').datetimepicker();
+
+    });
+</script>
+
+
+<script>
+
+	$(function () {
+		var orderTable = $('#order-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+            "lengthChange": false,
+            "searching": false,
+            "paging": true,
+            "sorting": false,
+			"pageLength": 50,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetFeatureRequest", "Seller")",
+				"data": function (data) {
+                    data.profileID ='@id';
+				}
+            },
+            "columns": [
+                {
+                    "data": "dateFromTicks",
+                    "orderable": true,
+                    "render": function (data, type, full, meta) {
+                        return type === 'display' ?
+                            transformDate(data) == null ? "..." : transformDate(data) : transformDate(data);
+                    }
+                },
+                {
+                    "data": "dateToTicks",
+					"orderable": false,
+                    "render": function (data, type, full, meta) {
+						return type === 'display' ?
+                            transformDate(data) == null ? "..." : transformDate(data) : transformDate(data);
+                    }
+				},
+				{
+                    "data": "amountPayed",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+                            data == null ? "..." : '<h4 class="no-margins font-extra-bold text-success"> @currency'+ data +'</h4>' : '<h4 class="no-margins font-extra-bold text-success"> @currency'+ data +'</h4>';
+					}
+                },
+                {
+                    "data": "requestStatus",
+                    "orderable": false,
+                    "render": function (data, type, full, meta) {
+
+                        var render = full.requestStatusID == 1 ? '<span class="label label-info p-xxs">' + data + '</span>'
+                            : full.requestStatusID == 2 ? '<span class="label label-success p-xxs">' + data + '</span>'
+                                : full.requestStatusID == 3 ? '<span class="label btn-primary p-xxs">' + data + '</span>'
+                                    : full.requestStatusID == 4 ? '<span class="label btn-primary2 p-xxs">' + data + '</span>'
+                                        : full.requestStatusID == 5 ? '<span class="label label-primary p-xxs">' + data + '</span>'
+                                            : full.requestStatusID == 6 ? '<span class="label label-warning p-xxs">' + data + '</span>'
+                                                : full.requestStatusID == 7 ? '<span class="label btn-danger2 p-xxs">' + data + '</span>'
+                                                    : full.requestStatusID == 8 ? '<span class="label label-success p-xxs">' + data + '</span>'
+                                                        : '...';
+                        return render;
+                    }
+                },
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+                        var render = '';
+                        if (full.payed == true)
+                            render = '<button class="btn btn-default" title="Payment Done !"  disabled data-id=' + full.featureRequestID + ' type="button" data-type="payed"><i class="pe-7s-wallet"></i> proceed for payment</button>';
+                        else render = '<button class="btn btn-default"   data-id=' + full.featureRequestID + ' type="button" data-type="payed"><i class="pe-7s-wallet"></i> proceed for payment</button>';
+                        return render;
+					}
+                },
+			],
+			"getData": function () {
+				if (orderTable == null)
+					orderTable.initializaeDataTable();
+				else
+					orderTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+		orderTable.on('draw', function () {
+
+            $('button[data-type="payed"]').click(function () {
+				var ele = $(this).attr("data-id");
+                feat.ChangeRequestStatus(ele,2,true); 
+            });
+		});
+
+
+
+	});
+
+
+
+
+</script>

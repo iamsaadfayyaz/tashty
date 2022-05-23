@@ -1,0 +1,71 @@
+﻿
+
+
+<div class="modal fade hmodal-success" id="AddEditSubCategoryModel" tabindex="-1" role="dialog" aria-hidden="true">
+	<form id="frmAddSubCat">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="color-line"></div>
+				<div class="modal-header text-center p-xs">
+					<h4 class="modal-title"><span id="headingSubCategory"></span></h4>
+				</div>
+                <div class="modal-body ">
+
+                    <input id="txtCategoryID" type="hidden" />
+                    <input id="txtSubCategoryID" type="hidden" />
+                    @*<input class="form-control m-b" value="" id="txtCategory" type="text" placeholder="Category" required>*@
+                    <select id="ddlCategory" class="form-control m-b" required>
+                        <option selected value=""> Select Category</option>
+                        @if (ViewBag.ListCategory != null)
+                        {
+                            for (int i = 0; i < ViewBag.ListCategory.Count; i++)
+                            {
+                                string val = ViewBag.ListCategory[i].categoryID.ToString();
+                                string title = ViewBag.ListCategory[i].name.ToString();
+
+                                <text>
+                                    <option value="@val">@title</option>  </text>
+                            }
+
+                        }
+                    </select>
+                    <input class="form-control m-b" type="text" placeholder="Sub Catagory Title" id="txtSubCategory" value="" required />
+                    <textarea id="txtDescription" class="form-control" rows="3" placeholder="Sub Catagory Description" value=""></textarea>
+
+                </div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" data-dismiss="modal">Cancel</button>
+					<input type="submit" class="btn btn-success"  value="Save changes" />
+				</div>
+			</div>
+		</div>
+	</form>
+</div>
+<script>
+    $("#frmAddSubCat").submit(function (e) {
+        e.preventDefault();
+        SubCat.AddNewSubCategory();
+    });
+
+    $('#AddEditSubCategoryModel').on('show.bs.modal', function (e) {
+        SubCat.ClearFieldData();
+    });
+
+    $('#ddlCategory').on('change', function () {
+        //alert($("#ddlCategory").val());
+        _set("txtCategoryID", this.value)
+
+    });
+	//var ListCategories = @*@Model;*@
+
+	//$("#txtCategory").autocomplete({
+	//	source: ListCategories,
+	//	minLength: 1,
+	//	select: function (event, ui) {
+	//		$("#txtCategoryID").val(ui.item.id); // save selected id to hidden input
+	//		return ui.item.label;
+	//	}
+	//});
+</script>
+
+

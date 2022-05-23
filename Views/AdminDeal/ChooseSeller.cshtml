@@ -1,0 +1,50 @@
+﻿<div class="modal fade hmodal-success" id="select-deal-seller" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="color-line"></div>
+			<div class="modal-header">
+				<h4 class="modal-title">Select Seller</h4>
+				<small class="font-bold">To Add A Deal First Select Seller name.</small>
+			</div>
+			<div class="modal-body">
+				<div class="form-group">
+					<label class="col-lg-3 control-label">Choose Seller</label>
+					<div class="col-lg-8">
+						<input class="form-control" type="hidden" id="hdnSellerID">
+						<input class="form-control" type="text" id="txtListSeller">
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary"  id="btnSelectSeller" disabled>Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	$(function () {
+		var ListMealSeller = @Model;
+		$("#txtListSeller").autocomplete({
+			source: ListMealSeller,
+			minLength: 1,
+			select: function (event, ui) {
+				$("#btnSelectSeller").removeAttr("disabled");
+				SelectedProfileID = ui.item.id; // save selected id to hidden input
+				SelectedFullName = ui.item.label;
+				return ui.item.label;
+			}
+		});
+
+		$('#btnSelectSeller').click(function (e) {
+			CloseModel("select-deal-seller");
+			var url = '@Url.Content("~/AdminDeal/Create/")' + SelectedProfileID + '/0';
+			location.href = url;
+			//	$('#inContant').load(url);
+
+		});
+	});
+</script>
+

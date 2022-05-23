@@ -1,0 +1,329 @@
+﻿
+
+@{
+	ViewBag.Title = "Tashty | Meal Management";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<div class="panel-tools font-light text-muted">
+						<button type="button" id="btnAddMeal" class="btn btn-success m-r-md" data-target="#select-meal-seller"> &nbsp;Add Meal&nbsp;</button>
+					</div>
+					<h4> Product Managment</h4>
+				</div>
+				<div class="hpanel forum-box">
+					<div class="panel-heading">
+						<div class="panel-tools"> <a class="showhide"><i class="fa fa-chevron-up"></i></a> <a class="closebox"><i class="fa fa-times"></i></a> </div>
+						Search Filter
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-4 pdng6">
+								<div class="">
+									<input id="txtCategoryID" type="hidden">
+									@Html.DropDownList("Category", new SelectList(ViewBag.ListCategories, "categoryID", "name"), "Select Category", new { @id = "autoCategory", @class = "form-control" })
+								</div>
+							</div>
+							<div class="col-lg-3 pdng6" style="padding-left: 0;">
+								<div class="form-group  no-margins">
+									<select class="js-source-states-2" multiple="multiple" id="bitOption" style="width: 100%" placeholder="Select Options">
+										<option value="1"> is Specility</option>
+										<option value="2">is Feature</option>
+
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-4 no-pdnglft">
+								<div class="">
+									<input id="txtSellerID" type="hidden">
+									<input class="form-control" placeholder="Seller" id="autoSeller" type="text" />
+								</div>
+							</div>
+							<div class="col-lg-1 no-padding">
+								<button class="btn btn-primary " type="button" id="btnMealSearch">search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body dataTables_wrapper ">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="meal-table" class="table table-striped table-bordered table-hover dataTable no-footer" style="width:100% !important" role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr role="row">
+										<th width="20%" class="sorting_asc">Seller</th>
+										<th width="15%">Image</th>
+										<th width="15%">Title</th>
+										<th width="10%">Category</th>
+										@*<th width="10%">SubCategory</th>*@
+										<th width="8%">Featured</th>
+										<th width="8%">Speciality</th>
+										<th width="8%">Active</th>
+										<th width="10%">Action</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="meal-count" role="status" aria-live="polite"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@{
+	Html.RenderPartial("ChooseSeller", (System.Web.HtmlString)Html.Raw(ViewBag.ListSeller));
+}
+
+
+
+<script>
+	var BySearch = false;
+	$('#mnuMeal a').trigger('click');
+
+	$('#btnAddMeal').click(function (e)
+	{
+		OpenModel("select-meal-seller");
+
+	});
+
+
+	$(".js-source-states-2").select2();
+	$(function () {
+			var ListIndexMealSeller= @Html.Raw(ViewBag.ListSeller);
+			$("#autoSeller").autocomplete({
+				source: ListIndexMealSeller,
+				minLength: 1,
+				select: function (event, ui) {
+					$("#txtSellerID").val(ui.item.id); // save selected id to hidden input
+					return ui.item.label;
+				}
+			});
+
+
+			$('#autoCategory').on('change', function (e) {
+				var optionSelected = $("option:selected", this);
+				var valueSelected = this.value;
+				$("#txtCategoryID").val(valueSelected);
+			});
+
+		var mealTable = $('#meal-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": true,
+			"searching": true,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetAllMealItems", "AdminMeal")",
+				"data": function (data) {
+
+					if (BySearch == true) {
+						data.searchText = "";
+						data.categoryId = $('#txtCategoryID').val();
+						data.isSpecial = $("#bitOption").val() != null ? String($("#bitOption").val()): '0';
+						data.seller = $('#txtSellerID').val();
+						BySearch = false;
+					}
+					else {
+						data.searchText = "";
+						data.categoryId = "";
+					//	data.isFeature = "0";
+						data.isSpecial = "0"
+						data.seller = "";
+
+					}
+				}
+            },
+            "columns": [
+                {
+					"data": "displayTitle",
+					"orderable": false,
+                    "render": function (data, type, full, meta) {
+						return type === 'display' ?
+							full.fullName == null ? "No Name Defined" : data + ' (' + full.fullName + ')' : data + ' (' + full.fullName +')' ;
+                    }
+				},
+				{
+					"data": "photo",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+					
+						return type === 'display' ?
+							data == null ? '<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Content/Images/food-default.jpg" >' :
+								'<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Uploads/Product/' + full.folderID + '/thumb-60/' + data + '" >' :
+							'<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Content/Images/food-default.jpg" >';
+
+					}
+				},
+                {
+					"data": "title",
+					"orderable": true,
+                    "render": function (data, type, full, meta) {
+                        return type === 'display' ?
+                            data == null ? "..." : data.length > 50 ? data.substring(0,49) + '...' : data : data;
+                    }
+				},
+				{
+					"data": "category",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : data.length > 50 ? data.substring(0, 49) + '...' : data : data;
+					}
+				},
+				{
+					"data": "isFeature",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markFeature"  data-id=' + full.mealID + 'aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markFeature" data-id=' + full.mealID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markFeature" data-id=' + full.mealID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "isSpeciality",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markSpecial"  data-id=' + full.mealID + 'aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markSpecial" data-id=' + full.mealID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markSpecial" data-id=' + full.mealID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "isActive",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markActive"  data-id=' + full.mealID + 'aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.mealID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.mealID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<a  data-id=' + full.mealID + '  data-type="edit"><li class="fa fa-pencil-square-o" aria-hidden="true" ></li></a ><a data-type="delete" data-id=' + full.mealID + '> <li class="fa fa-trash-o"  aria-hidden="true"></li></a>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (mealTable == null)
+					mealTable.initializaeDataTable();
+				else
+					mealTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+
+		mealTable.on('draw', function () {
+
+			$('a[data-type="delete"]').click(function () {
+				var ele = $(this).attr("data-id");
+				deleteConfirmation(ele);
+			});
+
+			$('a[data-type="edit"]').click(function () {
+				var ele = $(this).attr("data-id");
+				location.href = '@Url.Content("~/AdminMeal/Create/?id=")' + ele;
+			});
+
+			$("input[data-type='markFeature']").change(function () {
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					//alert(ele);
+					Meal.MarkFeaturedMeal(ele, true);
+				}
+				else {
+					//alert("unchecked");
+					Meal.MarkFeaturedMeal(ele, false);
+				}
+			});
+			$("input[data-type='markSpecial']").change(function () {
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					//alert(ele);
+					Meal.MarkSpecialityMeal(ele, true);
+				}
+				else {
+					//alert("unchecked");
+					Meal.MarkSpecialityMeal(ele, false);
+				}
+			});
+			$("input[data-type='markActive']").change(function () {
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					//alert(ele);
+					Meal.MarkActiveMeal(ele, true);
+				}
+				else {
+					//alert("unchecked");
+					Meal.MarkActiveMeal(ele, false);
+				}
+			});
+
+		});
+
+			$('#btnMealSearch').click(function (e)
+	{
+		BySearch = true;
+		mealTable.ajax.url('@Url.Action("GetAllMealItems", "AdminMeal")');
+		mealTable.draw();
+
+
+	});
+
+		function deleteConfirmation(id) {
+			//;
+			event.preventDefault(); // prevent form submit
+			swal({
+				title: "Are you sure?",
+				text: "You want to delete meal item?",
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonColor: "#DD6B55",
+				confirmButtonText: "Yes",
+				cancelButtonText: "No",
+				closeOnConfirm: true,
+				closeOnCancel: true
+			},
+				function (isConfirm) {
+					//;
+					if (isConfirm) {
+						     Meal.DeleteMeal (id);
+							$('#meal-table').DataTable().ajax.reload();
+					}
+			});
+		}
+
+
+	});
+
+
+
+
+</script>
+
+

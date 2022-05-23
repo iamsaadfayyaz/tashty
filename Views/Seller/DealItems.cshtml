@@ -1,0 +1,232 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Seller Dashboard";
+    Layout = "~/Views/Shared/_LayoutSeller.cshtml";
+}
+<section>
+    <div class="container sectionspc">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="hpanel">
+                    <div class="panel-heading m-b-sm">
+                        <div class="panel-tools font-light text-muted">
+                            <button id="btnAddDeal" type="button" class="btn btn-success m-r-md"> &nbsp;Add New Deal&nbsp;</button>
+                        </div>
+                        <h4> Manage your Deals</h4>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="deal-table" class="table table-striped table-bordered table-hover dataTable no-footer" role="grid" aria-describedby="example2_info">
+                                <thead>
+                                    <tr role="row">
+                                        <th width="5%">Image</th>
+                                        <th width="15%">Title</th>
+                                        <th width="40%">Description</th>
+                                        <th width="5%">Price</th>
+                                        <th width="5%">Active</th>
+                                        <th width="10%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="dataTables_info" id="deal-count" role="status" aria-live="polite"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@{
+    Html.RenderPartial("_DealMenu");
+}
+<script>
+
+    var readURL = function (input) {
+
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('.profile-photo').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+
+    $.uploadPreview({
+        input_field: ".images-uploads",
+        preview_box: ".image-preview",
+        label_field: ".image-label"
+    });
+
+
+</script>
+<script>
+
+    $(document).ready(function () {
+        Seller.SetHeader('@ViewBag.photo', 'Deal');
+        note.GetSellerDashboardNotice();
+    });
+
+    $('#btnAddDeal').click(function (e) {
+     location.href = '@Url.Content("~/Seller/AddEditDeal")';
+    });
+
+    var dealTable = $('#deal-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": false,
+			"searching": false,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetDealItems", "Seller")",
+                "data": function (data) { }
+            },
+            "columns": [
+                {
+                    "data": "photo",
+                    "orderable": false,
+                    "render": function (data, type, full, meta) {
+
+                        return type === 'display' ?
+                            data == null ? '<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Content/Images/food-default.jpg" >' :
+                                '<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Uploads/Deal/' + full.folderID + '/thumb-60/' + data + '" >' :
+                            '<img class="img- circle m- b" alt="logo" width="60" height="60" src="' + baseURL + '/Content/Images/food-default.jpg" >';
+
+                    }
+                },
+				{
+					"data": "title",
+					"orderable": true,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : data.length > 50 ? data.substring(0, 49) + '...' : data : data;
+					}
+				},
+				{
+					"data": "description",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : data.length > 50 ? data.substring(0, 49) + '...' : data : data;
+					}
+				},
+				{
+					"data": "price",
+					"orderable": true,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : data.length > 50 ? data.substring(0, 49) + '...' : data : data;
+					}
+				},
+				{
+					"data": "isActive",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? '<div class="checkbox checkbox-primary"><input data-type="markActive"  data-id=' + full.dealID + 'aria-label="Single checkbox One" type= "checkbox"><label></label></div >'
+								: $.trim(data) === 'true' ? '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.dealID + ' checked aria-label="Single checkbox One" type= "checkbox" ><label></label></div >'
+									: '<div class="checkbox checkbox-primary"><input data-type="markActive" data-id=' + full.dealID + ' aria-label="Single checkbox One" type= "checkbox" ><label></label></div >' : "....";
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<a  data-id=' + full.dealID + ' data-type="viewItems"><li class="fa fa-tasks tskhvr"  aria-hidden="true" ></li>'
+							+ '<a  data-id=' + full.dealID + '  data-value=' + full.profileID + '  data-type="edit"><li class="fa fa-pencil-square-o" aria-hidden="true" ></li>'
+						+'</a > <a data-type="delete" data-id=' + full.dealID + '> <li class="fa fa-trash-o" aria-hidden="true"></li></a>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (dealTable == null)
+					dealTable.initializaeDataTable();
+				else
+					dealTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+
+		dealTable.on('draw', function () {
+
+			$('a[data-type="delete"]').click(function () {
+				var ele = $(this).attr("data-id");
+				deleteDealConfirmation(ele);
+			});
+
+			$('a[data-type="edit"]').click(function () {
+				var ele = $(this).attr("data-id");
+				var pid = $(this).attr("data-value");
+			
+				var url = '@Url.Content("~/Seller/AddEditDeal/")'+ ele;
+				location.href = url;
+				
+			});
+
+			$('a[data-type="viewItems"]').click(function () {
+				var ele = $(this).attr("data-id");
+				CDeal.GetDealItem(ele);
+			});
+
+			$("input[data-type='markActive']").change(function () {
+				var ele = $(this).attr("data-id");
+				if (this.checked) {
+					//alert(ele);
+					CDeal.MarkActiveDeal(ele, true);
+				}
+				else {
+					//alert("unchecked");
+					CDeal.MarkActiveDeal(ele, false);
+				}
+			});
+
+        });
+
+    function deleteDealConfirmation(id) {
+        //;
+        event.preventDefault(); // prevent form submit
+        swal({
+            title: "Are you sure?",
+            text: "You want to delete deal offer?",
+            type: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#DD6B55",
+            confirmButtonText: "Yes",
+            cancelButtonText: "No",
+            closeOnConfirm: true,
+            closeOnCancel: true
+        },
+            function (isConfirm) {
+                //;
+                if (isConfirm) {
+                    CDeal.DeleteDeal(id);
+                    $('#deal-table').DataTable().ajax.reload();
+                }
+            });
+    }
+
+
+</script>

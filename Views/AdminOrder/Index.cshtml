@@ -1,0 +1,334 @@
+﻿
+@{
+	ViewBag.Title = "Tashty | Order Details";
+	Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+	//Layout = null;
+}
+
+<div class="content animate-panel">
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="hpanel">
+				<div class="panel-heading m-b-sm">
+					<h4> Order Managment</h4>
+				</div>
+				<div class="hpanel forum-box">
+					<div class="panel-heading">
+						<div class="panel-tools"> <a class="showhide"><i class="fa fa-chevron-up"></i></a> <a class="closebox"><i class="fa fa-times"></i></a> </div>
+						Search Filter
+					</div>
+					<div class="panel-body">
+						<div class="row">
+							<div class="col-lg-3 pdng6">
+								<div class="input-group">
+									<input class="form-control" placeholder="Display Name" id="autoSeller" type="text">
+									<input class="form-control"  id="hdnSellerID" type="hidden">
+									<div class="input-group-btn">
+										<button class="btn btn-default"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+								<!-- /input-group -->
+							</div>
+							<div class="col-lg-3 no-pdnglft">
+								<div class="input-group">
+									<input class="form-control" placeholder="Buyer email" id="autoBuyer" type="text">
+									<input class="form-control" id="hdnBuyerID" type="hidden">
+									<div class="input-group-btn">
+										<button class="btn btn-default"><i class="fa fa-search"></i></button>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									<input class="form-control" id="hdnDate" type="hidden">
+									<input id="datepicker2" class="form-control" type="text" placeholder="Order Date">
+								</div>
+							</div>
+
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									@Html.DropDownList("Order Status", new SelectList(ViewBag.ListOrderStatus, "orderStatusID", "status"), "Select Order Status", new { @id = "dllOrderStatus", @class = "form-control" })
+								</div>
+							</div>
+
+							<div class="col-lg-2 no-pdnglft">
+								<div class="form-group">
+									<select class="form-control m-b" id="dllRating" name="dllRating">
+										<option value="0">Product Rating</option>
+										@{
+		string cls = "";
+		string title = "";
+		if (ViewBag.ListRating != null)
+		{
+			for (int i = 0; i < ViewBag.ListRating.Count; i++)
+			{
+				if (ViewBag.ListRating[i].ratingID == 6)
+				{
+
+					cls = "text-success"; title = ViewBag.ListRating[i].description;
+									<text>
+										<option class="@cls" value="@ViewBag.ListRating[i].ratingID">&#9733 &#9733 &#9733 &#9733 &#9733 - @title</option> </text>
+										}
+										else if (ViewBag.ListRating[i].ratingID == 5)
+										{
+										cls = "text-info"; title = ViewBag.ListRating[i].description;
+									<text>
+										<option class="@cls" value="@ViewBag.ListRating[i].ratingID">&#9733 &#9733 &#9733 &#9733 - @title</option> </text>
+																				}
+										else if (ViewBag.ListRating[i].ratingID == 4)
+										{
+										cls = "font-bold text-warning"; title = ViewBag.ListRating[i].description;
+																			<text>
+																				<option class="@cls" value="@ViewBag.ListRating[i].ratingID">&#9733 &#9733 &#9733 - @title</option> </text>
+										}
+											else if (ViewBag.ListRating[i].ratingID == 3)
+											{
+											cls = "text-primary"; title = ViewBag.ListRating[i].description;
+																				<text>
+																					<option class="@cls" value="@ViewBag.ListRating[i].ratingID">&#9733 &#9733 - @title</option> </text>
+											}
+											else if (ViewBag.ListRating[i].ratingID == 2)
+											{
+											cls = "text-muted"; title = ViewBag.ListRating[i].description;
+																				<text>
+																					<option class="@cls" value="@ViewBag.ListRating[i].ratingID">&#9733 - @title</option> </text>
+											}
+											else if (ViewBag.ListRating[i].ratingID == 1)
+											{
+											cls = "text-info"; title = ViewBag.ListRating[i].description;
+																				<text>
+																					<option class="@cls" value="@ViewBag.ListRating[i].ratingID"> @title</option> </text>
+											}
+
+			}
+
+		}
+										}
+									</select>
+								</div>
+							</div>
+							<div class="col-lg-12 text-right">
+								<button class="btn btn-primary " id="btnOrderSearch" type="button"><i class="fa fa-search"></i> Search</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="panel-body dataTables_wrapper ">
+					<div class="row">
+						<div class="col-sm-12">
+							<table id="order-table" class="table table-striped table-bordered table-hover dataTable no-footer" style="width:100% !important" role="grid" aria-describedby="example2_info">
+								<thead>
+									<tr role="row">
+										<th width="20%" class="sorting_asc">Seller</th>
+										<th width="15%">Buyer</th>
+										<th width="15%">Order Date</th>
+										<th width="15%">Delivery Date</th>
+										<th width="10%">Status</th>
+										<th width="8%">Total Price</th>
+										<th width="10%">Action</th>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<div class="dataTables_info" id="order-count" role="status" aria-live="polite"></div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+	var BySearch = false;
+
+
+	$(function () {
+		$('#mnuOrder a').trigger('click');
+		
+		$('#datepicker2').datepicker();
+		$("#datepicker2").on("changeDate", function (event) {
+			$("#hdnDate").val(
+				$("#datepicker2").datepicker('getFormattedDate')
+			)
+		});
+		$('#btnCancel').click(function () {
+			document.location = '@Url.Action("Index", "AdminOrder")';
+		});
+		var ListOrderSeller = @Html.Raw(ViewBag.ListSeller);
+		var ListOrderBuyer = @Html.Raw(ViewBag.ListBuyer);
+
+			$("#autoSeller").autocomplete({
+				source: ListOrderSeller,
+					minLength: 1,
+					select: function (event, ui) {
+						$("#hdnSellerID").val(ui.item.id); // save selected id to hidden input
+						return ui.item.label;
+					}
+			});
+
+			$("#autoBuyer").autocomplete({
+				source: ListOrderBuyer,
+				minLength: 1,
+				select: function (event, ui) {
+					$("#hdnBuyerID").val(ui.item.id); // save selected id to hidden input
+					return ui.item.label;
+				}
+
+			});
+
+
+
+		var orderTable = $('#order-table').DataTable({
+			"serverSide": true,
+			"autoWidth": false,
+			"processing": true,
+			"lengthChange": true,
+			"searching": true,
+			"paging": true,
+			"pageLength": 10,
+			"responsive": true,
+			"language": {
+				"processing": "<i class='fa fa-circle-o-notch fa-spin fa-3x fa- fw'></i><span class='sr-only' > Loading...</span>"
+			},
+			"ajax": {
+				"url": "@Url.Action("GetAllOrders", "AdminOrder")",
+				"data": function (data) {
+					if (BySearch == true) {
+						data.searchText = "";
+						data.buyerID =  $('#hdnBuyerID').val() ? $('#hdnBuyerID').val():0 ;
+						data.sellerID = $('#hdnSellerID').val() ? $('#hdnSellerID').val():0;
+						data.statusID = $('#dllOrderStatus').val() ? $('#dllOrderStatus').val():0;
+						data.ratingID = $('#dllRating').val() ? $('#dllRating').val():0;
+						data.orderDate = $('#hdnDate').val() ? $('#hdnDate').val():null;
+						BySearch = false;
+					}
+					else {
+						data.buyerID = 0;
+						data.sellerID =0;
+						data.statusID =0;
+						data.ratingID =0;
+						data.orderDate =null;
+
+
+					}
+				}
+            },
+            "columns": [
+                {
+					"data": "seller",
+					"orderable": false,
+                    "render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "No Name Defined" : data : data ;
+                    }
+				},
+				{
+					"data": "buyer",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "No Name Defined" : data : data;
+
+					}
+				},
+                {
+					"data": "orderDateTicks",
+					"orderable": true,
+                    "render": function (data, type, full, meta) {
+                        return type === 'display' ?
+                            transformDate(data) == null || data == 0 ? "-" : transformDate(data) : transformDate(data);
+                    }
+				},
+				{
+					"data": "deliveryDateTicks",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+                            transformDate(data) == null || data == 0 ? "-" : transformDate(data) : transformDate(data);
+					}
+				},
+				{
+					"data": "status",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+
+						var render = full.orderLastStatusID == 1 ? '<span class="label label-info p-xxs">' + data + '</span>' : full.orderLastStatusID == 2
+								? '<span class="label label-success p-xxs">' + data + '</span>' : full.orderLastStatusID == 3 ? '<span class="label btn-primary p-xxs">' + data + '</span>'
+									: full.orderLastStatusID == 4 ? '<span class="label btn-primary2 p-xxs">' + data + '</span>' : full.orderLastStatusID == 5 ?
+										'<span class="label label-primary p-xxs">' + data + '</span>' : full.orderLastStatusID == 6 ? '<span class="label label-warning p-xxs">' + data + '</span>' :
+											full.orderLastStatusID == 7 ? '<span class="label btn-danger2 p-xxs">' + data + '</span>' : full.orderLastStatusID == 8 ?
+												'<span class="label label-success p-xxs">' + data + '</span>' : '...';
+						return render;
+					}
+				},
+				{
+					"data": "price",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						return type === 'display' ?
+							data == null ? "..." : '<h4 class="no-margins font-extra-bold text-success">' + data +'</h4>' : '<h4 class="no-margins font-extra-bold text-success">'+ data +'</h4>';
+					}
+				},
+				{
+					"data": "",
+					"orderable": false,
+					"render": function (data, type, full, meta) {
+						var render = '<a  data-id=' + full.orderID + '  data-type="detail"><li class="fa pe-7s-note2 m-r" aria-hidden="true" ></li></a>';
+						return render;
+					}
+				},
+			],
+			"getData": function () {
+				if (orderTable == null)
+					orderTable.initializaeDataTable();
+				else
+					orderTable.ajax.reload();
+			},
+            "drawCallback": function () {
+
+            }
+		});
+
+		orderTable.on('draw', function () {
+
+			$('a[data-type="detail"]').click(function () {
+				var ele = $(this).attr("data-id");
+				location.href = '@Url.Content("~/AdminOrder/ViewDetail/?id=")' + ele;
+			});
+		});
+
+	$('#btnOrderSearch').click(function (e)
+	{
+		BySearch = true;
+
+		orderTable.ajax.url('@Url.Action("GetAllOrders", "AdminOrder")');
+		orderTable.draw();
+		$('#hdnBuyerID').val('0');
+		$('#hdnSellerID').val('0');
+		$('#hdnDate').val("");
+		$('#autoBuyer').val('');
+		$('#autoSeller').val('');
+		$('#dllRating').val('0');
+		$('#dllOrderStatus').val('');
+		$('#hdnDate').val("");
+		$('#datepicker2').val("");
+
+
+	});
+
+
+	});
+
+
+
+
+</script>
+
+

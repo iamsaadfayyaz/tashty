@@ -1,0 +1,1133 @@
+﻿@{
+
+    ViewBag.Title = "Tashty | Home";
+
+    string username = ViewBag.username;
+    string photo = ViewBag.photo;
+    int profileID = ViewBag.profileID;
+    string FbAppID = ViewBag.fbAppID;
+    string FbAppKey = ViewBag.fbAppKey;
+    string gglAppID = ViewBag.gglAppID;
+    string gglAppKey = ViewBag.gglAppKey;
+    int countryID = ViewBag.CountryID;
+    int CartItemsCount = 0;
+    string mealIDs = "";
+    bool IsCartExist = false;
+
+    if (ViewData.ContainsKey("CartItemsCount"))
+    {
+        CartItemsCount = (int)ViewData["CartItemsCount"];
+    }
+    if (ViewData.ContainsKey("CartmealID"))
+    {
+        mealIDs = (string)ViewData["CartmealID"];
+    }
+
+    if (ViewData.ContainsKey("IsCartExist"))
+    {
+        IsCartExist = (bool)ViewData["IsCartExist"];
+    }
+    string dealIDs = "";
+    if (ViewData.ContainsKey("CartdealID"))
+    {
+        dealIDs = (string)ViewData["CartdealID"];
+    }
+    string cartItemsPackage = "";
+    if (ViewData.ContainsKey("cartItemsPackage"))
+    {
+        cartItemsPackage = (string)ViewData["cartItemsPackage"];
+    }
+
+    string Page = "";
+    if (ViewData.ContainsKey("Page"))
+    {
+        Page = (string)ViewData["Page"];
+    }
+    string profilePhoto = "";
+    if (ViewData.ContainsKey("profilePhoto"))
+    {
+        if (ViewData["profilePhoto"] != null)
+        {
+            profilePhoto = ViewData["profilePhoto"].ToString();
+        }
+    }
+
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tashty Home</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="~/Content/New/images/logo/fevicon.png" />
+    <!--===============================================================================================-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.1/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/fonts/linearicons-v1.0.0/icon-font.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/animate/animate.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/css-hamburgers/hamburgers.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/animsition/css/animsition.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/select2/select2.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/daterangepicker/daterangepicker.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/slick/slick.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/lightbox2/css/lightbox.min.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/perfect-scrollbar/perfect-scrollbar.css">
+    <!--=========================================~/Content/New/======================================================-->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/revolution/css/navigation.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/revolution/css/settings.css">
+    <!--===============================================================================================-->
+
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/becomeaseller.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/model.css">
+    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/owl-carousel/1.3.3/owl.theme.min.css" rel="stylesheet" type="text/css"/> -->
+    <!-- filters -->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/vendor/noui/nouislider.min.css">
+    <link rel="stylesheet" href="~/Content/New/css/mobiscroll.javascript.min.css">
+    <script src="~/Content/New/js/mobiscroll.javascript.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/util.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/main.css">
+
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/stylesheet.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/index.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/discoverchef.css">
+    <!-- <link rel="stylesheet" type="text/css" href="css/items-crousel.css"> -->
+    <link rel="stylesheet" type="text/css" href="~/Content/New/css/items-carousel.css">
+    <link href="~/Content/New/css/dash-css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="~/Content/New/css/dash-css/dashboard-style.css" rel="stylesheet">
+    <link href="~/Content/New/css/dash-css/addtocart.css" rel="stylesheet">
+    <link href="~/Content/New/css/dash-css/mybuckets.css" rel="stylesheet">
+    <link href="~/Content/New/css/home.css" rel="stylesheet">
+    <link href="~/Content/vendor/toastr/toastr.min.css" rel="stylesheet" />
+    <link href="~/Content/vendor/blockUI/block.css" rel="stylesheet" />
+    <link href="~/Content/New/css/package.css" rel="stylesheet" />
+    <link href="~/Content/New/css/glider.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+</head>
+
+<body class="animsition">
+    <style>
+        .animsition, .animsition-overlay {
+            z-index: 100 !important;
+        }
+
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            filter: alpha(opacity=50);
+            -moz-opacity: 0.5;
+            -khtml-opacity: 0.5;
+            opacity: 0.5;
+            z-index: 10000;
+            display: none;
+            background: url('/Content/Images/loading_blue_n.gif') no-repeat center center black;
+        }
+
+        .dropdown-menu > .show {
+            transform: translate3d(-201px, 5px, 0px) !important;
+            left: -80px !important;
+        }
+    </style>
+    @RenderSection("headerSection", false)
+    <div>
+        <input type="hidden" id="cartItems" value="@mealIDs" />
+        <input type="hidden" id="cartItemsDeal" value="@dealIDs" />
+        <input type="hidden" id="cartItemsPackage" value="@cartItemsPackage" />
+
+        <input type="hidden" id="OrderID" />
+        <input type="hidden" id="MainProfileID" value="@profileID" />
+        <input type="hidden" id="Page" value="@Page" />
+        <input type="hidden" id="isSeller" value="true" />
+        <input type="hidden" id="NotificationsIDs" />
+        <div id="topheader">
+            <header class="fixed-header">
+                <!-- Header desktop -->
+                <div class="container-menu-desktop">
+                    <div class="wrap-menu-desktop">
+                        <nav class="limiter-menu-desktop">
+                            <div class="left-header">
+                                <!-- Logo desktop -->
+                                <div class="logo">
+                                    <a href="@Url.Action("index","home")"><img src="~/Content/images/logo/tashty-logo-1.png" alt=" Tashty Logo"></a>
+                                </div>
+                            </div>
+
+                            <div class="right-header">
+                                <!-- Menu desktop -->
+                                <div class="menu-desktop">
+                                    <ul class="main-menu n">
+                                        <li class="active-menu active">
+                                            <a href="@Url.Action("index","home")">
+                                                Home<span class="sr-only">(current)</span>
+                                            </a>
+
+                                        </li>
+                                        @*<li>
+                                                <a href="#" onclick="FeaturedChef()">Featured Chefs</a>
+
+                                            </li>*@
+                                        <li>
+                                            <a href="#" onclick="DiscoveredChef()">Discover Chefs</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="#" onclick="DiscoverFoods()">Discover Food</a>
+
+                                        </li>
+                                        <li>
+                                            <a class="not-active" href="#">Packages</a>
+                                            <ul class="sub-menu">
+
+                                                <li><a href="#" onclick="Packages(1)">Weekly</a></li>
+                                                <li><a href="#" onclick="Packages(2)">Monthly</a></li>
+
+                                            </ul>
+
+                                        </li>
+                                        @if (profileID == 0)
+                                        {
+                                            <li>
+                                                <a href="#" class="join-buyer-model">Sign up</a>
+
+                                            </li>
+                                            <li>
+                                                <a class="join-as-buyer-login" href="#">Sign in</a>
+
+                                            </li>
+                                        }
+                                        <li>
+                                            <a href="#" onclick="BecomeASeller()">How to Become a Seller?</a>
+
+                                        </li>
+
+                                        <li>
+                                            <a href="/Home/Index#about-us">About us</a>
+
+                                        </li>
+
+                                        <li>
+                                            <a href="#" onclick="ContactUs()">Contact us</a>
+
+                                    </li>
+                                    <li>
+                                        <a href="#" onclick="AddToCartPage()">
+                                            <div id="CartItemsCount" class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="@CartItemsCount">
+                                                <img src="~/Content/New/images/icons/icon-cart-2.png" alt="CART">
+                                            </div>
+                                        </a>
+                                    </li>
+                                    @if (profileID > 0)
+                                    {
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link text-light icon-header-item flex-c-m trans-04 icon-header-noti NotificationItemsCount" href="#" id="navbarDropdown" role="button" data-notify="0" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black !important" onclick="UpdateNotificationsStatus()">
+                                                <i class="fa fa-bell-o p-tb-bell"></i>
+                                            </a>
+                                            <ul class="dropdown-menu notify" id="NotificationsList">
+                                                <!-- <li class="footer bg-dark text-center">
+                                                  <a href="" class="text-light">View All</a>
+                                                </li> -->
+                                            </ul>
+                                        </li>
+                                        <li class="nav-item dropdown no-arrow nav-item ">
+                                            <a class="nav-link dropdown-toggle nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+
+                                                @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/uploads/ProfilePictures/" + profilePhoto)))
+                                                {
+                                                    <img class="img-profile rounded-circle" src="~/uploads/ProfilePictures/@profilePhoto" alt="...">
+                                                }
+                                                else
+                                                {
+                                                    <img src="~/Content/New/images/Icon Placeholder.png" class="img-profile rounded-circle" alt="...">
+                                                }
+
+                                            </a>
+                                            <ul class="sub-menu sub-menu-left">
+                                                <li><a href="/Seller/Index/?Page=MyOrder"><i class="fab fa-bitbucket fas-pr"></i> My Orders</a></li>
+                                                @*<li>
+                                                        <a href="#"><i class="fas fa-user fas-pr"></i> Notifications</a>
+                                                        <ul class="sub-menu sub-menu-left-bottom">
+                                                            <li><a href="#">Notofication 1</a></li>
+                                                            <li><a href="#">Notifications</a></li>
+                                                            <li><a href="#">Notification 2</a></li>
+                                                             <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li>
+                                                            <li><a href="#">Notification 3</a></li>
+                                                            <li><a href="#">Notification 4</a></li>
+                                                        </ul>
+                                                    </li>*@
+                                                @* <li><a href="order-received.html"><i class="fas fa-cart-plus fas-pr"></i> My Bucket</a></li>*@
+                                                <!-- <li><a href="#"><i class="far fa-heart fas-pr"></i> Favourites</a></li> -->
+                                                <li><a href="/Seller/Index"><i class="fas fa-user fas-pr"></i> Chef Dashboard</a></li>
+                                                <li><a href="/Home/LogOff"><i class="fas fa-sign-out-alt fas-pr"></i> Logout</a></li>
+
+                                                </ul>
+
+                                                <!-- Dropdown - User Information -->
+                                            </li>
+
+                                            @*<li class="nav-item dropdown">
+                                                    <a class="nav-link text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black !important">
+                                                        <i class="fa fa-bell"></i>
+                                                    </a>
+
+                                                </li>*@
+                                        }
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+                <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body ">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-footer">
+                                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                                <a class="btn btn-primary btnClientLogout" href="/Home/LogOff">Logout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Header Mobile -->
+                <div class="wrap-header-mobile">
+
+                    @*<div class="logo-mobile">
+                            <a href="featuredchefs.html"><img src="~/Content/images/logo/tashty-logo-1.png" alt=" Tashty Logo"></a>
+
+                        </div>*@
+
+
+                    <div class="wrap-icon-header flex-w flex-r-m h-full wrap-menu-click m-r-15">
+                        @*<div class="h-full flex-m">
+                                <div class="icon-header-item flex-c-m trans-04 js-show-modal-search">
+                                    <img src="~/Content/images/icons/icon-search.png" alt="SEARCH">
+                                </div>
+                            </div>*@
+
+                        <div class="wrap-cart-header h-full flex-m m-l-5 menu-click">
+                            <div class="icon-header-item flex-c-m trans-04 icon-header-noti" data-notify="2">
+                                <img src="~/Content/New/images/icons/icon-cart-2.png" alt="CART">
+                            </div>
+
+                            <div class="cart-header menu-click-child trans-04">
+                                <div class="bo-b-1 bocl15">
+
+                                    <div class="flex-w flex-str m-b-25">
+                                        <div class="size-w-15 flex-w flex-t">
+                                            <a href="#" onclick="AddToCartPage()" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                                <img src="~/Content/images/item-cart-01.jpg" alt="item-cart">
+                                            </a>
+                                        </div>
+                                        <div class="size-w-14 flex-b">
+                                            <button class="lh-10">
+                                                <img src="~/Content/images/icons/icon-close.png" alt="icon-close">
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="flex-w flex-str m-b-25">
+                                        <div class="size-w-15 flex-w flex-t">
+                                            <a href="#" class="wrap-pic-w bo-all-1 bocl12 size-w-16 hov3 trans-04 m-r-14">
+                                                <img src="~/Content/images/item-cart-02.jpg" alt="cart-02">
+                                            </a>
+
+                                            <div class="size-w-17 flex-col-l">
+                                                <a href="#" class="txt-s-108 cl3 hov-cl10 trans-04">
+                                                    Asparagus
+                                                </a>
+
+                                                <span class="txt-s-101 cl9">
+                                                    12$
+                                                </span>
+
+                                                <span class="txt-s-109 cl12">
+                                                    x1
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div class="size-w-14 flex-b">
+                                            <button class="lh-10">
+                                                <img src="~/Content/images/icons/icon-close.png" alt="CLOSE">
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="flex-w flex-sb-m p-t-22 p-b-12">
+                                    <span class="txt-m-103 cl3 p-r-20">
+                                        Subtotal
+                                    </span>
+
+                                    <span class="txt-m-111 cl6">
+                                        48$
+                                    </span>
+                                </div>
+
+                                <div class="flex-w flex-sb-m p-b-31">
+                                    <span class="txt-m-103 cl3 p-r-20">
+                                        Total
+                                    </span>
+
+                                    <span class="txt-m-111 cl10">
+                                        48$
+                                    </span>
+                                </div>
+
+                                <a href="checkout.html" class="flex-c-m size-a-8 bg10 txt-s-105 cl13 hov-btn2 trans-04">
+                                    check out
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </div>
+                </div>
+
+
+                <!-- Menu Mobile -->
+                <div class="menu-mobile">
+                    <ul class="main-menu-m">
+                        <li>
+                            <a href="@Url.Action("index","home")">HOME</a>
+
+                        </li>
+
+
+                        @*<li>
+                                <a href="index.html#featuredchefs">FEATURED CHEFS</a>
+
+                        </li>*@
+                    <li>
+                        <a href="#" onclick="DiscoveredChef()">Discover Chefs</a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="DiscoverFoods()">Discover Food</a>
+                    </li>
+                    <li class="fullclick">
+                        <a class="clicktaga"  href="#">PACKAGES</a>
+                        <ul class="sub-menu-m ct-sub-menu-m">
+                            <li><a href="#">WEEKLY </a></li>
+                            <li><a href="#">MONTHLY</a></li>
+                        </ul>
+
+                            <span class="arrow-main-menu-m">
+                                <i class="fa fa-angle-right" aria-hidden="true"></i>
+                            </span>
+                        </li>
+
+
+                        @if (profileID == 0)
+                        {
+                            <li>
+                                <a href="#" data-toggle="modal" data-target="#join-us-model">SIGN UP</a>
+
+                            </li>
+                            <li>
+                                <a class="join-as-buyer-login" href="#">Sign in</a>
+
+                            </li>
+                        }
+                        @* <li>
+                                <a href="/Home/BecomeASeller">HOW TO BECOME A SELLER?</a>
+
+                            </li>*@
+                        <li>
+                            <a href="#" onclick="BecomeASeller()">How to Become a Seller?</a>
+
+                        </li>
+                        <li>
+                            <a href="/Home/Index#about-us">About us</a>
+
+                        </li>
+                        <li>
+                            <a href="#" onclick="ContactUs()">Contact us</a>
+
+                        </li>
+                        <li>
+                            <a href="#" onclick="AddToCartPage()">
+                                <i class="fa fa-shopping-cart" aria-hidden="true"></i>&nbsp; Cart
+                            </a>
+                        </li>
+
+                        @if (profileID > 0)
+                        {
+                            <li>
+                                <a href="/Seller/Index/?Page=Notifications" onclick=""><i class="fa fa-bell"></i>&nbsp; Notifications </a>
+
+                            </li>
+
+                            <li>
+                                <a class="seller-clicktaga nav-link dropdown-toggle nav-link" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/uploads/ProfilePictures/" + profilePhoto)))
+                                    {
+                                        <img class="img-profile rounded-circle" src="~/uploads/ProfilePictures/@profilePhoto" alt="...">
+                                    }
+                                    else
+                                    {
+                                        <img src="~/Content/New/images/Icon Placeholder.png" class="img-profile rounded-circle" alt="...">
+                                    }
+
+                                    Chef Dashboard
+                                </a>
+                                <ul class="seller-sub-menu-m sub-menu-m">
+                                    <li><a href="/Seller/Index/?Page=MyOrder"><i class="fab fa-bitbucket fas-pr"></i> My Orders</a></li>
+
+                                <li><a href="/Seller/Index"><i class="fas fa-user fas-pr"></i>Chef Dashboard</a></li>
+                                <li><a href="/Home/LogOff"><i class="fas fa-sign-out-alt fas-pr"></i> Logout</a></li>
+                            </ul>
+
+
+                                <span class="arrow-main-menu-m">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
+                            </li>
+
+                            <!-- <li>
+                                <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color:black !important">
+                                    <i class="fa fa-bell white"> Notifications</i>
+                                </a>
+                                <ul class="sub-menu-m dropdown-menu" id="NotificationsList">
+                                </ul>
+                                <span class="arrow-main-menu-m">
+                                    <i class="fa fa-angle-right" aria-hidden="true"></i>
+                                </span>
+                            </li>-->
+                        }
+                    </ul>
+                </div>
+
+                <!-- Modal Search -->
+                <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
+                    <button class="flex-c-m btn-hide-modal-search trans-04 js-hide-modal-search">
+                        <span class="lnr lnr-cross"></span>
+                    </button>
+
+                    <div class="container-search-header">
+                        <form class="wrap-search-header flex-w">
+                            <button class="flex-c-m trans-04">
+                                <span class="lnr lnr-magnifier"></span>
+                            </button>
+                            <input class="plh1" type="text" name="search" placeholder="Search...">
+                        </form>
+                    </div>
+                </div>
+            </header>
+        </div>
+        <div class="overlay">
+        </div>
+        <div id="LayoutMain">
+
+            @RenderBody()
+        </div>
+    </div>
+    @Html.Partial("_JoinAsSeller")
+    @Html.Partial("_ClientLogin")
+    @Html.Partial("_JoinUs")
+    @Html.Partial("ForgotPassword")
+    <!-- Footer -->
+    <footer class="bg-img">
+        <div class="bg-img2 ">
+            <div class="container footer-l-r-p">
+                <div class="wrap-footer flex-w pt30p p-b-12">
+                    <div class="footer-col1 p-b-25">
+                        <div class="p-b-28">
+                            <span class="txt-m-109 cl10 clrw f-s16">
+                                About Us
+                            </span>
+                        </div>
+
+                        <p class="txt-s-101 cl6 size-w-10 p-b-12">
+                            Tashty is a Platform that connects chefs with food lovers looking for homemade meals delivered to wherever they study,
+                            work or live at affordable rates. We believe that you deserve the best food that is not only tasty but also healthy, that's tashty.
+                        </p>
+
+                        <ul>
+                            <li class="txt-s-101 clrw flex-t p-b-10 ">
+                                <span class="size-w-11 ">
+                                    <!-- <img src="~/Content/images/icons/icon-mail.png" alt="ICON-MAIL"> -->
+                                    <i class="fa fa-envelope"></i>
+                                </span>
+
+                                <span class="size-w-12 p-t-1 clrw f-s14 ">
+                                    <a href="mailto:support@tashty.com" class="clrw">support@tashty.com</a>
+                                </span>
+                            </li>
+
+
+
+                            <li class="txt-s-101 clrw flex-t p-b-10">
+                                <span class="size-w-11">
+                                    <!-- <img src="~/Content/images/icons/icon-phone.png" alt="ICON-MAIL"> -->
+                                    <i class="fa fa-phone"></i>
+                                </span>
+
+                                <span class="size-w-12 p-t-1 clrw f-s14">
+                                    <a href="tel:+92 302 0198328" class="clrw">+92 302 0198328</a>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col2 p-b-25">
+                        <div class="p-b-28">
+                            <span class="txt-m-109 cl10 clrw f-s16">
+                                Information
+                            </span>
+                        </div>
+                        <ul>
+                            <li class="p-b-12">
+                                <a href="#" onclick="DiscoveredChef()" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                    Discover Chefs
+                                </a>
+                            </li>
+                            <li class="p-b-12">
+                                <a href="#" onclick="DiscoverFoods()" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                    Discover Food
+                                </a>
+                            </li>
+
+                            <li class="p-b-12">
+                                <a href="#" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                    Packages (Coming soon)
+                                </a>
+                            </li>
+
+                            <li class="p-b-12">
+                                <a href="#" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14 join-buyer-model">
+                                    Sign up
+                                </a>
+                            </li>
+
+                            <li class="p-b-12">
+                                <a href="#" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14 join-as-buyer-login">
+                                    Sign in
+                                </a>
+                            </li>
+                            <li class="p-b-12">
+                                <a href="#" onclick="BecomeASeller()" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                    How to Become a Seller?
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="footer-col3 p-b-25">
+                        <div class="p-b-28">
+                            <span class="txt-m-109 cl10 clrw f-s16">
+                                My Account
+                            </span>
+                        </div>
+                        @if (profileID > 0)
+                        {
+                            <ul>
+                                <li class="p-b-12">
+                                    <a href="/Seller/Index" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                        My account
+                                    </a>
+                                </li>
+                                <li class="p-b-12">
+                                    <a href="/Seller/Index/?Page=MyOrder" class="txt-s-101 cl6 hov-cl10 trans-04 p-tb-5 clrw f-s14">
+                                        Order history
+                                    </a>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+
+                    <div class="footer-col4 p-b-25">
+                        <div class="p-b-25">
+                            <span class="txt-m-109 cl10 clrw f-s16">
+                                Subscribe
+                            </span>
+                        </div>
+
+                        <p class="txt-s-101 cl6 p-b-33">
+                            Subscribe and be a part of the Tashty family to get the latest updates and offers.
+                            We promise we won't spam your mailbox. It is just so we can stay connected.
+                        </p>
+
+                        <div class="flex-w">
+                            <input class="size-aa-11 bg0 plh1 txt-s-111 cl3 p-rl-15" type="text" name="email" id="SubscribeEmail" placeholder="Your email address">
+                            <button class="flex-c-m size-aa-10 bg10 hov-btn2 trans-04" onclick="SubscribeEmail()">
+                                <img src="~/Content/images/icons/icon-send.png" class="nav-footer-sub" alt="SENT">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex-w flex-sb-m bo-t-1 bocl14 ">
+                    <span class="txt-s-101 cl9 p-tb-10 p-r-29 f-s14 clrw">
+                        Copyright © 2020 <a href="http://tashty.com/" class="clrw">TASHTY.</a> Powered by <a href="http://www.codistan.org/" class="clrw">Codistan.</a>
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+    <!-- Back to top -->
+    <div class="btn-back-to-top bg0-hov" id="myBtn">
+        <span class="symbol-btn-back-to-top">
+            <span class="lnr lnr-chevron-up"></span>
+        </span>
+    </div>
+
+    @RenderSection("scripts", required: false)
+    <!--end-->
+    <!--end-->
+    <!--===============================================================================================-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/eonasdan-bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script src="~/Content/New/vendor/animsition/js/animsition.min.js"></script>
+    <script src="~/Content/New/vendor/bootstrap/js/popper.js"></script>
+    <script src="~/Content/New/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Content/New/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/jquery.themepunch.tools.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/jquery.themepunch.revolution.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.video.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+    <script src="~/Content/New/vendor/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+    <script src="~/Content/New/js/revo-custom.js"></script>
+    <script src="~/Content/New/vendor/select2/select2.min.js"></script>
+    <script src="~/Scripts/jquery.form.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="~/Content/New/vendor/daterangepicker/moment.min.js"></script>
+    <script src="~/Content/New/vendor/daterangepicker/daterangepicker.js"></script>
+    <script src="~/Content/New/vendor/slick/slick.min.js"></script>
+    <script src="~/Content/New/js/slick-custom.js"></script>
+    <script src="~/Content/New/vendor/parallax100/parallax100.js"></script>
+    <script src="~/Content/New/vendor/lightbox2/js/lightbox.min.js"></script>
+    <script src="~/Content/New/vendor/isotope/isotope.pkgd.min.js"></script>
+    <script src="~/Content/New/vendor/sweetalert/sweetalert.min.js"></script>
+    <script src="~/Content/New/vendor/countdowntime/moment.min.js"></script>
+    <script src="~/Content/New/vendor/countdowntime/moment-timezone.min.js"></script>
+    <script src="~/Content/New/vendor/countdowntime/moment-timezone-with-data.min.js"></script>
+    <script src="~/Content/New/vendor/countdowntime/jquery.countdown.min.js"></script>
+    <script src="~/Content/New/vendor/countdowntime/countdowntime.js"></script>
+    <script src="~/Content/New/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    <script src="~/Content/New/vendor/waypoint/jquery.waypoints.min.js"></script>
+    <script src="~/Content/New/vendor/countterup/jquery.counterup.min.js"></script>
+    <script src="~/Content/vendor/toastr/toastr.min.js"></script>
+    <script src="~/Content/vendor/blockUI/jquery.blockUI.js"></script>
+    <script src="~/Content/vendor/sweetalert/lib/sweet-alert.min.js"></script>
+    <script src="~/Content/New/js/main.js"></script>
+    <script src="~/Content/New/js/active-link.js"></script>
+    <script src="~/Content/New/js/main-2.js"></script>
+    <script src="~/Content/New/vendor/noui/nouislider.min.js"></script>
+    <script src="~/Content/New/js/mobiscroll.javascript.min.js"></script>
+    <script src="~/Content/New/js/carousel-item.js"></script>
+    <script src="~/Content/New/js/glider.js"></script>
+    @*<script src="https://apis.google.com/js/api:client.js"></script>
+        @Scripts.Render("~/bundles/UploadScript")
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+            <meta name="google-signin-client_id" content="AIzaSyC4Xng5g63IerG7SrH2KBuh5N-h64FGIm0.apps.googleusercontent.com">
+
+        <meta name="google-signin-scope" content="profile email">
+            <meta name="google-signin-client_id" content="AIzaSyC4Xng5g63IerG7SrH2KBuh5N-h64FGIm0.apps.googleusercontent.com">*@
+
+    <script>
+        var CLIENT_ID = '762499859032-d3u7ig7aqab7ls3i4c7qahsqmh24hacd.apps.googleusercontent.com';
+        var API_KEY = 'AIzaSyBwrGkV894pv66qsl-IFN_pDDFTKbkYN6o';
+
+        // Array of API discovery doc URLs for APIs used by the quickstart
+        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
+
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        var SCOPES = 'https://www.googleapis.com/auth/gmail.readonly';
+        var url2 = window.location;
+        var txt = String(url2);
+        $(document).ready(function () {
+            $('.sweet-alert').hide();
+            if ($('#Page').val() != null && $('#Page').val() != '' && $('#Page').val() != undefined) {
+                if ($('#Page').val() == 'chef') {
+                    DiscoveredChef();
+                }
+                if ($('#Page').val() == 'food') {
+                    DiscoverFoods();
+                }
+                if ($('#Page').val() == 'seller') {
+                    BecomeASeller();
+                }
+                if ($('#Page').val() == 'AddtoCart') {
+                    AddToCartPage();
+                }
+                if ($('#Page').val() == 'ContactUs') {
+                    ContactUs();
+                }
+                if ($('#Page').val() == 'SignIn') {
+                    $('#login-model').modal('toggle');
+                }
+
+            }
+
+
+            setBaseURL(window.location.protocol);
+
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            if (txt.indexOf("#") > -1) {
+                return;
+            } else {
+                $('ul.nav a[href="' + url2 + '"]').parent().addClass('active');
+                $('ul.nav a').filter(function () {
+                    return this.href == url2;
+                }).parent().addClass('active');
+            }
+
+        });
+
+        $("ul.nav li a").click(function (e) {
+            e.preventDefault(); // prevent default link button redirect behaviour
+            var url = $(this).attr("href");
+            $('ul.nav li').removeClass('active');
+            $('ul.nav li .m-t-md .dropdown').removeClass('active');
+            $(this).parent().addClass('active');
+            if (url.indexOf("#") > -1) {
+                return;
+            }
+            else { window.location = url; }
+        });
+
+        $(function () {
+            $(".btnClientLogout").click(function () {
+                $.ajax({
+                    url: '/Home/LogOff',
+                    type: 'POST',
+                    cache: false,
+                    dataType: "json",
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data, textStatus, jqXHR) {
+
+                        var response = null;
+                        if (data != null) {
+                            response = data;
+                            //if (response.error === "") {
+                            localStorage.setItem("LoggedOut", "1");
+
+                            window.location.href = baseURL + "/" + response.controller + "/" + response.action;
+
+                            //}
+                            //else {
+                            //	//add logic here to handle error
+                            //	window.location.href = "/" + response.controller;
+                            //}
+                        }
+                    },//end success
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        window.location.href = "/" + response.controller;
+                    }//end error
+                });
+            });
+        });
+
+        function foundItem(item) {
+            //alert("Item");
+            var catID = $(item).attr("data-id");
+            var cat = $(item).attr("data-value");
+            localStorage.setItem("categoryID", catID);
+            localStorage.setItem("categoryName", cat);
+            var url = baseURL + 'Home/SearchResult';
+            window.location = url;
+        }
+    </script>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '827809967708183',
+                cookie: true,
+                xfbml: true,
+                version: 'v6.0'
+            });
+
+            FB.AppEvents.logPageView();
+
+
+        };
+
+        function loggedFBOut() {
+            window.fbAsyncInit = function () {
+                FB.init({
+                    /**/
+                    appId: '827809967708183',
+                    /**/
+                    cookie: true,
+                    xfbml: true,
+                    version: 'v6.0'
+                });
+
+
+
+                FB.getLoginStatus(function (response) {
+                    if (response.status === 'connected') {
+                        FB.logout(function (response) {
+                            // this part just clears the $_SESSION var
+                            // replace with your own code
+                            FB.setAuthResponse(null, 'unknown');
+                            FB.Auth.setAuthResponse(null, 'unknown');
+                            // alert("logged out successfully");
+                            // localStorage.clear();
+                        });
+                    }
+                });
+            }
+        }
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/en_US/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+        function statusChangeCallback(response, isSeller) {
+            var resp = JSON.stringify(response);
+            console.log(resp);
+            if (response.status === 'connected') {
+                //Logged into your app and Facebook.
+                testAPI(isSeller);
+            } else {
+                FB.login(function (response) {
+                    testAPI(isSeller);
+                }, { scope: 'email' });
+            }
+        }
+        $(document).ready(function () {
+            $("#btnFbJoinBuyer").click(function () {
+                console.log("IN btnFbJoinBuyer");
+                checkLoginState(false);
+
+            });
+
+            $("#btnFbJoinSeller").click(function () {
+                console.log("IN btnFbJoinSeller");
+                checkLoginState(true);
+            });
+
+            function checkLoginState(isSeller) {
+                FB.getLoginStatus(function (response) {
+                    statusChangeCallback(response, isSeller);
+                });
+            }
+
+
+        })
+
+        function testAPI(isSeller) {
+
+            console.log('Welcome!  Fetching your information.... ');
+            FB.api('/me/', { fields: 'email,name,picture' }, function (response) {
+
+                //var resp = JSON.stringify(response);
+                //console.log(resp);
+                //console.log('Successful login for: ' + response.name);
+                //console.log('Successful login for: ' + response.email);
+                if (isSeller)
+                    reg.CheckEmail(response.email, 'join-seller-model', '', true, response.name, isSeller, response.id, false, true);
+                else reg.CheckEmail(response.email, 'join-us-model', '', true, response.name, isSeller, response.id, false, true);
+
+            });
+        }
+
+
+    </script>
+
+
+
+    <script>
+
+
+
+
+
+        var auth2; // The Sign-In object.
+        var googleUser; // The current user.
+
+        var appStart = function () {
+            gapi.load('auth2', initSigninV2);
+        }
+
+        var initSigninV2 = function () {
+
+            auth2 = gapi.auth2.init({
+                client_id: CLIENT_ID,
+                scope: 'profile email'
+            }).then(function () {
+                auth2 = gapi.auth2.getAuthInstance();
+                //auth2.isSignedIn.listen(signinChanged);
+                //auth2.currentUser.listen(userChanged);
+
+                if (auth2.isSignedIn.get() == true) {
+                }
+                // refreshValues();
+                if (localStorage.getItem('LoggedOut')) {
+                    var id = localStorage.getItem('LoggedOut');
+                    if (id === "1") {
+                        auth2.signOut().then(function () {
+                            //alert("DONE OUT");
+                            auth2.disconnect();
+                        });
+                        localStorage.clear();
+                    }
+                }
+                auth2.attachClickHandler('signup-button-seller', {}, onSuccessSeller, onFailure);
+                auth2.attachClickHandler('signup-button-buyer', {}, onSuccessBuyer, onFailure);
+                auth2.attachClickHandler('btnGoogleLogin', {}, onSuccessggl, onFailure);
+            });
+
+
+
+
+        };
+
+        var signinChanged = function (val) {
+            console.log('Signin state changed to ', val);
+            document.getElementById('signed-in-cell').innerText = val;
+        };
+
+        var userChanged = function (user) {
+            //console.log('User now: ', user);
+            googleUser = user;
+            // updateGoogleUser();
+            // document.getElementById('curr-user-cell').innerText = JSON.stringify(user, undefined, 2);
+
+            //console.log('curr-user-cell : ', JSON.stringify(user, undefined, 2));
+        };
+
+        var updateGoogleUser = function () {
+            if (googleUser) {
+                console.log('user-id : ', googleUser.getId());
+                console.log('user-scopes : ', googleUser.getGrantedScopes());
+                console.log('auth-response : ', JSON.stringify(googleUser.getAuthResponse(), undefined, 2));
+
+                document.getElementById('user-id').innerText = googleUser.getId();
+                document.getElementById('user-scopes').innerText =
+                    googleUser.getGrantedScopes();
+                document.getElementById('auth-response').innerText =
+                    JSON.stringify(googleUser.getAuthResponse(), undefined, 2);
+            } else {
+                document.getElementById('user-id').innerText = '--';
+                document.getElementById('user-scopes').innerText = '--';
+                document.getElementById('auth-response').innerText = '--';
+            }
+        };
+
+        var refreshValues = function () {
+            if (auth2) {
+                // console.log('Refreshing values...');
+
+                googleUser = auth2.currentUser.get();
+
+                // console.log('curr-user-cell : ', JSON.stringify(user, undefined, 2));
+                //  console.log('signed-in-cell : ', auth2.isSignedIn.get());
+                //document.getElementById('curr-user-cell').innerText =
+                //    JSON.stringify(googleUser, undefined, 2);
+                //document.getElementById('signed-in-cell').innerText =
+                //    auth2.isSignedIn.get();
+
+                updateGoogleUser();
+            }
+        }
+
+        var onSuccess = function (user) {
+            console.log('Signed in as name: ' + user.getBasicProfile().getName());
+            console.log('Signed in as ID: ' + user.getBasicProfile().getId());
+            console.log('Signed in as Email: ' + user.getBasicProfile().getEmail());
+            //var id_token = user.getAuthResponse().id_token;
+            //console.log("ID Token: " + id_token);
+        };
+
+        var onFailure = function (error) {
+            console.log(error);
+        };
+
+        $(document).ready(function () {
+
+            $("#userDropdown").click(function(){
+var popupState=$(this).attr("aria-expanded");
+if(popupState)
+{
+$(".menu-mobile").scroll();
+}
+
+});
+            if (localStorage.getItem('LoggedOut')) {
+                var id = localStorage.getItem('LoggedOut');
+                if (id == "1") {
+                    loggedFBOut();
+                }
+                // localStorage.clear();
+            }
+            //$('#btnGoogleLogin').on('click', function () {
+            //    appStart();
+            //})
+            // $('#signup-button-seller').on('click', function () {
+            //    appStart();
+            // })
+            // $('#signup-button-buyer').on('click', function () {
+            //    appStart();
+            //})
+
+        });
+
+        $(document).ready(function () {
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        });
+    </script>
+    <script async defer src="https://apis.google.com/js/api.js"
+            onload="this.onload = function () { }; appStart()">
+    </script>
+    <script src="https://apis.google.com/js/api.js">
+    </script>
+    <script async defer src="https://connect.facebook.net/en_US/sdk.js"></script>
+
+</body>
+</html>

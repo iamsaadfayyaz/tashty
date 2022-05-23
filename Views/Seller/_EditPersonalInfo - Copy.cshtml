@@ -1,0 +1,279 @@
+﻿
+<h3>Personal Info</h3>
+<hr>
+<div class="content">
+    <p>
+        Tell us a bit about yourself. This information will appear on your public profile, so that potential buyers can get to know you better.
+    </p>
+
+    <div class="border-bottom text-right m-b-lg" style="padding-bottom:5px;"><small><span class="text-danger">*</span>Mandatory fields</small></div>
+
+    <form id="frmEditPersonalInfo" action="#">
+        <div class="row">
+            <div class="wizardform">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="f-name">Title</label>
+                    <div class="col-sm-5">
+                        <select id="ddlTitle" class="form-control input-lg" required>
+                            <option value=""> select Title</option>
+                            @if (ViewBag.ListTitles != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListTitles.Count; i++)
+                                {
+                                    string val = ViewBag.ListTitles[i].titleID.ToString();
+                                    string title = ViewBag.ListTitles[i].titleName.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="f-name">Full Name</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="First Name" maxlength="32" pattern="[A-Za-z]{1,32}" name="txtFirstName" id="txtFirstName" required />
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="Last Name" maxlength="32" pattern="[A-Za-z]{1,32}" name="txtLastName" id="txtLastName" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="f-name">Marital Status</label>
+                    <div class="col-sm-5">
+                        <select id="ddlMaritalStatus" class="form-control input-lg" required>
+                            <option value=""> select Marital Status</option>
+                            @if (ViewBag.ListMaritalStatus != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListMaritalStatus.Count; i++)
+                                {
+                                    string val = ViewBag.ListMaritalStatus[i].maritalStatusID.ToString();
+                                    string title = ViewBag.ListMaritalStatus[i].maritalStatusName.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-5">
+                        <select id="ddlGender" class="form-control input-lg" required>
+                            <option value=""> select Gender</option>
+                            @if (ViewBag.ListGenders != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListGenders.Count; i++)
+                                {
+                                    string val = ViewBag.ListGenders[i].genderID.ToString();
+                                    string title = ViewBag.ListGenders[i].name.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label" for="m-number">Contact Number</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="Mobile Number" maxlength="15" pattern="\d*" required  name="txtMobile" id="txtMobile">
+                    </div>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="Phone Number" maxlength="15" pattern="\d*" required  name="txtPhone" id="txtPhone">
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Profile Picture</label>
+                    <div class="col-lg-10">
+                        <input type="hidden" id="hdnPFFilename" />
+                        <img class="profile-photo img-circle" width="150" height="150" src="@Url.Content("~/Content/images/profile-default.jpg")" /><br />
+                        <div class="file-loading">
+                            <input id="fileProfilePhoto" type="file" style="margin-left:3%;" />
+
+                        </div>
+                    </div>
+                    <div class="form-group col-lg-10"><small> maximum allowed upload size is 100 kb.</small></div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Description</label>
+                    <div class="col-sm-10">
+                        <textarea id="txtDescription" class="form-control input-lg" rows="5" required></textarea>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Address</label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control input-lg" id="txtAddress" placeholder="Add Residential Address" required>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Country/City</label>
+                    <div class="col-sm-5">
+                        <input id="hdnCountryID" type="hidden" />
+                        <select id="ddlCountry" disabled class="form-control input-lg" required>
+                            <option selected> select Country</option>
+                            @if (ViewBag.ListCountries != null)
+                            {
+                                for (int i = 0; i < ViewBag.ListCountries.Count; i++)
+                                {
+                                    string val = ViewBag.ListCountries[i].countryID.ToString();
+                                    string title = ViewBag.ListCountries[i].country.ToString();
+
+                                    <text>
+                                        <option value="@val">@title</option>  </text>
+                                }
+
+                            }
+                        </select>
+
+                    </div>
+                    <div class="col-sm-5">
+                        <input id="hdnCityID" type="hidden" />
+                        <select id="ddlCity" class="form-control input-lg" required>
+                            <option value=""> select city</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Postal Code</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" id="txtPostalCode" pattern="[a-zA-Z0-9]{1,20}" placeholder="Add Postal Code" required>
+                    </div>
+                </div>
+
+                <div class="f1-buttons">
+                    <button type="submit" id="btnSavePersonalInfo" class="btn btn-next btn-success btn-lg">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+    var loadedPhotoURL = "";
+    var customPhotoValidationFailed = false;
+
+    var readURL = function (input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                //$('.profile-photo').attr('src', e.target.result);
+                loadedPhotoURL = e.target.result;
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+
+    $("#fileProfilePhoto").on('change', function () {
+        readURL(this);
+    });
+
+
+    document.getElementById("btnSavePersonalInfo").addEventListener("click", function () {
+
+        document.getElementById("frmEditPersonalInfo").className = "submitted";
+
+    });
+
+
+	var ListCities = [];
+		reg.setProfileID(@ViewBag.profileID);
+
+
+	$(document).ready(function () {
+		ListCities = @Html.Raw(Json.Encode(ViewBag.ListCities));
+
+          $("#hdnCountryID").val(@ViewBag.CountryID);
+        _setSelect("ddlCountry", @ViewBag.CountryID);
+        populateCities(@ViewBag.CountryID, ListCities, 'ddlCity');
+
+		$('#ddlCity').on('change', function () {
+			$("#hdnCityID").val(this.value);
+		});
+
+		$('#ddlCountry').on('change', function () {
+			$("#hdnCountryID").val(this.value);
+			populateCities(this.value, ListCities,'ddlCity');
+		});
+
+		//$('#btnSavePersonalInfo').on('click', function () {
+		//	reg.SaveSellerPersonalInfo(true);
+		//});
+
+        $("#frmEditPersonalInfo").submit(function (e) {
+            e.preventDefault();
+            reg.SaveSellerPersonalInfo(true,@ViewBag.CountryID);
+        });
+
+		$("#fileProfilePhoto").fileinput({
+			theme: 'fa',
+			uploadUrl: baseURL + 'Seller/UploadProfilePic',
+			dropZoneEnabled:false,
+			browseClass: "upload-button btn btn-primary",
+			showPreview: false,
+			overwriteInitial: false,
+			showCaption: false,
+			showRemove: false,
+			showCancel: false,
+			showUpload: false,
+			browseLabel: "Upload Picture",
+			//maxFileSize: 2000,
+			allowedFileExtensions: ['jpg', 'png', 'gif'],
+			maxFilesNum: 1,
+			layoutTemplates: { progress: '' },
+            maxFileSize: 100,
+            msgSizeTooLarge: 'Profile photo "{name}" (<b>{customSize}</b>) exceeds maximum allowed upload size of <b>{customMaxSize}</b>. Please retry your upload!',
+			uploadAsync: true,
+					slugCallback: function (filename) {
+
+						return filename.replace('(', '_').replace(']', '_');
+					},
+					uploadExtraData: function () {
+						return {
+							FolderID: String("1")
+						};
+					}
+			});
+
+		});
+    $('#fileProfilePhoto').on('fileuploaded', function (event, data, previewId, index) {
+        $('.profile-photo').attr('src', loadedPhotoURL);
+        _set("hdnPFFilename", data.response);
+        customPhotoValidationFailed = false;
+    });
+    $('#fileProfilePhoto').on('fileuploaderror', function (event, data, msg) {
+        customPhotoValidationFailed = true;
+        var size = data.files[0].size,
+            maxFileSize = $(this).data().fileinput.maxFileSize,
+            formatSize = (s) => {
+                i = Math.floor(Math.log(s) / Math.log(100));
+                sizes = ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+                out = (s / Math.pow(100, i)).toFixed(2) * 1 + ' ' + sizes[i];
+                return out;
+            };
+
+        msg = msg.replace('{customSize}', formatSize(size));
+        msg = msg.replace('{customMaxSize}', formatSize(maxFileSize * 100 /* Convert KB to Bytes */));
+        toastr.error(msg);
+    });
+    $('#fileProfilePhoto').on('fileselect', function (event, numFiles, label) {
+
+        if (!customPhotoValidationFailed) {
+            $("#fileProfilePhoto").fileinput("upload");
+        }
+        customPhotoValidationFailed = false;
+    });
+
+
+
+
+</script>

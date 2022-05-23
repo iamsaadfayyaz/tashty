@@ -1,0 +1,264 @@
+﻿@model TashtyWebProject.ViewModel.SellerOrdersViewModel
+@{
+    int count = 0;
+    int itemcount = 0;
+    List<Entity.Order> Orders = Model.Orders;
+}
+    <div style="overflow-x:auto;">
+        <table class="table table-borderless table-light orderhistory-table">
+            <thead>
+
+        <tr>
+            <th scope="col">#No</th>
+            <th scope="col">Customer Name</th>
+            <th scope="col">Order Date </th>
+            <th scope="col">Items</th>
+            <th scope="col">Pick up</th>
+            <th scope="col">Location</th>
+            <th scope="col">Amount</th>
+            @* <th scope="col">Status</th>*@
+            <th scope="col">Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            count = count + 1;
+            <tr>
+                <th scope="row">@count</th>
+                <td>
+                    <img src="~/uploads/ProfilePictures/@order.photo" class="user-image-dashboard"><a class="req-rec" href="#@order.orderID" data-toggle="modal">@order.buyer</a>
+                </td>
+                <td class="clr-gr-dashboard">@Convert.ToDateTime(order.orderDate).ToShortDateString()</td>
+                <td class="clr-gr-dashboard">@order.ItemsString</td>
+                <td class="clr-pink-dashboard">@order.PickUpDate.ToShortDateString() @order.PickUpTime</td>
+                <td class="clr-pink-dashboard">@order.deliveryAddress</td>
+                <td>RS @order.price</td>
+                @* <td><span class="label text-center status-cancelled">@order.status</span></td>*@
+                <td>
+                    <select name="order.orderLastStatusID" id="order.orderLastStatusID" class="custom-select" onchange="ChangeOrderStatus('@order.orderID',this)">
+                        @foreach (var item in Model.Statuses)
+                        {
+                            <option value="@item.statusID" @(order.orderLastStatusID == item.statusID ? Html.Raw("Selected") : Html.Raw(""))>@item.statusName</option>
+                        }
+                    </select>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="modal fade" id="@order.orderID">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h4 class="modal-title"></h4>
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+
+                                                <div class="col-md-5">
+                                                    <div class="m-p-t-b-2">
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h3 class="order-heading">Order Details</h3>
+                                                                <p class="grey-txt">From @order.seller</p>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <h5 class="small-h">ORDER NUMBER: <span class="grey-txt"> @order.orderNumber</span></h5>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                @if (order.Items.Count > 0 && System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Package/" + order.Items[0].photo)) && order.Items[0].isPackage == true)
+                                                                {
+                                                                    <img src="~/Uploads/Package/@order.Items[0].photo" class="cus-w-h" style="width:150px; height:100px;">
+                                                                }
+                                                                else if ( order.Items.Count > 0 && System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + @order.folderID + "/thumb-60/" + order.Items[0].photo)))
+                                                                {
+
+                                                                    <img src="~/Uploads/Product/@order.folderID/thumb-60/@order.Items[0].photo" class="cus-w-h" style="width:150px; height:100px;">
+                                                                }
+                                                                else
+                                                                {
+                                                                    <img src="~/Content/New/images/Icon Placeholder.png" class="cus-w-h" style="width:150px; height:100px;">
+                                                                }
+                                                                @*<img src="images/admin-01.jpg" class="cus-w-h" style="width:150px; height:100px;">*@
+                                                            </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <p class="small-h m-small-h">@order.seller</p>
+                                                                </div>
+                                                                <div class="col-md-6">
+
+
+                                                                    <div class="starrating risingstar d-flex flex-row ptb-star">
+
+                                                                        <input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5 star"></label>
+                                                                        <input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4 star"></label>
+                                                                        <input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3 star"></label>
+                                                                        <input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2 star"></label>
+                                                                        <input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1 star"></label>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                            <hr class="hr-hor">
+                                                            <div class="row top-mrgn">
+                                                                <div class="col-md-12">
+                                                                    <span class="badge badge-info">@order.status</span>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <p class="l-grey">RS. @order.price</p>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-1 mobile-none ">
+                                                        <div class="verticalLine">
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-md-6">
+                                                        <div class="m-p-t-b">
+                                                            <div class="t-p-ex">
+
+                                                            </div>
+                                                            @foreach (var item in order.Items)
+                                                            {
+                                                                itemcount = itemcount + 1;
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <h3 class="order-heading small-h">ITEM @itemcount</h3>
+
+                                                                    </div>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        @if (item.isPackage != null && item.isPackage == true)
+                                                                        {
+                                                                            @Html.Raw("<a href='#' onclick='SellerPackages()'>");
+                                                                        }
+                                                                        <div class="d-flex flex-row ">
+                                                                            @if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Package/" + item.photo)) && item.isPackage != null && item.isPackage == true)
+                                                                            {
+                                                                                <img src="~/Uploads/Package/@item.photo" class="cus-w-h-2" style="width:100px; height:60px;">
+                                                                            }
+                                                                            else if (System.IO.File.Exists(System.Web.HttpContext.Current.Server.MapPath("~/Uploads/Product/" + @order.folderID + "/thumb-60/" + item.photo)))
+                                                                            {
+
+                                                                                <img src="~/Uploads/Product/@order.folderID/thumb-60/@item.photo" class="cus-w-h-2" style="width:100px; height:60px;">
+                                                                            }
+                                                                            else
+                                                                            {
+                                                                                <img src="~/Content/New/images/Icon Placeholder.png" class="cus-w-h-2" style="width:100px; height:60px;">
+                                                                            }
+                                                                            <P class="pl">
+                                                                                <br>
+                                                                                <span class="w-bold">@item.title</span>
+                                                                            </P>
+                                                                            <P class="pl">
+                                                                                <br>
+                                                                                <span class="w-bold">@item.price</span>
+                                                                            </P>
+                                                                        </div>
+
+                                                                        @if (item.isPackage != null && item.isPackage == true)
+                                                                        {
+                                                                            @Html.Raw("</a>");
+                                                                        }
+                                                                        <P class="pl">
+                                                                            <br>
+                                                                            <span class="w-bold">Quanitity : @item.quantity</span>
+                                                                        </P>
+                                                                    </div>
+                                                                </div>
+                                                            }
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 class="small-h-h">DELIVERY TIME: <span class="tx-small-h-h"> @order.deliveryDate</span></h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 class="small-h cstm-pt">DELIVERY ADDRESS:</h5>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <p class="tx-small-h-h">@order.deliveryAddress</p>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-12">
+                                                                    <h5 class="small-h price-pt">Total Price: <span class="txt-small-h-red"> Rs.@order.price</span></h5>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                </tr>
+
+            }
+                                                            </tbody>
+                                                        </table>
+                                                        @if (Model.OrdersCount > 15)
+                                                        {
+                                                            <!-- pager -->
+                                                            if (Model.Pager.EndPage > 1)
+                                                            {
+                                                                <div class="pagination-div">
+                                                                    <ul class="pagination justify-content-center">
+                                                                        @if (Model.Pager.CurrentPage > 1)
+                                                                        {
+                                                                            <li class="page-item">
+                                                                                <button class="page-link" onclick="OrderReceivedResults(1)">First</button>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <button class="page-link" onclick="OrderReceivedResults(@(Model.Pager.CurrentPage - 1))">Previous</button>
+                                                                            </li>
+                                                                        }
+
+                                                                        @for (var page = Model.Pager.StartPage; page <= Model.Pager.EndPage; page++)
+                                                                        {
+                                                                            <li class="@(page == Model.Pager.CurrentPage ? "active" : "") page-item">
+                                                                                <button class="page-link" onclick="OrderReceivedResults(@page)">@page</button>
+                                                                            </li>
+                                                                        }
+
+                                                                        @if (Model.Pager.CurrentPage < Model.Pager.TotalPages)
+                                                                        {
+                                                                            <li class="page-item">
+                                                                                <button class="page-link" onclick="OrderReceivedResults(@(Model.Pager.CurrentPage + 1))">Next</button>
+                                                                            </li>
+                                                                            <li class="page-item">
+                                                                                <button class="page-link" onclick="OrderReceivedResults(@(Model.Pager.TotalPages))">Last</button>
+                                                                            </li>
+                                                                        }
+                                                                    </ul>
+                                                                </div>
+                                                            }
+                                                        }
+                                                        <!-- Table For Order History Ends -->
+                                                        <!-- Page number row -->
+                                                        <script>
+                                                            $(document).ready(function () {
+
+                                                            })
+
+
+                                                        </script>
+

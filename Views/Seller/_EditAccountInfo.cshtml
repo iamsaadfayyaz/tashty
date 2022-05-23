@@ -1,0 +1,61 @@
+﻿<h3>Account Info</h3>
+<hr>
+<div class="content">
+
+
+    <p>Add Account Info For payment.</p>
+    <div class="border-bottom text-right m-b-lg" style="padding-bottom:5px;"><small><span class="text-danger">*</span>Mandatory fields</small></div>
+    <form id="frmAccInfo" action="#">
+        <div class="row">
+            <div class="wizardform">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="a-title">Account Title</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="Account Title" name="txtAccountTitle" id="txtAccountTitle" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label" for="bnk-name">Enter Bank Name</label>
+                    <div class="col-sm-5">
+                        <input type="text" class="form-control input-lg" placeholder="Bank Name" name="txtBankName" id="txtBankName" required>
+                    </div>
+                </div>
+                <div class="form-group m-b">
+                    <label class="col-sm-2 control-label">Account Number</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control input-lg" placeholder="Enter Your Account Number" name="txtAccountNumber" id="txtAccountNumber" required>
+                    </div>
+                </div>
+                <div class="f1-buttons">
+                    <button type="submit" id="btnSaveAccInfo" class="btn btn-submit btn-success btn-lg">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script>
+
+    document.getElementById("btnSaveAccInfo").addEventListener("click", function () {
+
+        document.getElementById("frmAccInfo").className = "submitted";
+
+    });
+
+    $("#frmAccInfo").submit(function (e) {
+        e.preventDefault();
+        reg.SaveSellerAccountInfo(true);
+    });
+
+	//$('#btnSaveAccInfo').on('click', function () {
+	//	reg.SaveSellerAccountInfo('false');
+	//});
+
+</script>
+
+
+
+
+
+
+
